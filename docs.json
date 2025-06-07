@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Revo Scripts",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#1E90FF",
+    "light": "#3FA0FF",
+    "dark": "#007AF1"
   },
   "favicon": "/favicon.svg",
   "navigation": {
