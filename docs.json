@@ -12,13 +12,10 @@
     "tabs": [
       {
         "tab": "Docs",
+        "pages": [
+          "index"
+        ],
         "groups": [
-          {
-            "group": "Welcome",
-            "pages": [
-              "index"
-            ]
-          },
           {
             "group": "General",
             "pages": [
@@ -51,7 +48,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://discord.gg/your-server-link"
       }
     ],
     "primary": {
