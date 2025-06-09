@@ -1,0 +1,55 @@
+---
+title: "How to Update"
+description: "Learn how to update your Revo Scripts when a new version is released."
+---
+
+<Info>
+  You will receive update access only if your purchase is valid and verified.
+</Info>
+
+Keeping your Revo Scripts up-to-date ensures access to the latest features, improvements, and bug fixes.
+
+### Step 1: Visit CFX.re Keymaster
+
+Go to the [CFX.re Keymaster Granted Assets](https://keymaster.fivem.net/asset-grants) and log in using the same CFX account used to purchase the script.
+
+<Frame>
+  <img src="/images/granted-assets.png" alt="Granted Assets Page" style={{ borderRadius: '0.5rem' }} />
+</Frame>
+
+### Step 2: Download the Latest Version
+
+Locate the script you want to update in your granted assets and download the latest available bundle.
+
+<Tip>
+  The latest version will always be available in your asset grant. There’s no need to repurchase.
+</Tip>
+
+### Step 3: Replace the Old Script
+
+Unzip the new bundle and copy the updated script folder.
+
+Then, in your server directory:
+
+```bash
+cd resources
+rm -rf [old-script-folder]
+mv [new-script-folder] ./
+```
+
+Make sure the folder name is the same as the one used in your `server.cfg` (or update the config accordingly).
+
+<Warning>
+  Always back up your previous script folder and configuration files before replacing them with the new version.
+</Warning>
+
+### Step 4: Restart or Refresh the Resource
+
+You can either restart your server or refresh the resource using:
+
+```bash
+refresh
+restart [script-name]
+```
+
+That’s it! You’ve successfully updated your Revo Script.
