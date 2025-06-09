@@ -9,13 +9,12 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "pages": [
-              "index"
-            ],
     "groups": [
           {
             "group": "Introduction",
-            
+            "pages": [
+              "index"
+            ]
           },
           {
             "group": "General",
