@@ -12,10 +12,13 @@
     "tabs": [
       {
         "tab": "Docs",
-        "pages": [
-          "index"
-        ],
         "groups": [
+          {
+            "group": "Welcome",
+            "pages": [
+              "index"
+            ]
+          },
           {
             "group": "General",
             "pages": [
@@ -47,13 +50,17 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "https://discord.gg/your-server-link"
+        "label": "Discord",
+        "href": "https://discord.gg"
+      },
+      {
+        "label": "YouTube",
+        "href": "https://youtube.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Store",
+      "label": "Shop",
       "href": "https://dashboard.mintlify.com"
     }
   },

@@ -1,0 +1,62 @@
+---
+title: "How to install"
+description: "Learn how to install your purchased Revo Script using the FiveM Escrow system."
+---
+
+## Installing Revo Scripts (Escrow Protected)
+
+Thank you for purchasing a Revo Script! This guide will walk you through installing your script using the **FiveM Escrow System**, which is a system FiveM uses to protect premium scripts.
+
+### 📦 Step 1: Download the Script
+
+After purchasing, you'll receive a download link via **Tebex** or your email. Download the `.zip` file and extract it to a temporary location on your computer.
+
+> Make sure you're logged into the **Cfx.re account** that purchased the script. This is important, as Escrow-locked files only work with the authorized account and server key.
+
+---
+
+### 📁 Step 2: Place the Script in Your Server
+
+1. Copy the extracted script folder into your server’s `resources` directory:
+resources/[revo]/your-script-name
+
+
+2. Do **not** rename or edit the folder structure or filenames inside the script. Doing so may break the script due to escrow protection.
+
+---
+
+### 🔑 Step 3: Configure Your Server Key
+
+Ensure that your **FiveM server key** is tied to the same **Cfx.re account** that made the purchase.
+
+- Visit: [https://keymaster.fivem.net](https://keymaster.fivem.net)
+- Make sure your key is **active** and matches your server IP/domain.
+
+---
+
+### 🧾 Step 4: Add to server.cfg
+
+In your `server.cfg`, add the following line:
+ensure your-script-name
+
+
+Make sure to replace `your-script-name` with the actual folder name placed inside your resources.
+
+---
+
+### ✅ Step 5: Start Your Server
+
+Now restart your server or run `refresh` and `ensure your-script-name` from your console.
+
+> If everything is set up correctly, the script will start without errors and be ready to use!
+
+---
+
+### ⚠️ Troubleshooting
+
+- If you see an error like `Could not verify entitlement`, make sure:
+  - You're using the **correct Cfx.re account** and **server key**.
+  - The **folder name and structure** haven’t been changed.
+  - Your server is **connected to the internet** to verify license.
+
+If you’re still facing issues, feel free to reach out via our [Discord Support](https://discord.gg/your-server-link).
