@@ -9,9 +9,7 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
-      {
-        "groups": [
+    "groups": [
           {
             "group": "Introduction",
             "pages": [
@@ -39,8 +37,6 @@
             ]
           }
         ]
-      }
-    ]
   },
   "logo": {
     "light": "/logo/light.svg",
