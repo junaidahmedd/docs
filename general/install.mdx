@@ -1,62 +1,94 @@
 ---
 title: "How to install"
-description: "Learn how to install your purchased Revo Script using the FiveM Escrow system."
+description: "Step-by-step guide to installing your purchased Revo Script using the FiveM Escrow system."
 ---
 
-## Installing Revo Scripts (Escrow Protected)
+<Info>
+  Make sure you're logged into the correct **Cfx.re account** (the one used to purchase the script), and your server uses a matching **license key**.
+</Info>
 
-Thank you for purchasing a Revo Script! This guide will walk you through installing your script using the **FiveM Escrow System**, which is a system FiveM uses to protect premium scripts.
-
-### 📦 Step 1: Download the Script
-
-After purchasing, you'll receive a download link via **Tebex** or your email. Download the `.zip` file and extract it to a temporary location on your computer.
-
-> Make sure you're logged into the **Cfx.re account** that purchased the script. This is important, as Escrow-locked files only work with the authorized account and server key.
+Follow these steps to install and activate your Revo Script using the FiveM Escrow system:
 
 ---
 
-### 📁 Step 2: Place the Script in Your Server
+## Step 1: Go to Cfx.re and Access Your Assets
 
-1. Copy the extracted script folder into your server’s `resources` directory:
-resources/[revo]/your-script-name
+1. Visit the [Cfx.re Keymaster](https://keymaster.fivem.net/).
+2. Log in using the **account that made the purchase**.
+3. Go to the **Granted Assets** tab.
+4. Find the Revo Script you purchased and click **Download**.
 
-
-2. Do **not** rename or edit the folder structure or filenames inside the script. Doing so may break the script due to escrow protection.
-
----
-
-### 🔑 Step 3: Configure Your Server Key
-
-Ensure that your **FiveM server key** is tied to the same **Cfx.re account** that made the purchase.
-
-- Visit: [https://keymaster.fivem.net](https://keymaster.fivem.net)
-- Make sure your key is **active** and matches your server IP/domain.
+<Frame>
+  <img src="/images/step1-keymaster.png" alt="Keymaster Granted Assets" style={{ borderRadius: '0.5rem' }} />
+</Frame>
 
 ---
 
-### 🧾 Step 4: Add to server.cfg
+## Step 2: Extract the Script
 
-In your `server.cfg`, add the following line:
-ensure your-script-name
-
-
-Make sure to replace `your-script-name` with the actual folder name placed inside your resources.
+- Extract the `.zip` file you downloaded.
+- Inside, you’ll find a folder like `revo-fps-booster` or similar.  
+- ⚠️ **Do not rename** this folder — escrow-protected scripts will break if the folder name is altered.
 
 ---
 
-### ✅ Step 5: Start Your Server
+## Step 3: Move the Script to Your Server Resources
 
-Now restart your server or run `refresh` and `ensure your-script-name` from your console.
+Extract the downloaded `.zip` file and place the script folder into your server's `resources` directory.
 
-> If everything is set up correctly, the script will start without errors and be ready to use!
+```bash
+/resources/[revo]/revo-fps-booster
+```
+
+<Tip>
+  You may organize Revo scripts under a `[revo]` folder, but do **not rename** the script folder itself (e.g., `revo-fps-booster`) — this will break escrow validation.
+</Tip>
 
 ---
 
-### ⚠️ Troubleshooting
+## Step 4: Add Script to server.cfg
 
-- If you see an error like `Could not verify entitlement`, make sure:
-  - You're using the **correct Cfx.re account** and **server key**.
-  - The **folder name and structure** haven’t been changed.
-  - Your server is **connected to the internet** to verify license.
+In your `server.cfg`, ensure the script is loaded by adding:
 
-If you’re still facing issues, feel free to reach out via our [Discord Support](https://discord.gg/your-server-link).
+```cfg
+ensure revo-fps-booster
+```
+
+✅ Make sure this matches the exact folder name in your `resources` directory.
+
+---
+
+## Step 5: Restart Your Server
+
+You can now restart your server to load the script:
+
+```bash
+refresh
+ensure revo-fps-booster
+```
+
+You should see a confirmation message in your server console if the script has loaded correctly.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title='Error: Could not verify entitlement'>
+    This usually means that your server’s license key does not match the account that owns the asset.
+
+    - Ensure you are logged into the correct CFX account.
+    - Double check that your license key is linked to the same account from which you purchased the script.
+    - Restart the server after fixing entitlement issues.
+  </Accordion>
+
+  <Accordion title="Script Not Appearing in Server Console">
+    Confirm the folder name is **not renamed**, and the path is correct inside the `resources` folder.
+
+    Run the following:
+    ```bash
+    refresh
+    ensure revo-fps-booster
+    ```
+  </Accordion>
+</AccordionGroup>
