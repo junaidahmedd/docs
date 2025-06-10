@@ -1,5 +1,5 @@
 ---
-title: "How to install"
+title: "How to Install"
 description: "Step-by-step guide to installing your purchased Revo Script using the FiveM Escrow system."
 ---
 
@@ -40,7 +40,7 @@ Follow these steps to install and activate your Revo Script using the FiveM Escr
 Move the script folder (located inside the extracted bundle folder) into your server’s resources directory.
 
 ```bash
-/resources/[revo]/revo-fps-booster
+/resources/[revo]/[script-name]
 ```
 
 <Tip>
@@ -54,10 +54,14 @@ Move the script folder (located inside the extracted bundle folder) into your se
 In your `server.cfg`, ensure the script is loaded by adding:
 
 ```cfg
-ensure revo-fps-booster
+ensure [script-name]
 ```
 
 ✅ Make sure this matches the exact folder name of the script.
+
+<Note>
+  Replace [script-name] with the real name without square brackets. (e.g. `revo-fps-booster`)
+</Note>
 
 ---
 
@@ -66,7 +70,7 @@ ensure revo-fps-booster
 You can now restart your server to load the script.
 
 <Note>
-Full server restart is required to avoid any issues.
+  Full server restart is required to avoid any issues.
 </Note>
 ---
 
@@ -87,7 +91,7 @@ Full server restart is required to avoid any issues.
     Run the following:
     ```bash
     refresh
-    ensure revo-fps-booster
+    ensure [script-name]
     ```
   </Accordion>
 </AccordionGroup>
