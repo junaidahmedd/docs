@@ -1,0 +1,39 @@
+---
+title: "Troubleshooting"
+description: "Solutions to common issues when installing or running scripts"
+---
+
+If you're experiencing issues with your script installation or execution, here are common problems and their solutions:
+
+<AccordionGroup>
+
+  <Accordion title="Script Not Starting or Throwing Error on Server Boot">
+    - Make sure the script folder is in the correct directory: `resources/`
+    - Verify that you've added `ensure script-folder-name` (or `start`) in your `server.cfg`
+    - Double-check if the folder name in your `resources` matches what's written in `server.cfg`
+  </Accordion>
+
+  <Accordion title="You don't have access to the asset">
+    This means your CFX account is not granted access to the asset or you're logged into the wrong account.
+
+    - Go to [https://keymaster.fivem.net/](https://keymaster.fivem.net/) and log in with the account that purchased the script.
+    - Check your [granted assets page](https://keymaster.fivem.net/marketplace/granted) to confirm access.
+  </Accordion>
+
+  <Accordion title="The script is not working as expected">
+    - Ensure that all dependencies listed in the documentation are installed and started **before** the script.
+    - Review the config files for any required adjustments.
+    - Make sure your server artifacts are up to date.
+  </Accordion>
+
+  <Accordion title="Escrow system issues (unable to view code, missing files, etc.)">
+    - Escrow-protected scripts have locked files by design. You won’t be able to view or modify protected files.
+    - Ensure you're using the correct server version compatible with CFX Escrow.
+    - Do **not** attempt to modify or decrypt locked files — this will break the script and violate terms.
+  </Accordion>
+
+  <Accordion title="Still having issues?">
+    Join our [Discord Support Server](https://discord.gg/your-discord) for personalized assistance.
+  </Accordion>
+
+</AccordionGroup>
