@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "willow",
+  "theme": "mint",
   "name": "Revo Scripts",
   "colors": {
     "primary": "#1E90FF",
@@ -25,14 +25,19 @@
             ]
           },
           {
-            "group": "Products",
+            "group": "Premium Products",
             "pages": [
               "products/fps-booster",
               "products/gun-jamming",
               "products/pause-menu",
               "products/id-card",
               "products/ecommerce-business",
-              "products/online-trading",
+              "products/online-trading"
+            ]
+          },
+          {
+            "group": "Free Products",
+            "pages": [
               "products/eco-wipe"
             ]
           }
