@@ -4,74 +4,55 @@ description: "Step-by-step guide to installing your purchased Revo Script using 
 ---
 
 <Info>
-  Make sure you're logged into the correct **Cfx.re account** (the one used to purchase the script), and your server uses a matching **license key**.
+  Make sure you're logged into the correct <b>Cfx.re account</b> (the one used to purchase the script), and your server uses a matching <b>license key</b>.
 </Info>
 
-Follow these steps to install and activate your Revo Script using the FiveM Escrow system:
+<Steps>
+  <Step title="Access Your Assets on Cfx.re">
+    1. Visit the <a href="https://keymaster.fivem.net/" target="_blank">Cfx.re Keymaster</a>.<br/>
+    2. Log in using the <b>account that made the purchase</b>.<br/>
+    3. Go to the <b>Granted Assets</b> tab.<br/>
+    4. Find the Revo Script you purchased and click <b>Download</b>.<br/>
+    <Frame>
+      <img src="/images/granted-assets.jpg" alt="Keymaster Granted Assets" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Step>
+  <Step title="Extract the Script">
+    - Extract the <code>.pack .zip</code> file you downloaded.<br/>
+    - Inside the extracted folder, you’ll find a folder like <code>revo-stocktrading</code> or similar.
+    <Warning>
+      <b>Do not rename</b> the script folder (e.g., <code>revo-stocktrading</code>) — this will break escrow validation.
+    </Warning>
+  </Step>
+  <Step title="Move Script to Server Resources">
+    Move the script folder (located inside the extracted bundle folder) into your server’s <code>resources</code> directory.
+    <CodeGroup>
+      bash
+      /resources/[revo]/[script-name]
+    </CodeGroup>
+    <Tip>
+      You may organize Revo scripts under a <code>[revo]</code> folder.
+    </Tip>
+  </Step>
+  <Step title="Add Script to server.cfg">
+    In your <code>server.cfg</code>, ensure the script is loaded by adding:
+    <CodeGroup>
+      cfg
+      ensure [script-name]
+    </CodeGroup>
+    ✅ Make sure this matches the exact folder name of the script.
+    <Note>
+      Replace <code>[script-name]</code> with the real name without square brackets. (e.g. <code>revo-stocktrading</code>)
+    </Note>
+  </Step>
+  <Step title="Restart Your Server">
+    Restart your server to load the script.
+    <Note>
+      Full server restart is required to avoid any issues.
+    </Note>
+  </Step>
+</Steps>
 
----
-
-## Step 1: Go to Cfx.re and Access Your Assets
-
-1. Visit the [Cfx.re Keymaster](https://keymaster.fivem.net/).
-2. Log in using the **account that made the purchase**.
-3. Go to the **Granted Assets** tab.
-4. Find the Revo Script you purchased and click **Download**.
-
-<Frame>
-  <img src="/images/granted-assets.jpg" alt="Keymaster Granted Assets" style={{ borderRadius: '0.5rem' }} />
-</Frame>
-
----
-
-## Step 2: Extract the Script
-
-- Extract the `.pack .zip` file you downloaded.
-- Inside  the extracted folder, you’ll find a folder like `revo-stocktrading` or similar.  
-
----
-
-<Warning>
-  **Do not rename** the script folder (e.g., `revo-stocktrading`) — this will break escrow validation.
-</Warning>
-
-## Step 3: Move the Script to Your Server Resources
-
-Move the script folder (located inside the extracted bundle folder) into your server’s resources directory.
-
-```bash
-/resources/[revo]/[script-name]
-```
-
-<Tip>
-  You may organize Revo scripts under a `[revo]` folder.
-</Tip>
-
----
-
-## Step 4: Add Script to server.cfg
-
-In your `server.cfg`, ensure the script is loaded by adding:
-
-```cfg
-ensure [script-name]
-```
-
-✅ Make sure this matches the exact folder name of the script.
-
-<Note>
-  Replace [script-name] with the real name without square brackets. (e.g. `revo-stocktrading`)
-</Note>
-
----
-
-## Step 5: Restart Your Server
-
-You can now restart your server to load the script.
-
-<Note>
-  Full server restart is required to avoid any issues.
-</Note>
 ---
 
 ## Troubleshooting
@@ -86,12 +67,13 @@ You can now restart your server to load the script.
   </Accordion>
 
   <Accordion title="Script Not Appearing in Server Console">
-    Confirm the folder name is **not renamed**, and the path is correct inside the `resources` folder.
+    Confirm the folder name is <b>not renamed</b>, and the path is correct inside the <code>resources</code> folder.
 
     Run the following:
-    ```bash
-    refresh
-    ensure [script-name]
-    ```
+    <CodeGroup>
+      bash
+      refresh
+      ensure [script-name]
+    </CodeGroup>
   </Accordion>
 </AccordionGroup>
