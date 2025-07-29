@@ -10,38 +10,40 @@
   "favicon": "/favicon.svg",
   "navigation": {
     "groups": [
-          {
-            "group": "Introduction",
-            "pages": [
-              "index"
-            ]
-          },
-          {
-            "group": "General",
-            "pages": [
-              "general/install",
-              "general/updates",
-              "general/troubleshooting"
-            ]
-          },
-          {
-            "group": "Premium Products",
-            "pages": [
-              "products/fps-booster",
-              "products/gun-jamming",
-              "products/pause-menu",
-              "products/id-card",
-              "products/ecommerce-business",
-              "products/online-trading"
-            ]
-          },
-          {
-            "group": "Free Products",
-            "pages": [
-              "products/eco-wipe"
-            ]
-          }
+      {
+        "group": "Introduction",
+        "pages": [
+          "index"
         ]
+      },
+      {
+        "group": "General",
+        "pages": [
+          "general/install",
+          "general/updates",
+          "general/troubleshooting"
+        ]
+      },
+      {
+        "group": "Premium Products",
+        "pages": [
+          "products/fps-booster",
+          "products/gun-jamming",
+          "products/pause-menu",
+          "products/id-card",
+          "products/ecommerce-business",
+          "products/online-trading"
+        ]
+      },
+      {
+        "group": "Free Products",
+        "pages": [
+          "ecowipe/dependencies",
+          "ecowipe/installation",
+          "ecowipe/configuration"
+        ]
+      }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",

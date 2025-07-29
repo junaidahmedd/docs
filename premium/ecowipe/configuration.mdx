@@ -1,0 +1,56 @@
+---
+title: 'Configuration'
+description: 'Customize how Revo EcoWipe behaves for your admins and server needs.'
+---
+
+<Info>
+  Configuration is done in the `config.lua` file located in the `ecowipe` directory.
+</Info>
+
+## Command Configuration
+
+You can change the command used to open the UI:
+
+```lua
+Config.OpenCommand = 'ecowipe' -- Change this to any command you prefer
+```
+
+## Permissions
+
+Define who can access the EcoWipe interface. Permissions depend on your framework:
+
+```lua
+Config.AllowedGroups = {
+  admin = true,
+  superadmin = true,
+  god = true
+}
+```
+
+- **ESX**: Uses group names like `'admin'`, `'superadmin'`
+- **QBCore**: Uses role names like `'admin'`, `'god'`
+
+## Wipe Options
+
+You can enable or disable specific wipe features:
+
+```lua
+Config.WipeOptions = {
+  Money = true,
+  Inventory = true
+}
+```
+
+- **Money**: Wipes cash and bank balances
+- **Inventory**: Clears player items
+
+## Localization
+
+Set your default language:
+
+```lua
+Config.DefaultLocale = 'en'
+```
+
+Supported languages include: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
+
