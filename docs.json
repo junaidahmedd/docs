@@ -34,13 +34,17 @@
           "products/ecommerce-business",
           "products/online-trading"
         ]
-      },
+      }
+    ],
+    "dropdowns": [
       {
-        "group": "Free Products",
+        "dropdown": "Eco Wipe",
+        "icon": "leaf",
+        "description": "Free eco-friendly wipe product",
         "pages": [
-          "ecowipe/dependencies",
-          "ecowipe/installation",
-          "ecowipe/configuration"
+          "products/eco-wipe/dependencies",
+          "products/eco-wipe/installation", 
+          "products/eco-wipe/configuration"
         ]
       }
     ]
