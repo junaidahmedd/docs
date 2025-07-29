@@ -9,49 +9,47 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-  "groups": [
-    {
-      "group": "Introduction",
-      "pages": ["index"]
-    },
-    {
-      "group": "General",
-      "icon": "info",
-      "pages": [
-        "general/install",
-        "general/updates",
-        "general/troubleshooting"
-      ]
-    },
-    {
-      "group": "Premium Products",
-      "icon": "diamond",
-      "pages": [
-        "products/fps-booster",
-        "products/gun-jamming",
-        "products/pause-menu",
-        "products/id-card",
-        "products/ecommerce-business",
-        "products/online-trading"
-      ]
-    },
-    {
-      "group": "Free Products",
-      "icon": "leaf",
-      "pages": [
-        {
-          "group": "EcoWipe Script",
-          "icon": "broom",
-          "pages": [
-            "ecowipe/dependencies",
-            "ecowipe/installation",
-            "ecowipe/configuration"
-          ]
-        }
-      ]
-    }
-  ]
-},
+    "groups": [
+      {
+        "group": "Introduction",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "group": "General",
+        "pages": [
+          "general/install",
+          "general/updates",
+          "general/troubleshooting"
+        ]
+      },
+      {
+        "group": "Premium Products",
+        "pages": [
+          "products/fps-booster",
+          "products/gun-jamming",
+          "products/pause-menu",
+          "products/id-card",
+          "products/ecommerce-business",
+          "products/online-trading"
+        ]
+      },
+      {
+        "group": "Free Products",
+        "pages": [
+          {
+            "group": "Eco Wipe",
+            "pages": [
+              "products/eco-wipe/dependencies",
+              "products/eco-wipe/installation",
+              "products/eco-wipe/configuration"
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
