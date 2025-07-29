@@ -51,7 +51,6 @@
             "group": "FPS Booster",
             "pages": [
               "products/fps-booster/overview",
-              "products/fps-booster/dependencies",
               "products/fps-booster/installation",
               "products/fps-booster/configuration",
               "products/fps-booster/changelog"
@@ -61,7 +60,6 @@
             "group": "Gun Jam & Recoil",
             "pages": [
               "products/gun-jam/overview",
-              "products/gun-jam/dependencies",
               "products/gun-jam/installation",
               "products/gun-jam/configuration",
               "products/gun-jam/changelog"
