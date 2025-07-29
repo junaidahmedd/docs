@@ -1,56 +1,57 @@
 ---
 title: 'Configuration'
-description: 'Customize how Revo EcoWipe behaves for your admins and server needs.'
+description: 'Customize how Revo FPS Booster behaves for your server and players.'
 ---
 
 <Info>
-  Configuration is done in the `config.lua` file located in the `revo_ecowipe` directory.
+  Configuration is done in the `config.lua` file located in the `revo_fpsbooster` directory.
 </Info>
 
 ## Command Configuration
 
-You can change the command used to open the UI:
+Set the command players use to open the FPS Booster menu:
 
 ```lua
-Config.OpenCommand = 'ecowipe' -- Change this to any command you prefer
+Config.OpenCommand = 'fps' -- Change this to any command you prefer
 ```
 
-## Permissions
+## Automatic (AI) Mode Thresholds
 
-Define who can access the EcoWipe interface. Permissions depend on your framework:
+Adjust FPS thresholds for the Automatic (AI) preset:
 
 ```lua
-Config.AllowedGroups = {
-  admin = true,
-  superadmin = true,
-  god = true
-}
+Config.OptimalFps = 60
+Config.LowFpsThreshold = 30
+Config.HighFpsThreshold = 80
+Config.UltraHighFpsThreshold = 100
+Config.SuperUltraHighFpsThreshold = 120
 ```
 
-- **ESX**: Uses group names like `'admin'`, `'superadmin'`
-- **QBCore**: Uses role names like `'admin'`, `'god'`
+These values control how the AI mode adapts graphics settings based on player FPS.
 
-## Wipe Options
+## Notification Position
 
-You can enable or disable specific wipe features:
+Choose where notifications appear on the screen:
 
 ```lua
-Config.WipeOptions = {
-  Money = true,
-  Inventory = true
-}
+Config.NotificationPosition = 'top-center'
 ```
 
-- **Money**: Wipes cash and bank balances
-- **Inventory**: Clears player items
+Available positions:  
+`'top-left'`, `'top-right'`, `'top-center'`, `'bottom-left'`, `'bottom-right'`, `'bottom-center'`, `'center-left'`, `'center-right'`, `'center-center'`
 
 ## Localization
 
-Set your default language:
+Set the default language for the UI:
 
 ```lua
-Config.DefaultLocale = 'en'
+Config.DefaultLocale = "en"
 ```
 
-Supported languages include: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
+Supported languages: `'en'`, `'fr'`, `'es'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'ar'`, `'tr'`, `'pl'`, `'zh'`
 
+You can further customize text and labels in the `Config.Locales` table.
+
+<Tip>
+  Most players will get the best results using the Automatic (AI) preset, which adapts settings based on their FPS in real time.
+</Tip>

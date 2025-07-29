@@ -1,56 +1,91 @@
 ---
 title: 'Configuration'
-description: 'Customize how Revo EcoWipe behaves for your admins and server needs.'
+description: 'Customize how Revo GunJam & Recoil behaves for your server.'
 ---
 
 <Info>
-  Configuration is done in the `config.lua` file located in the `revo_ecowipe` directory.
+  Configuration is done in the `config.lua` file located in the `revo_gunjam` directory.
 </Info>
 
-## Command Configuration
+## Jam Chance
 
-You can change the command used to open the UI:
-
-```lua
-Config.OpenCommand = 'ecowipe' -- Change this to any command you prefer
-```
-
-## Permissions
-
-Define who can access the EcoWipe interface. Permissions depend on your framework:
+Set how often weapons jam. Lower values mean less frequent jams (more bullets between jams):
 
 ```lua
-Config.AllowedGroups = {
-  admin = true,
-  superadmin = true,
-  god = true
-}
+Config.JamChance = 3 -- Default is 3 (about 1 jam every 65 bullets)
 ```
 
-- **ESX**: Uses group names like `'admin'`, `'superadmin'`
-- **QBCore**: Uses role names like `'admin'`, `'god'`
+## Reload & Unjam Settings
 
-## Wipe Options
+- **No Auto Reload:**  
+  Require players to manually reload after a jam.
 
-You can enable or disable specific wipe features:
+  ```lua
+  Config.NoAutoReload = true -- true = manual reload required
+  ```
+
+- **Unjam on Death:**  
+  Automatically unjam weapons when a player dies.
+
+  ```lua
+  Config.UnjamOnDeath = true
+  ```
+
+## Animation
+
+Set the animation dictionary and name for the unjamming action:
 
 ```lua
-Config.WipeOptions = {
-  Money = true,
-  Inventory = true
-}
+Config.Anidict = "mp_arresting"
+Config.Animation = "a_uncuff"
 ```
-
-- **Money**: Wipes cash and bank balances
-- **Inventory**: Clears player items
 
 ## Localization
 
-Set your default language:
+Set the default language and customize notification messages:
 
 ```lua
-Config.DefaultLocale = 'en'
+Config.DefaultLocale = "en"
 ```
 
-Supported languages include: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
+Supported languages: `"en"`, `"fr"`, `"de"`, `"es"`, `"ar"`, `"pt"`, `"it"`, `"tr"`, `"pl"`, `"ru"`, `"nl"`, `"sv"`
+
+Example notification messages:
+```lua
+Config.Locales = {
+  ["en"] = {
+    unjamming_notification = "Unjamming Weapon",
+    jammedweapon_notification = "Your weapon has jammed! ~r~Press the E key to unjam."
+  },
+  -- Add other languages here
+}
+```
+
+## Ignored Weapons
+
+Exclude specific weapons from jamming by setting them to `true` in the `IgnoredWeaponHashes` table:
+
+```lua
+Config.IgnoredWeaponHashes = {
+  [GetHashKey("weapon_rpg")] = true,
+  [GetHashKey("weapon_minigun")] = false,
+  -- Add more weapons as needed
+}
+```
+
+## Recoil Settings
+
+Customize recoil per weapon by setting values in the `Recoils` table (lower values = less recoil):
+
+```lua
+Config.Recoils = {
+  [453432689] = 0.3, -- PISTOL
+  [3219281620] = 0.3, -- PISTOL MK2
+  -- Add more weapon hashes and values as needed
+}
+```
+
+<Tip>
+  Adjust jam chance and recoil settings to balance gameplay.
+</Tip>
 

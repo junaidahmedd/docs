@@ -1,30 +1,30 @@
 ---
 title: 'Installation'
-description: 'Install Revo EcoWipe and set it up on your FiveM server.'
+description: 'Install Revo GunJam & Recoil and set it up on your FiveM server.'
 ---
 
 <Steps>
-  <Step title="Download EcoWipe">
-    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo EcoWipe**. Save the script to your computer.
+  <Step title="Download GunJam & Recoil">
+    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo GunJam & Recoil**. Save the script to your computer.
   </Step>
   <Step title="Add to Resources">
-    Place the downloaded `revo_ecowipe` folder inside your server's `resources` directory.
+    Place the downloaded `revo_gunjam` folder inside your server's `resources` directory.
   </Step>
   <Step title="Configure server.cfg">
-    Add the following line to your `server.cfg` to ensure EcoWipe starts with your server:
+    Add the following line to your `server.cfg` to ensure GunJam & Recoil starts with your server:
     <CodeGroup>
-      ensure revo_ecowipe
+      ensure revo_gunjam
     </CodeGroup>
   </Step>
   <Step title="Start the Resource">
     Restart your server or run these commands in the server console:
     <CodeGroup>
       refresh
-      ensure revo_ecowipe
+      ensure revo_gunjam
     </CodeGroup>
   </Step>
 </Steps>
 
 <Tip>
-  EcoWipe is free and works for both online and offline players. All operations are performed in-game through a user-friendly UI.
+  Revo GunJam & Recoil works out of the box. You can further customize jam chances and recoil settings in the <code>config.lua</code> file to match your server's needs.
 </Tip>
