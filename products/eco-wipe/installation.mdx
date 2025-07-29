@@ -3,31 +3,29 @@ title: 'Installation'
 description: 'Install Revo EcoWipe and set it up on your FiveM server.'
 ---
 
-Follow these steps to install **Revo EcoWipe** in your ESX or QBCore server:
-
-**Step 1**: Download or clone the script into your `resources` folder.
-
-<CodeGroup>
-
-bash GitHub (if available)
-git clone https://github.com/revo-dev/ecowipe resources/[local]/ecowipe
-
-bash Manual
-Place the ecowipe folder inside `resources`
-
-</CodeGroup>
-
-**Step 2**: Add the resource to your `server.cfg`:
-
-bash
-ensure ecowipe
-
-**Step 3**: Restart your server or run the following command from the console:
-
-bash
-refresh
-ensure ecowipe
+<Steps>
+  <Step title="Download EcoWipe">
+    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo EcoWipe**. Save the script to your computer.
+  </Step>
+  <Step title="Add to Resources">
+    Place the downloaded `ecowipe` folder inside your server's `resources` directory.
+  </Step>
+  <Step title="Configure server.cfg">
+    Add the following line to your `server.cfg` to ensure EcoWipe starts with your server:
+    <CodeGroup>
+      bash
+      ensure ecowipe
+    </CodeGroup>
+  </Step>
+  <Step title="Start the Resource">
+    Restart your server or run these commands in the server console:
+    <CodeGroup>
+      bash
+      refresh
+      ensure ecowipe
+    </CodeGroup>
+  </Step>
+</Steps>
 
 <Tip>
   EcoWipe is free and works for both online and offline players. All operations are performed in-game through a user-friendly UI.
-</Tip>
