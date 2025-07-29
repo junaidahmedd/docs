@@ -27,12 +27,12 @@
       {
         "group": "Premium Products",
         "pages": [
-          "products/fps-booster",
-          "products/gun-jamming",
-          "products/pause-menu",
-          "products/id-card",
-          "products/ecommerce-business",
-          "products/online-trading"
+          "premium/fps-booster",
+          "premium/gun-jamming",
+          "premium/pause-menu",
+          "premium/id-card",
+          "premium/ecommerce-business",
+          "premium/online-trading"
         ]
       }
     ],
@@ -42,9 +42,9 @@
         "icon": "leaf",
         "description": "Free eco-friendly wipe product",
         "pages": [
-          "products/eco-wipe/dependencies",
-          "products/eco-wipe/installation", 
-          "products/eco-wipe/configuration"
+          "free/eco-wipe/dependencies",
+          "free/eco-wipe/installation", 
+          "free/eco-wipe/configuration"
         ]
       }
     ]
