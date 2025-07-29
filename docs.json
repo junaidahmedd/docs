@@ -27,12 +27,46 @@
       {
         "group": "Premium Products",
         "pages": [
-          "products/fps-booster",
-          "products/gun-jamming",
-          "products/pause-menu",
-          "products/id-card",
-          "products/ecommerce-business",
-          "products/online-trading"
+          {
+            "group": "Stock Trading",
+            "pages": [
+              "products/stock-trading/overview",
+              "products/stock-trading/dependencies",
+              "products/stock-trading/installation",
+              "products/stock-trading/configuration",
+              "products/stock-trading/changelog"
+            ]
+          },
+          {
+            "group": "ID Card",
+            "pages": [
+              "products/id-card/overview",
+              "products/id-card/dependencies",
+              "products/id-card/installation",
+              "products/id-card/configuration",
+              "products/id-card/changelog"
+            ]
+          },
+          {
+            "group": "FPS Booster",
+            "pages": [
+              "products/fps-booster/overview",
+              "products/fps-booster/dependencies",
+              "products/fps-booster/installation",
+              "products/fps-booster/configuration",
+              "products/fps-booster/changelog"
+            ]
+          },
+          {
+            "group": "Gun Jam",
+            "pages": [
+              "products/gun-jam/overview",
+              "products/gun-jam/dependencies",
+              "products/gun-jam/installation",
+              "products/gun-jam/configuration",
+              "products/gun-jam/changelog"
+            ]
+          }
         ]
       },
       {
@@ -41,9 +75,11 @@
           {
             "group": "Eco Wipe",
             "pages": [
+              "products/eco-wipe/overview",
               "products/eco-wipe/dependencies",
               "products/eco-wipe/installation",
-              "products/eco-wipe/configuration"
+              "products/eco-wipe/configuration",
+              "products/eco-wipe/changelog"
             ]
           }
         ]
