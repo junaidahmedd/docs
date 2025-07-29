@@ -1,30 +1,74 @@
 ---
 title: 'Installation'
-description: 'Install Revo EcoWipe and set it up on your FiveM server.'
+description: 'Install Revo ID Card and set it up on your FiveM server.'
 ---
 
 <Steps>
-  <Step title="Download EcoWipe">
-    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo EcoWipe**. Save the script to your computer.
+  <Step title="Download Revo ID Card">
+    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo ID Card**. Save the script to your computer.
   </Step>
   <Step title="Add to Resources">
-    Place the downloaded `revo_ecowipe` folder inside your server's `resources` directory.
+    Place the downloaded `revo_idcard` folder inside your server's `resources` directory.
   </Step>
   <Step title="Configure server.cfg">
-    Add the following line to your `server.cfg` to ensure EcoWipe starts with your server:
+    Add the following line to your `server.cfg` to ensure Revo ID Card starts with your server:
     <CodeGroup>
-      ensure revo_ecowipe
+      ensure revo_idcard
     </CodeGroup>
+  </Step>
+  <Step title="Add Items to ox_inventory">
+    Open your <code>ox_inventory/data/items.lua</code> file and add the following items:
+    <CodeGroup>
+      lua
+      ['id_card'] = {
+        label = 'ID Card',
+        weight = 1,
+        stack = false,
+        close = true,
+        description = "Your personal identification card.",
+        client = {
+          image = 'revo_id_card.png',
+        }
+      },
+      ['driver_license'] = {
+        label = 'Driver License',
+        weight = 1,
+        stack = false,
+        close = true,
+        description = "Your driver's license.",
+        client = {
+          image = 'revo_driver_license.png',
+        }
+      },
+      ['firearm_license'] = {
+        label = 'Firearm License',
+        weight = 1,
+        stack = false,
+        close = true,
+        description = "Your weapon's license.",
+        client = {
+          image = 'revo_weapon_license.png',
+        }
+      },
+    </CodeGroup>
+  </Step>
+  <Step title="Add Item Images">
+    Copy the following files from the <b>item-images</b> folder provided with this script and paste them into <code>ox_inventory/web/images</code>:
+    <ul>
+      <li>revo_id_card.png</li>
+      <li>revo_driver_license.png</li>
+      <li>revo_weapon_license.png</li>
+    </ul>
   </Step>
   <Step title="Start the Resource">
     Restart your server or run these commands in the server console:
     <CodeGroup>
       refresh
-      ensure revo_ecowipe
+      ensure revo_idcard
     </CodeGroup>
   </Step>
 </Steps>
 
 <Tip>
-  EcoWipe is free and works for both online and offline players. All operations are performed in-game through a user-friendly UI.
+  Revo ID Card is fully configurable and optimized for performance. You can customize NPCs, card visuals, and prices in the <code>config.lua</code> file.
 </Tip>
