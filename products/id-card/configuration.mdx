@@ -1,56 +1,176 @@
 ---
 title: 'Configuration'
-description: 'Customize how Revo EcoWipe behaves for your admins and server needs.'
+description: 'Customize how Revo ID Card behaves for your server and players.'
 ---
 
 <Info>
-  Configuration is done in the `config.lua` file located in the `revo_ecowipe` directory.
+  Configuration is done in the <code>config.lua</code> file located in the <code>revo_idcard</code> directory.
 </Info>
 
-## Command Configuration
+## Theme
 
-You can change the command used to open the UI:
+Set the menu theme:
 
 ```lua
-Config.OpenCommand = 'ecowipe' -- Change this to any command you prefer
+Config.Theme = 'dark' -- Options: 'light', 'dark'
 ```
 
-## Permissions
+## Notification Position
 
-Define who can access the EcoWipe interface. Permissions depend on your framework:
+Choose where notifications appear on the screen:
 
 ```lua
-Config.AllowedGroups = {
-  admin = true,
-  superadmin = true,
-  god = true
+Config.NotificationPosition = 'top-center'
+```
+
+Available positions:  
+`'top-left'`, `'top-right'`, `'top-center'`, `'bottom-left'`, `'bottom-right'`, `'bottom-center'`, `'center-left'`, `'center-right'`, `'center-center'`
+
+## Fake ID Feature
+
+Enable or disable the Fake ID system:
+
+```lua
+Config.UseFakeID = true
+```
+
+## NPC Configuration
+
+Set NPC models and locations for real and fake ID creation:
+
+```lua
+Config.Real_ID_NPC_Model = 'a_m_m_business_01'
+Config.Real_ID_NPC_Locations = {
+    {x = 435.10, y = -974.77, z = 30.71, heading = 96.38},
+    {x = 214.30, y = -947.37, z = 30.68, heading = 229.61}
+}
+Config.Fake_ID_NPC_Model = 'g_m_y_ballaorig_01'
+Config.Fake_ID_NPC_Locations = {
+    {x = 117.97, y = -1951.58, z = 20.74, heading = 53.86},
+    {x = 155.02, y = -1311.96, z = 29.20, heading = 48.19}
 }
 ```
 
-- **ESX**: Uses group names like `'admin'`, `'superadmin'`
-- **QBCore**: Uses role names like `'admin'`, `'god'`
+## Map Icons
 
-## Wipe Options
-
-You can enable or disable specific wipe features:
+Show or hide map icons for NPCs:
 
 ```lua
-Config.WipeOptions = {
-  Money = true,
-  Inventory = true
+Config.ShowRealIDMapIcon = true
+Config.RealIDMapIcon = {
+    sprite = 480,
+    scale = 0.9,
+    color = 2,
+    name = 'ID Card'
+}
+
+Config.ShowFakeIDMapIcon = true
+Config.FakeIDMapIcon = {
+    sprite = 480,
+    scale = 0.9,
+    color = 1,
+    name = 'Fake ID Dealer'
 }
 ```
 
-- **Money**: Wipes cash and bank balances
-- **Inventory**: Clears player items
+## Card Costs
+
+Enable or disable costs for creating IDs and set prices:
+
+```lua
+Config.EnableCardCosts = true
+Config.CardCosts = {
+    id_card = 20,
+    fake_id_card = 100,
+    driver_license = 50,
+    firearm_license = 100
+}
+```
+
+## Issue & Expiry Dates
+
+Show issue and expiration dates on cards and set duration (in days):
+
+```lua
+Config.ShowIssueAndExpireDate = true
+Config.ExpireDuration = 30
+```
+
+## Cooldown
+
+Set cooldown (in seconds) to prevent fake ID spam:
+
+```lua
+Config.FakeIDCreationCooldown = 60 -- 1 minute
+```
+
+## State & Nationality
+
+Set the state name and default nationality shown on cards:
+
+```lua
+Config.StateNameOnCard = 'Los Santos'
+Config.DefaultNationality = 'United States'
+```
+
+## Card View Distance
+
+Set how far away players can see the ID card:
+
+```lua
+Config.IDCardViewDistance = 5.0
+```
+
+## Card Colors
+
+Customize card colors for different job types:
+
+```lua
+Config.IDCardColors = {
+    police = '#004dbb',
+    ambulance = '#d32f2f',
+    mechanic = '#ec9914',
+    government = '#6a1b9a',
+    taxi = '#f0c400',
+    cardealer = '#0A3D62',
+    unemployed = '#000000',
+    default = '#000000'
+}
+```
+
+## License Types
+
+Configure license types and their properties:
+
+```lua
+Config.Licenses = {
+    ['id_card'] = {
+       name = 'Identification Card',
+       prop = 'prop_franklin_dl'
+    },
+    ['driver_license'] = {
+       name = 'Driver License',
+       prop = 'prop_franklin_dl',
+    },
+    ['firearm_license'] = {
+        name = 'Firearm License',
+        prop = 'prop_franklin_dl',
+    },
+}
+```
 
 ## Localization
 
-Set your default language:
+Set the default language and customize text:
 
 ```lua
 Config.DefaultLocale = 'en'
 ```
 
-Supported languages include: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
+Supported languages: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'pl'`, `'tr'`, `'zh'`, `'ar'`
+
+You can customize all UI text in the `Config.Locales` table.
+
+<Tip>
+  All features are fully configurable. Adjust NPCs, card visuals, costs, and localization to fit your server’s
 
