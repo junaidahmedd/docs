@@ -92,24 +92,24 @@
     "links": [
       {
         "label": "Discord",
-        "href": "https://discord.gg"
+        "href": "https://discord.gg/EbHGgQaYKe"
       },
       {
         "label": "YouTube",
-        "href": "https://youtube.com"
+        "href": "https://www.youtube.com/@revoscripts"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Shop",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://revoscripts.com"
     }
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "discord": "https://discord.gg/EbHGgQaYKe",
+      "github": "https://github.com/revoscripts",
+      "youtube": "https://www.youtube.com/@revoscripts"
     }
   }
 }
