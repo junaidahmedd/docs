@@ -26,20 +26,19 @@ description: "Step-by-step guide to installing your purchased Revo Script using 
   </Step>
   <Step title="Move Script to Server Resources">
     Move the script folder (located inside the extracted bundle folder) into your server’s <code>resources</code> directory.
-    <CodeGroup>
-      bash
+    ```bash
       /resources/[revo]/[script-name]
-    </CodeGroup>
+    ```
     <Tip>
       You may organize Revo scripts under a <code>[revo]</code> folder.
     </Tip>
   </Step>
   <Step title="Add Script to server.cfg">
     In your <code>server.cfg</code>, ensure the script is loaded by adding:
-    <CodeGroup>
+    ```bash
       cfg
       ensure [script-name]
-    </CodeGroup>
+    ```
     ✅ Make sure this matches the exact folder name of the script.
     <Note>
       Replace <code>[script-name]</code> with the real name without square brackets. (e.g. <code>revo-stocktrading</code>)
@@ -70,10 +69,9 @@ description: "Step-by-step guide to installing your purchased Revo Script using 
     Confirm the folder name is <b>not renamed</b>, and the path is correct inside the <code>resources</code> folder.
 
     Run the following:
-    <CodeGroup>
-      bash
+    ```bash
       refresh
       ensure [script-name]
-    </CodeGroup>
+    ```
   </Accordion>
 </AccordionGroup>
