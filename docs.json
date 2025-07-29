@@ -9,46 +9,49 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "groups": [
-      {
-        "group": "Introduction",
-        "pages": [
-          "index"
-        ]
-      },
-      {
-        "group": "General",
-        "pages": [
-          "general/install",
-          "general/updates",
-          "general/troubleshooting"
-        ]
-      },
-      {
-        "group": "Premium Products",
-        "pages": [
-          "premium/fps-booster",
-          "premium/gun-jamming",
-          "premium/pause-menu",
-          "premium/id-card",
-          "premium/ecommerce-business",
-          "premium/online-trading"
-        ]
-      }
-    ],
-    "dropdowns": [
-      {
-        "dropdown": "Eco Wipe",
-        "icon": "leaf",
-        "description": "Free eco-friendly wipe product",
-        "pages": [
-          "free/eco-wipe/dependencies",
-          "free/eco-wipe/installation", 
-          "free/eco-wipe/configuration"
-        ]
-      }
-    ]
-  },
+  "groups": [
+    {
+      "group": "Introduction",
+      "pages": ["index"]
+    },
+    {
+      "group": "General",
+      "icon": "info",
+      "pages": [
+        "general/install",
+        "general/updates",
+        "general/troubleshooting"
+      ]
+    },
+    {
+      "group": "Premium Products",
+      "icon": "diamond",
+      "pages": [
+        "products/fps-booster",
+        "products/gun-jamming",
+        "products/pause-menu",
+        "products/id-card",
+        "products/ecommerce-business",
+        "products/online-trading"
+      ]
+    },
+    {
+      "group": "Free Products",
+      "icon": "leaf",
+      "pages": [
+        {
+          "group": "EcoWipe Script",
+          "icon": "broom",
+          "pages": [
+            "ecowipe/dependencies",
+            "ecowipe/installation",
+            "ecowipe/configuration"
+          ]
+        }
+      ]
+    }
+  ]
+},
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
