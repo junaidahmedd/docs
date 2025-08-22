@@ -125,7 +125,9 @@ The exports trigger a client-side event that initiates the mugshot capture and I
 3. **Server-side** → Receives mugshot data and triggers `revo_idcard:issueRealID` event
 4. **Final creation** → `issueRealID` handles player data fetching and actual item creation
 
-**Note:** The exports are fire-and-forget - they start the process but don't provide immediate feedback. Success/failure is handled through the internal event system.
+<Note>
+  The exports are fire-and-forget - they start the process but don't provide immediate feedback. Success/failure is handled through the internal event system.
+</Note>
 
 ## Notes
 - The player must have sufficient inventory space for the card to be created
