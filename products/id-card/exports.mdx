@@ -1,0 +1,124 @@
+---
+title: 'Exports'
+description: 'Available exports for integrating Revo ID Card with other resources.'
+---
+
+# Exports
+
+Revo ID Card provides several exports that allow other resources to programmatically create ID cards, driver licenses, and weapon licenses for players.
+
+## Available Exports
+
+### CreateRealID
+Creates a real ID card for the specified player.
+
+```lua
+exports['revo_idcard']:CreateRealID(playerSource)
+```
+
+**Parameters:**
+- `playerSource` (number): The player's server ID
+
+**Example:**
+```lua
+-- Create a real ID card for player with ID 1
+exports['revo_idcard']:CreateRealID(1)
+```
+
+---
+
+### CreateDriverLicense
+Creates a driver license for the specified player.
+
+```lua
+exports['revo_idcard']:CreateDriverLicense(playerSource)
+```
+
+**Parameters:**
+- `playerSource` (number): The player's server ID
+
+**Example:**
+```lua
+-- Create a driver license for player with ID 1
+exports['revo_idcard']:CreateDriverLicense(1)
+```
+
+---
+
+### CreateWeaponLicense
+Creates a weapon license for the specified player.
+
+```lua
+exports['revo_idcard']:CreateWeaponLicense(playerSource)
+```
+
+**Parameters:**
+- `playerSource` (number): The player's server ID
+
+**Example:**
+```lua
+-- Create a weapon license for player with ID 1
+exports['revo_idcard']:CreateWeaponLicense(1)
+```
+<Warning>
+  All exports are **server-side only** and cannot be called from client-side scripts
+</Warning>
+
+## Integration Examples
+
+### Police Job Integration
+```lua
+-- Give a driver license when player completes driving test
+RegisterNetEvent('police:drivingTestPassed')
+AddEventHandler('police:drivingTestPassed', function()
+    local playerId = source
+    exports['revo_idcard']:CreateDriverLicense(playerId)
+    TriggerClientEvent('chat:addMessage', playerId, {
+        args = {'^2Success', 'You have been issued a driver license!'}
+    })
+end)
+```
+
+### DMV Integration
+```lua
+-- Give an ID card when player registers at DMV
+RegisterNetEvent('dmv:registrationComplete')
+AddEventHandler('dmv:registrationComplete', function()
+    local playerId = source
+    exports['revo_idcard']:CreateRealID(playerId)
+    TriggerClientEvent('chat:addMessage', playerId, {
+        args = {'^2Success', 'Your ID card has been issued!'}
+    })
+end)
+```
+
+### Weapon Training Integration
+```lua
+-- Give a weapon license when player completes training
+RegisterNetEvent('weaponTraining:completed')
+AddEventHandler('weaponTraining:completed', function()
+    local playerId = source
+    exports['revo_idcard']:CreateWeaponLicense(playerId)
+    TriggerClientEvent('chat:addMessage', playerId, {
+        args = {'^2Success', 'You have been issued a weapon license!'}
+    })
+end)
+```
+
+## Error Handling
+
+The exports will return `true` if the operation is successful, or `false` if there's an error (e.g., invalid player ID, inventory issues).
+
+```lua
+local success = exports['revo_idcard']:CreateRealID(playerId)
+if success then
+    print("ID card created successfully")
+else
+    print("Failed to create ID card")
+end
+```
+
+## Notes
+- The player must have sufficient inventory space for the card to be created
+- Cards are created with default settings as configured in the main config file
+- These exports work with all supported inventory systems (ox_inventory, qb-inventory, qs-inventory)
