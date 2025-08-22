@@ -3,87 +3,59 @@ title: 'Exports'
 description: 'Available exports for integrating Revo ID Card with other resources.'
 ---
 
-# Exports
-
-Revo ID Card provides several exports that allow other resources to programmatically create ID cards, driver licenses, and weapon licenses for players.
-
-<Callout>
-  These exports enable seamless integration with police jobs, DMV systems, weapon training, and other custom scripts on your server.
-</Callout>
-
 ## Available Exports
 
-<Tabs>
-  <Tab title="CreateRealID">
-    Creates a real ID card for the specified player.
-    
-    <CodeGroup>
-      <CodeGroupItem title="Syntax">
-        ```lua
-        exports['revo_idcard']:CreateRealID(playerSource)
-        ```
-      </CodeGroupItem>
-      <CodeGroupItem title="Example">
-        ```lua
-        -- Create a real ID card for player with ID 1
-        exports['revo_idcard']:CreateRealID(1)
-        ```
-      </CodeGroupItem>
-    </CodeGroup>
-    
-    **Parameters:**
-    - `playerSource` (number): The player's server ID
-    
-    **Returns:** `boolean` - `true` if successful, `false` if failed
-  </Tab>
-  
-  <Tab title="CreateDriverLicense">
-    Creates a driver license for the specified player.
-    
-    <CodeGroup>
-      <CodeGroupItem title="Syntax">
-        ```lua
-        exports['revo_idcard']:CreateDriverLicense(playerSource)
-        ```
-      </CodeGroupItem>
-      <CodeGroupItem title="Example">
-        ```lua
-        -- Create a driver license for player with ID 1
-        exports['revo_idcard']:CreateDriverLicense(1)
-        ```
-      </CodeGroupItem>
-    </CodeGroup>
-    
-    **Parameters:**
-    - `playerSource` (number): The player's server ID
-    
-    **Returns:** `boolean` - `true` if successful, `false` if failed
-  </Tab>
-  
-  <Tab title="CreateWeaponLicense">
-    Creates a weapon license for the specified player.
-    
-    <CodeGroup>
-      <CodeGroupItem title="Syntax">
-        ```lua
-        exports['revo_idcard']:CreateWeaponLicense(playerSource)
-        ```
-      </CodeGroupItem>
-      <CodeGroupItem title="Example">
-        ```lua
-        -- Create a weapon license for player with ID 1
-        exports['revo_idcard']:CreateWeaponLicense(1)
-        ```
-      </CodeGroupItem>
-    </CodeGroup>
-    
-    **Parameters:**
-    - `playerSource` (number): The player's server ID
-    
-    **Returns:** `boolean` - `true` if successful, `false` if failed
-  </Tab>
-</Tabs>
+### CreateRealID
+Creates a real ID card for the specified player.
 
+```lua
+exports['revo_idcard']:CreateRealID(playerSource)
+```
+
+**Parameters:**
+- `playerSource` (number): The player's server ID
+
+**Example:**
+```lua
+-- Create a real ID card for player with ID 1
+exports['revo_idcard']:CreateRealID(1)
+```
+
+---
+
+### CreateDriverLicense
+Creates a driver license for the specified player.
+
+```lua
+exports['revo_idcard']:CreateDriverLicense(playerSource)
+```
+
+**Parameters:**
+- `playerSource` (number): The player's server ID
+
+**Example:**
+```lua
+-- Create a driver license for player with ID 1
+exports['revo_idcard']:CreateDriverLicense(1)
+```
+
+---
+
+### CreateWeaponLicense
+Creates a weapon license for the specified player.
+
+```lua
+exports['revo_idcard']:CreateWeaponLicense(playerSource)
+```
+
+**Parameters:**
+- `playerSource` (number): The player's server ID
+
+**Example:**
+```lua
+-- Create a weapon license for player with ID 1
+exports['revo_idcard']:CreateWeaponLicense(1)
+```
 <Warning>
   All exports are **server-side only** and cannot be called from client-side scripts
 </Warning>
@@ -91,100 +63,45 @@ Revo ID Card provides several exports that allow other resources to programmatic
 ## Integration Examples
 
 ### Police Job Integration
-<CodeGroup>
-  <CodeGroupItem title="Server-Side">
-    ```lua
-    -- Give a driver license when player completes driving test
-    RegisterNetEvent('police:drivingTestPassed')
-    AddEventHandler('police:drivingTestPassed', function()
-        local playerId = source
-        local success = exports['revo_idcard']:CreateDriverLicense(playerId)
-        
-        if success then
-            TriggerClientEvent('chat:addMessage', playerId, {
-                args = {'^2Success', 'You have been issued a driver license!'}
-            })
-        else
-            TriggerClientEvent('chat:addMessage', playerId, {
-                args = {'^1Error', 'Failed to issue driver license. Check inventory space.'}
-            })
-        end
-    end)
-    ```
-  </CodeGroupItem>
-  <CodeGroupItem title="Client-Side">
-    ```lua
-    -- Trigger the event when driving test is completed
-    TriggerServerEvent('police:drivingTestPassed')
-    ```
-  </CodeGroupItem>
-</CodeGroup>
+```lua
+-- Give a driver license when player completes driving test
+RegisterNetEvent('police:drivingTestPassed')
+AddEventHandler('police:drivingTestPassed', function()
+    local playerId = source
+    exports['revo_idcard']:CreateDriverLicense(playerId)
+    TriggerClientEvent('chat:addMessage', playerId, {
+        args = {'^2Success', 'You have been issued a driver license!'}
+    })
+end)
+```
 
 ### DMV Integration
-<CodeGroup>
-  <CodeGroupItem title="Server-Side">
-    ```lua
-    -- Give an ID card when player registers at DMV
-    RegisterNetEvent('dmv:registrationComplete')
-    AddEventHandler('dmv:registrationComplete', function()
-        local playerId = source
-        local success = exports['revo_idcard']:CreateRealID(playerId)
-        
-        if success then
-            TriggerClientEvent('chat:addMessage', playerId, {
-                args = {'^2Success', 'Your ID card has been issued!'}
-            })
-        else
-            TriggerClientEvent('chat:addMessage', playerId, {
-                args = {'^1Error', 'Failed to issue ID card. Check inventory space.'}
-            })
-        end
-    end)
-    ```
-  </CodeGroupItem>
-  <CodeGroupItem title="Client-Side">
-    ```lua
-    -- Trigger the event when DMV registration is completed
-    TriggerServerEvent('dmv:registrationComplete')
-    ```
-  </CodeGroupItem>
-</CodeGroup>
+```lua
+-- Give an ID card when player registers at DMV
+RegisterNetEvent('dmv:registrationComplete')
+AddEventHandler('dmv:registrationComplete', function()
+    local playerId = source
+    exports['revo_idcard']:CreateRealID(playerId)
+    TriggerClientEvent('chat:addMessage', playerId, {
+        args = {'^2Success', 'Your ID card has been issued!'}
+    })
+end)
+```
 
 ### Weapon Training Integration
-<CodeGroup>
-  <CodeGroupItem title="Server-Side">
-    ```lua
-    -- Give a weapon license when player completes training
-    RegisterNetEvent('weaponTraining:completed')
-    AddEventHandler('weaponTraining:completed', function()
-        local playerId = source
-        local success = exports['revo_idcard']:CreateWeaponLicense(playerId)
-        
-        if success then
-            TriggerClientEvent('chat:addMessage', playerId, {
-                args = {'^2Success', 'You have been issued a weapon license!'}
-            })
-        else
-            TriggerClientEvent('chat:addMessage', playerId, {
-                args = {'^1Error', 'Failed to issue weapon license. Check inventory space.'}
-            })
-        end
-    end)
-    ```
-  </CodeGroupItem>
-  <CodeGroupItem title="Client-Side">
-    ```lua
-    -- Trigger the event when weapon training is completed
-    TriggerServerEvent('weaponTraining:completed')
-    ```
-  </CodeGroupItem>
-</CodeGroup>
+```lua
+-- Give a weapon license when player completes training
+RegisterNetEvent('weaponTraining:completed')
+AddEventHandler('weaponTraining:completed', function()
+    local playerId = source
+    exports['revo_idcard']:CreateWeaponLicense(playerId)
+    TriggerClientEvent('chat:addMessage', playerId, {
+        args = {'^2Success', 'You have been issued a weapon license!'}
+    })
+end)
+```
 
 ## Error Handling
-
-<Callout>
-  Always check the return value of exports to ensure they executed successfully and provide appropriate feedback to players.
-</Callout>
 
 The exports will return `true` if the operation is successful, or `false` if there's an error (e.g., invalid player ID, inventory issues).
 
@@ -192,33 +109,12 @@ The exports will return `true` if the operation is successful, or `false` if the
 local success = exports['revo_idcard']:CreateRealID(playerId)
 if success then
     print("ID card created successfully")
-    -- Additional success logic here
 else
     print("Failed to create ID card")
-    -- Handle error case here
 end
 ```
 
-## Common Use Cases
-
-<Steps>
-  <Step title="Job Systems">
-    Automatically issue licenses when players complete job-specific training or requirements.
-  </Step>
-  <Step title="DMV Scripts">
-    Create ID cards and driver licenses during vehicle registration processes.
-  </Step>
-  <Step title="Police Systems">
-    Issue various licenses during police interactions and training.
-  </Step>
-  <Step title="Custom Events">
-    Reward players with identification documents for completing custom activities.
-  </Step>
-</Steps>
-
 ## Notes
-
 - The player must have sufficient inventory space for the card to be created
 - Cards are created with default settings as configured in the main config file
 - These exports work with all supported inventory systems (ox_inventory, qb-inventory, qs-inventory)
-- All exports are thread-safe and can be called from multiple events simultaneously
