@@ -3,6 +3,10 @@ title: 'Exports'
 description: 'Available exports for integrating Revo ID Card with other resources.'
 ---
 
+<Warning>
+  All exports are **server-side only** and cannot be called from client-side scripts
+</Warning>
+
 ## Available Exports
 
 ### CreateRealID
@@ -14,12 +18,6 @@ exports['revo_idcard']:CreateRealID(playerSource)
 
 **Parameters:**
 - `playerSource` (number): The player's server ID
-
-**Example:**
-```lua
--- Create a real ID card for player with ID 1
-exports['revo_idcard']:CreateRealID(1)
-```
 
 ---
 
@@ -33,12 +31,6 @@ exports['revo_idcard']:CreateDriverLicense(playerSource)
 **Parameters:**
 - `playerSource` (number): The player's server ID
 
-**Example:**
-```lua
--- Create a driver license for player with ID 1
-exports['revo_idcard']:CreateDriverLicense(1)
-```
-
 ---
 
 ### CreateWeaponLicense
@@ -50,15 +42,6 @@ exports['revo_idcard']:CreateWeaponLicense(playerSource)
 
 **Parameters:**
 - `playerSource` (number): The player's server ID
-
-**Example:**
-```lua
--- Create a weapon license for player with ID 1
-exports['revo_idcard']:CreateWeaponLicense(1)
-```
-<Warning>
-  All exports are **server-side only** and cannot be called from client-side scripts
-</Warning>
 
 ## Integration Examples
 
