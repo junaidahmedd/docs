@@ -20,53 +20,150 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
     ```
   </Step>
   
-  <Step title="Add Items to ox_inventory">
-    Open your `ox_inventory/data/items.lua` file and add the following items:
+  <Step title="Add Items to Your Inventory System">
+    Revo ID Card supports the following inventory systems. Choose the one you're using and follow the corresponding instructions:
     
-    ```lua
-    ['id_card'] = {
-      label = 'ID Card',
-      weight = 1,
-      stack = false,
-      close = true,
-      description = "Your personal identification card.",
-      client = {
-        image = 'revo_id_card.png',
-      }
-    },
-    ['driver_license'] = {
-      label = 'Driver License',
-      weight = 1,
-      stack = false,
-      close = true,
-      description = "Your driver's license.",
-      client = {
-        image = 'revo_driver_license.png',
-      }
-    },
-    ['firearm_license'] = {
-      label = 'Firearm License',
-      weight = 1,
-      stack = false,
-      close = true,
-      description = "Your weapon's license.",
-      client = {
-        image = 'revo_weapon_license.png',
-      }
-    },
-    ```
-  </Step>
-  
-  <Step title="Add Item Images">
-    Copy the following files from the **item-images** folder provided with this script and paste them into `ox_inventory/web/images`:
-    
-    - revo_id_card.png
-    - revo_driver_license.png
-    - revo_weapon_license.png
+    <Tabs>
+      <Tab title="ox_inventory">
+        Open your `ox_inventory/data/items.lua` file and add the following items:
+        
+        ```lua
+        ['id_card'] = {
+          label = 'ID Card',
+          weight = 1,
+          stack = false,
+          close = true,
+          description = "Your personal identification card.",
+          client = {
+            image = 'revo_id_card.png',
+          }
+        },
+        ['driver_license'] = {
+          label = 'Driver License',
+          weight = 1,
+          stack = false,
+          close = true,
+          description = "Your driver's license.",
+          client = {
+            image = 'revo_driver_license.png',
+          }
+        },
+        ['firearm_license'] = {
+          label = 'Firearm License',
+          weight = 1,
+          stack = false,
+          close = true,
+          description = "Your weapon's license.",
+          client = {
+            image = 'revo_weapon_license.png',
+          }
+        },
+        ```
+        
+        Add images to: `ox_inventory/web/images/`
+        - revo_id_card.png
+        - revo_driver_license.png
+        - revo_weapon_license.png
+      </Tab>
+      
+      <Tab title="qb-inventory">
+        Open your `qb-core/shared/items.lua` file and add the following items:
+        
+        ```lua
+        ['id_card'] = {
+          name = 'id_card',
+          label = 'ID Card',
+          weight = 1,
+          type = 'item',
+          image = 'revo_id_card.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your personal identification card.'
+        },
+        ['driver_license'] = {
+          name = 'driver_license',
+          label = 'Driver License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_driver_license.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your driver\'s license.'
+        },
+        ['firearm_license'] = {
+          name = 'firearm_license',
+          label = 'Firearm License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_weapon_license.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your weapon\'s license.'
+        },
+        ```
+        
+        Add images to: `qb-inventory/html/images/`
+        - revo_id_card.png
+        - revo_driver_license.png
+        - revo_weapon_license.png
+      </Tab>
+      
+      <Tab title="qs-inventory">
+        For ESX servers: Add the following items to `qs-inventory/shared/items.lua`
+        
+        For QBCore servers: Add the same items to `qb-core/shared/items.lua`
+        
+        ```lua
+        ['id_card'] = {
+          name = 'id_card',
+          label = 'ID Card',
+          weight = 1,
+          type = 'item',
+          image = 'revo_id_card.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your personal identification card.'
+        },
+        ['driver_license'] = {
+          name = 'driver_license',
+          label = 'Driver License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_driver_license.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your driver\'s license.'
+        },
+        ['firearm_license'] = {
+          name = 'firearm_license',
+          label = 'Firearm License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_weapon_license.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your weapon\'s license.'
+        },
+        ```
+        
+        Add images to: `qs-inventory/html/images/`
+        - revo_id_card.png
+        - revo_driver_license.png
+        - revo_weapon_license.png
+      </Tab>
+    </Tabs>
   </Step>
   
   <Step title="Start the Resource">
-    Restart your server or run these commands in the server console:
+    After adding the items and images, restart your inventory resource (ox_inventory, qb-inventory, or qs-inventory) to load the new items.
+    
+    Then restart your server or run these commands in the server console:
     
     ```bash
     refresh
@@ -78,3 +175,15 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
 <Tip>
   Revo ID Card is fully configurable and optimized for performance. You can customize NPCs, card visuals, and prices in the `config.lua` file.
 </Tip>
+
+## Available Exports
+
+Revo ID Card provides the following exports for other resources to use:
+
+```lua
+exports['revo_idcard']:CreateRealID(playerSource)
+exports['revo_idcard']:CreateDriverLicense(playerSource)
+exports['revo_idcard']:CreateWeaponLicense(playerSource)
+```
+
+These exports allow you to programmatically create ID cards, driver licenses, and weapon licenses for players from other scripts or resources.
