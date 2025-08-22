@@ -44,6 +44,7 @@
               "products/id-card/dependencies",
               "products/id-card/installation",
               "products/id-card/configuration",
+              "products/id-card/exports",
               "products/id-card/changelog"
             ]
           },
