@@ -58,6 +58,35 @@ AddEventHandler('police:drivingTestPassed', function()
 end)
 ```
 
+### Client-Side Integration
+Since exports are server-side only, you can trigger them from client-side scripts using custom events:
+
+**Client-Side (Trigger Event):**
+```lua
+-- Client-side script
+RegisterNetEvent('idcard:requestID')
+AddEventHandler('idcard:requestID', function()
+    -- Trigger server event to create ID card
+    TriggerServerEvent('idcard:createID')
+end)
+
+
+**Server-Side (Handle Event):**
+```lua
+-- Server-side script
+RegisterNetEvent('idcard:createID')
+AddEventHandler('idcard:createID', function()
+    local playerId = source
+    -- Export triggers client event - no return value
+    exports['revo_idcard']:CreateRealID(playerId)
+    
+    -- Note: Success/failure feedback would come from the client-side ID card system
+    TriggerClientEvent('chat:addMessage', playerId, {
+        args = {'^2Info', 'ID card creation process started.'}
+    })
+end)
+```
+
 ### DMV Integration
 ```lua
 -- Give an ID card when player registers at DMV
@@ -84,18 +113,16 @@ AddEventHandler('weaponTraining:completed', function()
 end)
 ```
 
-## Error Handling
+## How Exports Work
 
-The exports will return `true` if the operation is successful, or `false` if there's an error (e.g., invalid player ID, inventory issues).
+The exports trigger client-side events that handle the ID card creation process. They don't return values immediately since the actual creation happens asynchronously through the client-side interface.
 
-```lua
-local success = exports['revo_idcard']:CreateRealID(playerId)
-if success then
-    print("ID card created successfully")
-else
-    print("Failed to create ID card")
-end
-```
+**What happens when you call an export:**
+1. Export triggers a client event (`revo_idcard:requestMugshotAndCreateID`)
+2. Client-side script handles the mugshot capture and ID creation
+3. The actual card creation happens through the normal ID card system
+
+**Note:** These exports are fire-and-forget - they don't provide immediate feedback about success or failure.
 
 ## Notes
 - The player must have sufficient inventory space for the card to be created
