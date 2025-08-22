@@ -1,27 +1,71 @@
 ---
 title: 'Dependencies'
-description: 'Requirements for using Revo EcoWipe in your FiveM server.'
+description: 'Requirements for using Revo ID Card in your FiveM server.'
 ---
 
 <Info>
-  Revo EcoWipe depends on **oxmysql** for handling database operations. Please ensure it is installed and properly configured.
+  Revo ID Card requires one of the supported inventory systems to function properly. Please ensure you have one of the following installed and configured.
 </Info>
 
+## Required Dependencies
+
+### Inventory System
+You must have one of these inventory systems installed:
+
+<Tabs>
+  <Tab title="ox_inventory">
+    **ox_inventory** - Overextended's modern inventory system
+    
+    - Download from: <a href="https://github.com/overextended/ox_inventory" target="_blank">GitHub</a>
+    - Place in your `resources` directory
+    - Add `ensure ox_inventory` to your `server.cfg`
+  </Tab>
+  
+  <Tab title="qb-inventory">
+    **qb-inventory** - QBCore's inventory system
+    
+    - Download from: <a href="https://github.com/qbcore-framework/qb-inventory" target="_blank">GitHub</a>
+    - Place in your `resources` directory
+    - Add `ensure qb-inventory` to your `server.cfg`
+  </Tab>
+  
+  <Tab title="qs-inventory">
+    **qs-inventory** - QS-Inventory system
+    
+    - Download from: <a href="https://github.com/qs-inventory/qs-inventory" target="_blank">GitHub</a>
+    - Place in your `resources` directory
+    - Add `ensure qs-inventory` to your `server.cfg`
+  </Tab>
+</Tabs>
+
+## Framework Support
+
+Revo ID Card works with the following frameworks:
+
+- **ESX** - Legacy and Legacy+ versions
+- **QBCore** - All versions
+- **QBox** - All versions
+
+## Installation Order
+
 <Steps>
-  <Step title="Download oxmysql">
-    Go to the <a href="https://github.com/overextended/oxmysql/releases" target="_blank">oxmysql releases page</a> and download the latest release zip file.
+  <Step title="Install Framework">
+    Ensure your chosen framework (ESX, QBCore, or QBox) is installed and running.
   </Step>
-  <Step title="Add to Resources">
-    Extract the downloaded `oxmysql` folder and place it inside your server's `resources` directory.
+  
+  <Step title="Install Inventory System">
+    Install one of the supported inventory systems listed above.
   </Step>
-  <Step title="Configure server.cfg">
-    Add the following line to your `server.cfg` <b>before</b> revo_ecowipe to ensure oxmysql starts first:
-    ```bash
-      ensure oxmysql
-    ```
+  
+  <Step title="Install Revo ID Card">
+    Install Revo ID Card after your inventory system is configured.
   </Step>
 </Steps>
 
-<Info>
-  Make sure oxmysql is included **before** EcoWipe in your `server.cfg` to avoid runtime errors.
-</Info>
+<Warning>
+  Make sure your inventory system is included **before** Revo ID Card in your `server.cfg` to avoid runtime errors.
+</Warning>
+
+<Tip>
+  If you're unsure which inventory system to use, we recommend **ox_inventory** for its modern features and excellent performance.
+</Tip>
