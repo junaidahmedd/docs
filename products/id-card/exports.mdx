@@ -78,12 +78,13 @@ end)
 RegisterNetEvent('idcard:createID')
 AddEventHandler('idcard:createID', function()
     local playerId = source
-    -- Export triggers client event - no return value
+    -- Export triggers client event to start mugshot capture
     exports['revo_idcard']:CreateRealID(playerId)
     
-    -- Note: Success/failure feedback would come from the client-side ID card system
+    -- Note: The system will automatically handle mugshot capture and ID creation
+    -- Success/failure feedback comes through the internal event system
     TriggerClientEvent('chat:addMessage', playerId, {
-        args = {'^2Info', 'ID card creation process started.'}
+        args = {'^2Info', 'ID card creation process started. Please look at the camera for your mugshot.'}
     })
 end)
 ```
@@ -116,14 +117,15 @@ end)
 
 ## How Exports Work
 
-The exports trigger client-side events that handle the ID card creation process. They don't return values immediately since the actual creation happens asynchronously through the client-side interface.
+The exports trigger a client-side event that initiates the mugshot capture and ID card creation process. The system works asynchronously through a client-server communication flow.
 
-**What happens when you call an export:**
-1. Export triggers a client event (`revo_idcard:requestMugshotAndCreateID`)
-2. Client-side script handles the mugshot capture and ID creation
-3. The actual card creation happens through the normal ID card system
+**Complete flow when you call an export:**
+1. **Export called** → Triggers `revo_idcard:requestMugshotAndCreateID` client event
+2. **Client-side** → Handles mugshot capture and sends data back via `revo_idcard:receiveMugshotAndCreateID`
+3. **Server-side** → Receives mugshot data and triggers `revo_idcard:issueRealID` event
+4. **Final creation** → `issueRealID` handles player data fetching and actual item creation
 
-**Note:** These exports are fire-and-forget - they don't provide immediate feedback about success or failure.
+**Note:** The exports are fire-and-forget - they start the process but don't provide immediate feedback. Success/failure is handled through the internal event system.
 
 ## Notes
 - The player must have sufficient inventory space for the card to be created
