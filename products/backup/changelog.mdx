@@ -14,72 +14,25 @@ description: "Version history and updates for Revo Backup."
 ### 🎉 Initial Release
 
 **New Features:**
-- ✅ Automatic database backups with customizable time and interval
-- ✅ Manual backup creation via UI and commands
-- ✅ Automatic cleanup system with configurable retention periods
-- ✅ Maximum backup limit to prevent storage overflow
-- ✅ Clean and intuitive user interface
-- ✅ Label management for backup organization
-- ✅ txAdmin command support for server management
-- ✅ SQL file storage for easy restoration
-- ✅ One-click restore compatibility with phpMyAdmin
-- ✅ Multi-framework support (ESX, QBCore, vRP, Custom)
-- ✅ Comprehensive permission system
-- ✅ Fallback database configuration options
-
-**Technical Features:**
-- 🔧 oxmysql integration for reliable database operations
-- 🔧 Escrow protection for script security
-- 🔧 Optimized performance with minimal server impact
-- 🔧 Cross-platform compatibility
-- 🔧 Comprehensive error handling and logging
+- Automatic database backups with customizable time and interval
+- Manual backup creation via UI
+- Automatic cleanup system with configurable retention periods
+- Maximum backup limit to prevent storage overflow
+- Clean and intuitive user interface
+- Label management for backup organization
+- Server-side txAdmin commands for backup management
+- SQL file storage for easy restoration
+- One-click restore compatibility with phpMyAdmin
+- Multi-framework support (ESX, QBCore, vRP, Custom)
+- Comprehensive permission system
+- Fallback database configuration options
 
 **Commands:**
-- `/backup` - Open backup management UI
-- `/makebackup` - Create manual backup
-- `/deletebackup` - Delete specific backup
-- `F6` - Quick access to backup interface
-
-**Configuration Options:**
-- Auto backup enable/disable toggle
-- Customizable backup time (12-hour format)
-- Flexible backup intervals (daily, weekly, monthly)
-- Automatic cleanup with retention periods
-- Maximum backup limits
-- Admin group permissions
-- Fallback database settings
+- `/backup` - Open backup management UI (client-side)
+- `makebackup "[label]"` - Create manual backup (server-side/txAdmin only)
+- `deletebackup [id]` - Delete specific backup (server-side/txAdmin only)
+- `F6` - Quick access to backup interface (client-side)
 
 <Note>
   This is the initial release of Revo Backup. Future updates will be documented here as they become available.
 </Note>
-
----
-
-## Planned Features
-
-<AccordionGroup>
-  <Accordion title="Version 1.1.0 - Enhanced UI">
-    - Improved backup management interface
-    - Backup progress indicators
-    - Enhanced file organization
-    - Better error messaging
-  </Accordion>
-  
-  <Accordion title="Version 1.2.0 - Advanced Features">
-    - Selective table backup options
-    - Backup compression for storage optimization
-    - Email notifications for backup status
-    - Remote backup storage options
-  </Accordion>
-  
-  <Accordion title="Version 1.3.0 - Integration">
-    - Discord webhook notifications
-    - Advanced scheduling options
-    - Backup verification system
-    - Performance monitoring
-  </Accordion>
-</AccordionGroup>
-
-<Tip>
-  Stay updated by checking your Cfx.re granted assets regularly for new versions. No repurchase required for updates!
-</Tip>
