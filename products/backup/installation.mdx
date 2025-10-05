@@ -17,16 +17,16 @@ description: "Install Revo Backup and set it up on your FiveM server."
   
   <Step title="Extract the Script">
     - Extract the downloaded <code>.zip</code> file.<br/>
-    - Inside the extracted folder, you'll find a folder like <code>revo-backup</code>.
+    - Inside the extracted folder, you'll find a folder like <code>revo_backup</code>.
     <Warning>
-      <b>Do not rename</b> the script folder (e.g., <code>revo-backup</code>) — this will break escrow validation.
+      <b>Do not rename</b> the script folder (e.g., <code>revo_backup</code>) — this will break escrow validation.
     </Warning>
   </Step>
   
   <Step title="Move Script to Server Resources">
     Move the script folder into your server's <code>resources</code> directory.
     ```bash
-      /resources/[revo]/revo-backup
+      /resources/[revo]/revo_backup
     ```
     <Tip>
       You may organize Revo scripts under a <code>[revo]</code> folder.
@@ -50,7 +50,7 @@ description: "Install Revo Backup and set it up on your FiveM server."
       ensure oxmysql
       
       # Then Revo Backup
-      ensure revo-backup
+      ensure revo_backup
     ```
   </Step>
   
@@ -86,7 +86,7 @@ After installation, you can verify the script is working by:
   <Accordion title="Script Not Loading">
     - Verify oxmysql is installed and running
     - Check that Revo Backup is added to server.cfg
-    - Ensure proper startup order (oxmysql before revo-backup)
+    - Ensure proper startup order (oxmysql before revo_backup)
   </Accordion>
   
   <Accordion title="Database Connection Issues">
