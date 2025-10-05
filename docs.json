@@ -67,7 +67,7 @@
             ]
           },
           {
-            "group": "Backup",
+            "group": "Auto FiveM Backups",
             "pages": [
               "products/backup/overview",
               "products/backup/dependencies",
