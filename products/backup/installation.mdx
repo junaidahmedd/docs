@@ -43,27 +43,6 @@ description: "Install Revo Backup and set it up on your FiveM server."
     </Note>
   </Step>
   
-  <Step title="Add Script to server.cfg">
-    In your <code>server.cfg</code>, add the script after dependencies:
-    ```bash
-      # Dependencies first
-      ensure oxmysql
-      
-      # Then Revo Backup
-      ensure revo_backup
-    ```
-  </Step>
-  
-  <Step title="Configure Database Connection">
-    Ensure your database connection is properly configured in your <code>server.cfg</code>:
-    ```bash
-      set mysql_connection_string "mysql://username:password@localhost/database_name?charset=utf8mb4"
-    ```
-    <Note>
-      The script will use your server's MySQL connection string. Fallback database settings are available in the config file if needed.
-    </Note>
-  </Step>
-  
   <Step title="Restart Your Server">
     Restart your server to load the script.
     <Note>
