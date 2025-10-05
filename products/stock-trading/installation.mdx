@@ -21,17 +21,16 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
   </Step>
   <Step title="Configure server.cfg">
     Ensure dependencies and the resource are started in the correct order:
-    <CodeGroup>
+    ```bash
       ensure oxmysql
       ensure revo_stocktrading
-    </CodeGroup>
+    ```
   </Step>
   <Step title="Add Trading Tablet to Your Inventory System">
     <Tabs>
       <Tab title="ox_inventory">
         Open your <code>ox_inventory/data/items.lua</code> file and add:
-        <CodeGroup>
-          lua
+        ```lua
           ['revo_trading_tablet'] = {
             label = 'Trading Tablet',
             weight = 500,
@@ -42,7 +41,7 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
               image = 'REVO_TRADING_TABLET.png',
             }
           }
-        </CodeGroup>
+        ```
         <Tip>
           Copy <code>REVO_TRADING_TABLET.png</code> from the script's <b>inventory item</b> folder to <code>ox_inventory/web/images</code>.
         </Tip>
@@ -50,8 +49,7 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
       <Tab title="qs-inventory">
         Open your <code>qs-inventory/html/images</code> folder and add the image.<br/>
         Then add the item to your <code>shared/items.lua</code>:
-        <CodeGroup>
-          lua
+        ```lua
           ['revo_trading_tablet'] = {
             name = 'revo_trading_tablet',
             label = 'Trading Tablet',
@@ -64,7 +62,7 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
             combinable = nil,
             description = 'Access trading panel.'
           }
-        </CodeGroup>
+        ```
         <Tip>
           Place <code>REVO_TRADING_TABLET.png</code> in <code>qs-inventory/html/images</code>.
         </Tip>
@@ -72,8 +70,7 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
       <Tab title="qb-inventory">
         Open your <code>qb-inventory/html/images</code> folder and add the image.<br/>
         Then add the item to your <code>shared/items.lua</code>:
-        <CodeGroup>
-          lua
+        ```lua
           ['revo_trading_tablet'] = {
             name = 'revo_trading_tablet',
             label = 'Trading Tablet',
@@ -86,7 +83,7 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
             combinable = nil,
             description = 'Access trading panel.'
           }
-        </CodeGroup>
+        ```
         <Tip>
           Place <code>REVO_TRADING_TABLET.png</code> in <code>qb-inventory/html/images</code>.
         </Tip>
@@ -95,10 +92,10 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
   </Step>
   <Step title="Start the Resource">
     Restart your server or run these commands in the server console:
-    <CodeGroup>
+    ```bash
       refresh
       ensure revo_stocktrading
-    </CodeGroup>
+    ```
   </Step>
 </Steps>
 
