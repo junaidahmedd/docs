@@ -38,6 +38,17 @@
             ]
           },
           {
+            "group": "Auto FiveM Backups",
+            "pages": [
+              "products/backup/overview",
+              "products/backup/dependencies",
+              "products/backup/installation",
+              "products/backup/configuration",
+              "products/backup/usage",
+              "products/backup/changelog"
+            ]
+          },
+          {
             "group": "ID Card",
             "pages": [
               "products/id-card/overview",
@@ -64,17 +75,6 @@
               "products/gun-jam/installation",
               "products/gun-jam/configuration",
               "products/gun-jam/changelog"
-            ]
-          },
-          {
-            "group": "Auto FiveM Backups",
-            "pages": [
-              "products/backup/overview",
-              "products/backup/dependencies",
-              "products/backup/installation",
-              "products/backup/configuration",
-              "products/backup/usage",
-              "products/backup/changelog"
             ]
           }
         ]
