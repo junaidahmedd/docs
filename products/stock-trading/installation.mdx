@@ -1,30 +1,109 @@
 ---
 title: 'Installation'
-description: 'Install Revo EcoWipe and set it up on your FiveM server.'
+description: 'Install Revo Stock Trading and set it up on your FiveM server.'
 ---
 
 <Steps>
-  <Step title="Download EcoWipe">
-    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo EcoWipe**. Save the script to your computer.
+  <Step title="Download Stock Trading">
+    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo Stock Trading**. Save the script to your computer.
   </Step>
   <Step title="Add to Resources">
-    Place the downloaded `revo_ecowipe` folder inside your server's `resources` directory.
+    Place the downloaded <code>revo_stocktrading</code> folder inside your server's <code>resources</code> directory.
+  </Step>
+  <Step title="Import Required SQL Files">
+    Import the following SQL files into your game database (using your preferred MySQL client):
+    <ul>
+      <li><code>stocks.sql</code></li>
+      <li><code>trade_users.sql</code></li>
+      <li><code>trades.sql</code></li>
+    </ul>
+    Make sure the database configured for <code>oxmysql</code> matches where you import these tables.
   </Step>
   <Step title="Configure server.cfg">
-    Add the following line to your `server.cfg` to ensure EcoWipe starts with your server:
+    Ensure dependencies and the resource are started in the correct order:
     <CodeGroup>
-      ensure revo_ecowipe
+      ensure oxmysql
+      ensure revo_stocktrading
     </CodeGroup>
+  </Step>
+  <Step title="Add Trading Tablet to Your Inventory System">
+    <Tabs>
+      <Tab title="ox_inventory">
+        Open your <code>ox_inventory/data/items.lua</code> file and add:
+        <CodeGroup>
+          lua
+          ['revo_trading_tablet'] = {
+            label = 'Trading Tablet',
+            weight = 500,
+            stack = false,
+            close = true,
+            description = 'Access trading panel.',
+            client = {
+              image = 'REVO_TRADING_TABLET.png',
+            }
+          }
+        </CodeGroup>
+        <Tip>
+          Copy <code>REVO_TRADING_TABLET.png</code> from the script's <b>inventory item</b> folder to <code>ox_inventory/web/images</code>.
+        </Tip>
+      </Tab>
+      <Tab title="qs-inventory">
+        Open your <code>qs-inventory/html/images</code> folder and add the image.<br/>
+        Then add the item to your <code>shared/items.lua</code>:
+        <CodeGroup>
+          lua
+          ['revo_trading_tablet'] = {
+            name = 'revo_trading_tablet',
+            label = 'Trading Tablet',
+            weight = 500,
+            type = 'item',
+            image = 'REVO_TRADING_TABLET.png',
+            unique = false,
+            useable = true,
+            shouldClose = true,
+            combinable = nil,
+            description = 'Access trading panel.'
+          }
+        </CodeGroup>
+        <Tip>
+          Place <code>REVO_TRADING_TABLET.png</code> in <code>qs-inventory/html/images</code>.
+        </Tip>
+      </Tab>
+      <Tab title="qb-inventory">
+        Open your <code>qb-inventory/html/images</code> folder and add the image.<br/>
+        Then add the item to your <code>shared/items.lua</code>:
+        <CodeGroup>
+          lua
+          ['revo_trading_tablet'] = {
+            name = 'revo_trading_tablet',
+            label = 'Trading Tablet',
+            weight = 500,
+            type = 'item',
+            image = 'REVO_TRADING_TABLET.png',
+            unique = false,
+            useable = true,
+            shouldClose = true,
+            combinable = nil,
+            description = 'Access trading panel.'
+          }
+        </CodeGroup>
+        <Tip>
+          Place <code>REVO_TRADING_TABLET.png</code> in <code>qb-inventory/html/images</code>.
+        </Tip>
+      </Tab>
+    </Tabs>
   </Step>
   <Step title="Start the Resource">
     Restart your server or run these commands in the server console:
     <CodeGroup>
       refresh
-      ensure revo_ecowipe
+      ensure revo_stocktrading
     </CodeGroup>
   </Step>
 </Steps>
 
 <Tip>
-  EcoWipe is free and works for both online and offline players. All operations are performed in-game through a user-friendly UI.
+  Verify that <code>oxmysql</code> is connected and that all three SQL files were imported successfully before starting the resource.
+  Use your MySQL client to check that the <code>stocks</code>, <code>trade_users</code>, and <code>trades</code> tables exist.
+  
 </Tip>

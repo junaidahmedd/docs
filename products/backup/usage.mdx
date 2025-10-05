@@ -1,0 +1,248 @@
+---
+title: "Usage Guide"
+description: "Learn how to use Revo Backup commands and restore your database."
+---
+
+<Info>
+  Revo Backup provides multiple ways to create and manage backups - through the in-game UI, commands, and txAdmin console.
+</Info>
+
+## Accessing the Backup System
+
+### In-Game Methods
+
+<CardGroup cols={2}>
+  <Card title="UI Interface" icon="window">
+    **Command:** `/backup`<br/>
+    **Key:** `F6`<br/>
+    **Description:** Opens the full backup management interface
+  </Card>
+  
+  <Card title="Quick Commands" icon="terminal">
+    **Create:** `/makebackup`<br/>
+    **Delete:** `/deletebackup`<br/>
+    **Description:** Quick access to backup operations
+  </Card>
+</CardGroup>
+
+### Server Console (txAdmin)
+
+For server administrators, Revo Backup provides powerful console commands for backup management:
+
+<CardGroup cols={1}>
+  <Card title="Create Backup with Label" icon="plus">
+    ```bash
+    makebackup "Daily Backup"
+    makebackup "Before Update"
+    makebackup "Emergency Backup"
+    ```
+    
+    **Purpose:** Creates a manual backup with a custom label
+    **Format:** `makebackup "[label]"`
+    **Note:** Labels help identify the purpose of each backup
+  </Card>
+  
+  <Card title="Delete Backup by ID" icon="trash">
+    ```bash
+    deletebackup 1
+    deletebackup 5
+    deletebackup 12
+    ```
+    
+    **Purpose:** Removes a specific backup by its ID
+    **Format:** `deletebackup [id]`
+    **Note:** Use the backup list to find the correct ID
+  </Card>
+</CardGroup>
+
+## Backup File Storage
+
+<Info>
+  All backup files are stored in the script's root folder for easy access and management.
+</Info>
+
+### File Location
+
+```
+/resources/revo-backup/
+├── backups/
+│   ├── backup_2024-01-15_12-00-00.sql
+│   ├── backup_2024-01-16_12-00-00.sql
+│   ├── backup_2024-01-17_12-00-00.sql
+│   └── backup_2024-01-18_12-00-00.sql
+├── config.lua
+├── fxmanifest.lua
+└── ...
+```
+
+### What's Included in Backups
+
+<AccordionGroup>
+  <Accordion title="Complete Database Structure">
+    - **All Tables:** Every table in your database
+    - **Table Structure:** Column definitions, data types, constraints
+    - **Indexes:** All database indexes for optimal performance
+    - **Triggers:** Database triggers and stored procedures
+  </Accordion>
+  
+  <Accordion title="All Data Rows">
+    - **Player Data:** All player information and progress
+    - **Server Data:** Items, vehicles, properties, etc.
+    - **Transaction History:** All financial and gameplay records
+    - **Configuration Data:** Server settings and customizations
+  </Accordion>
+  
+  <Accordion title="Relationship Integrity">
+    - **Foreign Keys:** All relationships between tables preserved
+    - **Referential Integrity:** Data consistency maintained
+    - **Cascading Rules:** Update and delete rules preserved
+    - **Constraints:** All database constraints intact
+  </Accordion>
+</AccordionGroup>
+
+## Database Restoration
+
+### Step-by-Step Restoration Guide
+
+<Steps>
+  <Step title="Access phpMyAdmin">
+    1. Open your web browser and navigate to phpMyAdmin
+    2. Log in with your database credentials
+    3. Select your database from the left sidebar
+  </Step>
+  
+  <Step title="Clear Existing Data (Optional)">
+    If you want to restore over existing data:
+    1. Click on your database name
+    2. Select all tables (Ctrl+A or Cmd+A)
+    3. Choose "Drop" to remove existing tables
+    <Warning>
+      This will permanently delete all current data. Make sure you have a backup!
+    </Warning>
+  </Step>
+  
+  <Step title="Import Backup File">
+    1. Click the **"Import"** tab at the top
+    2. Click **"Choose File"** or **"Browse"**
+    3. Navigate to your backup file location:
+       ```
+       /resources/revo-backup/backups/
+       ```
+    4. Select your desired backup file (e.g., `backup_2024-01-15_12-00-00.sql`)
+  </Step>
+  
+  <Step title="Configure Import Settings">
+    1. **Format:** Leave as "SQL" (default)
+    2. **Character Set:** Usually "utf8mb4" or "utf8"
+    3. **Partial Import:** Leave unchecked for complete restoration
+    4. **SQL Compatibility Mode:** Leave as "NONE" unless needed
+  </Step>
+  
+  <Step title="Execute Import">
+    1. Click **"Go"** or **"Import"** button
+    2. Wait for the import process to complete
+    3. Check for any error messages
+    4. Verify your tables and data are restored
+  </Step>
+</Steps>
+
+### Alternative Restoration Methods
+
+<Tabs>
+  <Tab title="MySQL Command Line">
+    ```bash
+    mysql -u username -p database_name < backup_file.sql
+    ```
+    
+    **Usage:**
+    1. Open terminal/command prompt
+    2. Navigate to backup file location
+    3. Run the command above
+    4. Enter your MySQL password when prompted
+  </Tab>
+  
+  <Tab title="MySQL Workbench">
+    1. Open MySQL Workbench
+    2. Connect to your database server
+    3. Go to **Server** → **Data Import**
+    4. Select **"Import from Self-Contained File"**
+    5. Choose your backup file
+    6. Select target database
+    7. Click **"Start Import"**
+  </Tab>
+  
+  <Tab title="HeidiSQL">
+    1. Open HeidiSQL
+    2. Connect to your database
+    3. Go to **Tools** → **Load SQL file**
+    4. Select your backup file
+    5. Click **"Execute"**
+  </Tab>
+</Tabs>
+
+## Backup Management Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Regular Backups" icon="calendar">
+    - Set up automatic daily backups
+    - Create manual backups before major updates
+    - Test restoration process periodically
+  </Card>
+  
+  <Card title="Storage Management" icon="database">
+    - Monitor backup folder size
+    - Use automatic cleanup settings
+    - Keep backups in multiple locations
+  </Card>
+  
+  <Card title="Labeling System" icon="tag">
+    - Use descriptive labels for backups
+    - Include dates in manual backup labels
+    - Document backup purposes
+  </Card>
+  
+  <Card title="Testing" icon="check">
+    - Regularly test backup restoration
+    - Verify data integrity after restore
+    - Keep restoration documentation updated
+  </Card>
+</CardGroup>
+
+## Troubleshooting Restoration
+
+<AccordionGroup>
+  <Accordion title="Import Errors">
+    **Common Issues:**
+    - File size too large (increase PHP limits)
+    - Character set mismatches
+    - Insufficient database permissions
+    
+    **Solutions:**
+    - Use command line import for large files
+    - Check character set settings
+    - Verify database user permissions
+  </Accordion>
+  
+  <Accordion title="Partial Restoration">
+    **Symptoms:**
+    - Some tables missing
+    - Data inconsistencies
+    - Foreign key errors
+    
+    **Solutions:**
+    - Check for SQL errors during import
+    - Verify backup file integrity
+    - Import in smaller chunks if needed
+  </Accordion>
+  
+  <Accordion title="Performance Issues">
+    **Large Database Restoration:**
+    - Use command line tools for better performance
+    - Increase MySQL timeout settings
+    - Consider restoring during low-traffic periods
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  Always test your restoration process with a copy of your database before performing a real restoration. This ensures you're familiar with the process and can identify any potential issues.
+</Tip>

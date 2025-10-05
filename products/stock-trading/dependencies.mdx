@@ -1,10 +1,10 @@
 ---
 title: 'Dependencies'
-description: 'Requirements for using Revo EcoWipe in your FiveM server.'
+description: 'Requirements for using Revo Stock Trading in your FiveM server.'
 ---
 
 <Info>
-  Revo EcoWipe depends on **oxmysql** for handling database operations. Please ensure it is installed and properly configured.
+  Revo Stock Trading depends on **oxmysql** for database operations and is compatible with **ESX**, **QBCore**, and **QBox** servers only.
 </Info>
 
 <Steps>
@@ -15,13 +15,16 @@ description: 'Requirements for using Revo EcoWipe in your FiveM server.'
     Extract the downloaded `oxmysql` folder and place it inside your server's `resources` directory.
   </Step>
   <Step title="Configure server.cfg">
-    Add the following line to your `server.cfg` <b>before</b> revo_ecowipe to ensure oxmysql starts first:
+    Add the following line to your `server.cfg` <b>before</b> starting Stock Trading so oxmysql initializes first:
     <CodeGroup>
       ensure oxmysql
     </CodeGroup>
   </Step>
+  <Step title="Framework Compatibility">
+    Ensure your server is running one of the supported frameworks: **ESX**, **QBCore**, or **QBox**. Other frameworks are not supported.
+  </Step>
 </Steps>
 
 <Info>
-  Make sure oxmysql is included **before** EcoWipe in your `server.cfg` to avoid runtime errors.
+  Load order matters. Start `oxmysql` before your framework and Stock Trading resource to avoid initialization issues.
 </Info>

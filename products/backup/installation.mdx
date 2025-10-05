@@ -1,0 +1,103 @@
+---
+title: "Installation"
+description: "Install Revo Backup and set it up on your FiveM server."
+---
+
+<Info>
+  Make sure you have oxmysql installed and running before installing Revo Backup.
+</Info>
+
+<Steps>
+  <Step title="Download the Script">
+    1. Visit the <a href="https://keymaster.fivem.net/" target="_blank">Cfx.re Keymaster</a>.<br/>
+    2. Log in using the <b>account that made the purchase</b>.<br/>
+    3. Go to the <b>Granted Assets</b> tab.<br/>
+    4. Find Revo Backup and click <b>Download</b>.
+  </Step>
+  
+  <Step title="Extract the Script">
+    - Extract the downloaded <code>.zip</code> file.<br/>
+    - Inside the extracted folder, you'll find a folder like <code>revo-backup</code>.
+    <Warning>
+      <b>Do not rename</b> the script folder (e.g., <code>revo-backup</code>) — this will break escrow validation.
+    </Warning>
+  </Step>
+  
+  <Step title="Move Script to Server Resources">
+    Move the script folder into your server's <code>resources</code> directory.
+    ```bash
+      /resources/[revo]/revo-backup
+    ```
+    <Tip>
+      You may organize Revo scripts under a <code>[revo]</code> folder.
+    </Tip>
+  </Step>
+  
+  <Step title="Install Dependencies">
+    Make sure you have oxmysql installed and configured:
+    ```bash
+      ensure oxmysql
+    ```
+    <Note>
+      oxmysql must be started <b>before</b> Revo Backup in your server.cfg.
+    </Note>
+  </Step>
+  
+  <Step title="Add Script to server.cfg">
+    In your <code>server.cfg</code>, add the script after dependencies:
+    ```bash
+      # Dependencies first
+      ensure oxmysql
+      
+      # Then Revo Backup
+      ensure revo-backup
+    ```
+  </Step>
+  
+  <Step title="Configure Database Connection">
+    Ensure your database connection is properly configured in your <code>server.cfg</code>:
+    ```bash
+      set mysql_connection_string "mysql://username:password@localhost/database_name?charset=utf8mb4"
+    ```
+    <Note>
+      The script will use your server's MySQL connection string. Fallback database settings are available in the config file if needed.
+    </Note>
+  </Step>
+  
+  <Step title="Restart Your Server">
+    Restart your server to load the script.
+    <Note>
+      Full server restart is required to ensure proper initialization.
+    </Note>
+  </Step>
+</Steps>
+
+## Verification
+
+After installation, you can verify the script is working by:
+
+1. **Check Console:** Look for "Revo Backup loaded successfully" message
+2. **Test Commands:** Try `/backup` or press `F6` to open the UI
+3. **Check Permissions:** Ensure you have admin permissions to access backup features
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Script Not Loading">
+    - Verify oxmysql is installed and running
+    - Check that Revo Backup is added to server.cfg
+    - Ensure proper startup order (oxmysql before revo-backup)
+  </Accordion>
+  
+  <Accordion title="Database Connection Issues">
+    - Verify your MySQL connection string in server.cfg
+    - Check database credentials and permissions
+    - Ensure the database server is accessible
+  </Accordion>
+  
+  <Accordion title="Permission Errors">
+    - Verify your admin groups in the config file
+    - Check that your player has the required permissions
+    - Restart the script after permission changes
+  </Accordion>
+</AccordionGroup>

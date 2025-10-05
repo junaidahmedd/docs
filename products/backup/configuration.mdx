@@ -1,0 +1,197 @@
+---
+title: "Configuration"
+description: "Configure Revo Backup settings to match your server's needs."
+---
+
+<Info>
+  All configuration options are located in the `config.lua` file within the script folder.
+</Info>
+
+## Commands & Key Mappings
+
+<CardGroup cols={2}>
+  <Card title="Commands" icon="terminal">
+    ```lua
+    Config.Commands = {
+        openUI = 'backup',           -- /backup, /makebackup, /deletebackup
+        makeBackup = 'makebackup',
+        deleteBackup = 'deletebackup'
+    }
+    ```
+    
+    **Available Commands:**
+    - `/backup` - Open the backup UI
+    - `/makebackup` - Create a manual backup
+    - `/deletebackup` - Delete a backup
+  </Card>
+  
+  <Card title="Key Mappings" icon="keyboard">
+    ```lua
+    Config.KeyMappings = {
+        openUI = 'F6'               -- F6 to open backup UI
+    }
+    ```
+    
+    **Default Key:** `F6` - Opens the backup interface
+  </Card>
+</CardGroup>
+
+## Backup Settings
+
+### Automatic Backups
+
+<CardGroup cols={2}>
+  <Card title="Enable Auto Backups" icon="clock">
+    ```lua
+    Config.AutoBackupEnabled = true -- Enable auto backups (true/false)
+    ```
+    
+    **Options:**
+    - `true` - Automatic backups enabled
+    - `false` - Manual backups only
+  </Card>
+  
+  <Card title="Backup Time" icon="calendar">
+    ```lua
+    Config.AutoBackupTime = '12:00 AM' -- Backup time: '2:30 PM', '11:45 PM'
+    ```
+    
+    **Format:** 12-hour format with AM/PM
+    **Examples:** `'2:30 PM'`, `'11:45 PM'`, `'12:00 AM'`
+  </Card>
+  
+  <Card title="Backup Interval" icon="repeat">
+    ```lua
+    Config.AutoBackupInterval = 1 -- Days between backups: 1=daily, 7=weekly
+    ```
+    
+    **Options:**
+    - `1` - Daily backups
+    - `7` - Weekly backups
+    - `30` - Monthly backups
+  </Card>
+</CardGroup>
+
+### Cleanup Settings
+
+<CardGroup cols={2}>
+  <Card title="Auto Cleanup" icon="trash">
+    ```lua
+    Config.AutoCleanupEnabled = true -- Automatic cleanup toggle (true/false)
+    ```
+    
+    **Options:**
+    - `true` - Old backups automatically deleted
+    - `false` - Manual cleanup required
+  </Card>
+  
+  <Card title="Cleanup Days" icon="calendar">
+    ```lua
+    Config.AutoCleanupDays = 30 -- Keep backups for X days: 7, 30, 90
+    ```
+    
+    **Examples:**
+    - `7` - Keep backups for 1 week
+    - `30` - Keep backups for 1 month
+    - `90` - Keep backups for 3 months
+  </Card>
+  
+  <Card title="Max Backups" icon="database">
+    ```lua
+    Config.MaxBackups = 30 -- Max backups to keep: 10, 50, 100
+    ```
+    
+    **Purpose:** Prevents unlimited backup accumulation
+    **Behavior:** Oldest backups deleted when limit reached
+  </Card>
+</CardGroup>
+
+## Database Settings
+
+### Fallback Database Configuration
+
+<Warning>
+  These settings are fallback options. The script prefers your server's `mysql_connection_string` from `server.cfg`.
+</Warning>
+
+```lua
+Config.Database = {
+    host = 'localhost',        -- Database host
+    user = '',                 -- Database username
+    password = '',             -- Database password
+    database = '',             -- Database name
+    charset = 'utf8mb4'        -- Character set
+}
+```
+
+<Note>
+  Only configure these if your server doesn't use `mysql_connection_string` in `server.cfg`.
+</Note>
+
+## Permissions
+
+### Admin Groups
+
+```lua
+Config.AdminGroups = { -- Groups that can manage backups
+    'admin',
+    'superadmin',
+    'owner'
+}
+```
+
+**Purpose:** Defines which player groups can access backup features
+
+**Supported Frameworks:**
+- **ESX:** Uses `Player.getGroup()`
+- **QBCore:** Uses `Player.PlayerData.gang.name` and `Player.PlayerData.job.name`
+- **vRP:** Uses `vRP.getUserGroup()`
+- **Custom:** Add your framework's group checking logic
+
+<Tip>
+  Add or remove group names based on your server's permission system. Players in these groups can create, delete, and restore backups.
+</Tip>
+
+## Configuration Examples
+
+### Daily Backups at Midnight
+```lua
+Config.AutoBackupEnabled = true
+Config.AutoBackupTime = '12:00 AM'
+Config.AutoBackupInterval = 1
+Config.AutoCleanupEnabled = true
+Config.AutoCleanupDays = 7
+Config.MaxBackups = 10
+```
+
+### Weekly Backups with Monthly Retention
+```lua
+Config.AutoBackupEnabled = true
+Config.AutoBackupTime = '2:00 AM'
+Config.AutoBackupInterval = 7
+Config.AutoCleanupEnabled = true
+Config.AutoCleanupDays = 30
+Config.MaxBackups = 5
+```
+
+### Manual Backups Only
+```lua
+Config.AutoBackupEnabled = false
+Config.AutoCleanupEnabled = false
+Config.MaxBackups = 50
+```
+
+## Backup Storage
+
+Backups are automatically stored in the script folder as `.sql` files:
+
+```
+/resources/revo-backup/backups/
+├── backup_2024-01-15_12-00-00.sql
+├── backup_2024-01-16_12-00-00.sql
+└── backup_2024-01-17_12-00-00.sql
+```
+
+<Info>
+  Backup files are named with timestamps for easy identification and sorting.
+</Info>

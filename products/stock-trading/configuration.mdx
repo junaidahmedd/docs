@@ -1,56 +1,113 @@
 ---
 title: 'Configuration'
-description: 'Customize how Revo EcoWipe behaves for your admins and server needs.'
+description: 'Customize how Revo Stock Trading behaves for your server and players.'
 ---
 
 <Info>
-  Configuration is done in the `config.lua` file located in the `revo_ecowipe` directory.
+  Configuration is done in the <code>config.lua</code> file located in the <code>revo_stocktrading</code> directory.
 </Info>
 
-## Command Configuration
+## UI Opening Methods
 
-You can change the command used to open the UI:
+Enable opening the trading UI via command or inventory item:
 
 ```lua
-Config.OpenCommand = 'ecowipe' -- Change this to any command you prefer
+Config.UseCommand = true -- Allow opening UI with command
+Config.OpenCommand = 'trade' -- Command to open the Revo Trade UI
+
+Config.UseItem = true -- Allow opening UI with item
+Config.ItemName = 'revo_trading_tablet' -- Item name for opening UI (if UseItem is true)
 ```
+
+## Liquidation & Risk Control
+
+Set the margin level at which all open trades are liquidated:
+
+```lua
+Config.LiquidationMarginLevel = 50 -- percent (liquidate at 50% margin level)
+```
+
+## Charting Library
+
+Choose your charting library:
+
+```lua
+Config.ChartLibrary = "lightweight" -- "highcharts" or "lightweight"
+Config.HighChartsBaseURL = "" -- URL to Highcharts library if using "highcharts"
+```
+
+For Highcharts, see [official documentation](https://docs.revoscripts.com/revo-trade/charting-library).
 
 ## Permissions
 
-Define who can access the EcoWipe interface. Permissions depend on your framework:
+Set which groups/roles can access the Stock Management UI:
 
 ```lua
 Config.AllowedGroups = {
-  admin = true,
-  superadmin = true,
-  god = true
+    admin = true,
+    superadmin = true,
+    god = true
 }
 ```
 
-- **ESX**: Uses group names like `'admin'`, `'superadmin'`
-- **QBCore**: Uses role names like `'admin'`, `'god'`
+## Notification Position
 
-## Wipe Options
-
-You can enable or disable specific wipe features:
+Choose where notifications appear on the screen:
 
 ```lua
-Config.WipeOptions = {
-  Money = true,
-  Inventory = true
+Config.NotificationPosition = 'top-center'
+```
+
+Available positions:  
+`'top-left'`, `'top-right'`, `'top-center'`, `'bottom-left'`, `'bottom-right'`, `'bottom-center'`, `'center-left'`, `'center-right'`, `'center-center'`
+
+## Fixed Leverages
+
+Set leverage values for different asset types:
+
+```lua
+Config.FixedLeverages = {
+    stock = 10,
+    crypto = 25,
+    forex = 100,
+    commodity = 30
 }
 ```
 
-- **Money**: Wipes cash and bank balances
-- **Inventory**: Clears player items
+## Contract Sizes
+
+Set contract sizes for different asset types:
+
+```lua
+Config.ContractSizes = {
+    forex = 100000,
+    stock = 100,
+    commodity = 1000,
+    crypto = 1
+}
+```
+
+## Deposit & Withdraw Limits
+
+Set minimum deposit and withdrawal amounts:
+
+```lua
+Config.MinimumDeposit = 500
+Config.MinimumWithdraw = 20
+```
 
 ## Localization
 
-Set your default language:
+Set the default language and customize all UI text:
 
 ```lua
 Config.DefaultLocale = 'en'
 ```
 
-Supported languages include: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
+Supported languages: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
+
+Customize all UI text in the <code>Config.Locales</code> table.
+
+<Tip>
+  Adjust leverages, contract sizes, permissions, and localization to fit your server’s needs. For Highcharts, make sure to provide a valid library URL if you
 

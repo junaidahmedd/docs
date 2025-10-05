@@ -1,0 +1,56 @@
+---
+title: "Dependencies"
+description: "Required dependencies for Revo Backup to function properly."
+---
+
+<Warning>
+  All dependencies must be installed and started **before** Revo Backup in your `server.cfg`.
+</Warning>
+
+## Required Dependencies
+
+<CardGroup cols={1}>
+  <Card title="oxmysql" icon="database">
+    **Purpose:** Reliable database operations and MySQL connectivity
+    
+    **Download:** [GitHub - overextended/oxmysql](https://github.com/overextended/oxmysql)
+    
+    **Installation:**
+    1. Download from the GitHub repository
+    2. Place in your `resources` folder
+    3. Add `ensure oxmysql` to your `server.cfg`
+    4. Ensure it starts **before** Revo Backup
+    
+    <Note>
+      oxmysql is essential for all database operations including backup creation and restoration.
+    </Note>
+  </Card>
+</CardGroup>
+
+## Installation Order
+
+Make sure your `server.cfg` has the correct startup order:
+
+```bash
+# Dependencies (must start first)
+ensure oxmysql
+
+# Revo Backup (starts after dependencies)
+ensure revo-backup
+```
+
+<Info>
+  The script will automatically detect if oxmysql is not running and display appropriate error messages in the server console.
+</Info>
+
+## Database Requirements
+
+Revo Backup works with any MySQL/MariaDB database that oxmysql supports:
+
+- **MySQL 5.7+**
+- **MySQL 8.0+** 
+- **MariaDB 10.3+**
+
+<Tip>
+  For best performance, ensure your database server has sufficient storage space for backup files, especially if you're running frequent backups.
+</Tip>

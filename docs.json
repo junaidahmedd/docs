@@ -65,6 +65,17 @@
               "products/gun-jam/configuration",
               "products/gun-jam/changelog"
             ]
+          },
+          {
+            "group": "Backup",
+            "pages": [
+              "products/backup/overview",
+              "products/backup/dependencies",
+              "products/backup/installation",
+              "products/backup/configuration",
+              "products/backup/usage",
+              "products/backup/changelog"
+            ]
           }
         ]
       },
