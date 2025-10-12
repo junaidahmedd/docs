@@ -11,7 +11,7 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
     Place the downloaded <code>revo_stocktrading</code> folder inside your server's <code>resources</code> directory.
   </Step>
   <Step title="Import Required SQL Files">
-    Import the following SQL files into your game database (using your preferred MySQL client) in this exact order:
+    Import the following SQL files into your server database in this exact order:
     <ul>
       <li><code>stocks.sql</code></li>
       <li><code>trade_users.sql</code></li>
@@ -107,6 +107,5 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
 </Steps>
 
 <Tip>
-  Verify that <code>oxmysql</code> is connected and that all three SQL files were imported successfully before starting the resource.
-  Use your MySQL client to check that the <code>stocks</code>, <code>trade_users</code>, and <code>trades</code> tables exist.
+  Make sure your inventory system is restarted after adding the trading tablet item to load the new item properly.
 </Tip>
