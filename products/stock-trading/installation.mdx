@@ -11,13 +11,15 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
     Place the downloaded <code>revo_stocktrading</code> folder inside your server's <code>resources</code> directory.
   </Step>
   <Step title="Import Required SQL Files">
-    Import the following SQL files into your game database (using your preferred MySQL client):
+    Import the following SQL files into your game database (using your preferred MySQL client) in this exact order:
     <ul>
       <li><code>stocks.sql</code></li>
       <li><code>trade_users.sql</code></li>
       <li><code>trades.sql</code></li>
     </ul>
-    Make sure the database configured for <code>oxmysql</code> matches where you import these tables.
+    <Note>
+      Import the SQL files in the specified order to ensure proper table relationships and foreign key constraints.
+    </Note>
   </Step>
   <Step title="Configure server.cfg">
     Ensure dependencies and the resource are started in the correct order:
@@ -27,66 +29,71 @@ description: 'Install Revo Stock Trading and set it up on your FiveM server.'
     ```
   </Step>
   <Step title="Add Trading Tablet to Your Inventory System">
+    Revo Stock Trading supports the following inventory systems. Choose the one you're using and follow the corresponding instructions:
+    
     <Tabs>
       <Tab title="ox_inventory">
-        Open your <code>ox_inventory/data/items.lua</code> file and add:
+        Open your `ox_inventory/data/items.lua` file and add the following items:
+        
         ```lua
-          ['revo_trading_tablet'] = {
-            label = 'Trading Tablet',
-            weight = 500,
-            stack = false,
-            close = true,
-            description = 'Access trading panel.',
-            client = {
-              image = 'REVO_TRADING_TABLET.png',
-            }
+        ['revo_trading_tablet'] = {
+          label = 'Trading Tablet',
+          weight = 500,
+          stack = false,
+          close = true,
+          description = "Access trading panel.",
+          client = {
+            image = 'revo_trading_tablet.png',
           }
+        }
         ```
-        <Tip>
-          Copy <code>REVO_TRADING_TABLET.png</code> from the script's <b>inventory item</b> folder to <code>ox_inventory/web/images</code>.
-        </Tip>
+        
+        Add images (from `items-images` folder of `revo_stocktrading`) to: `ox_inventory/web/images/`
+        - revo_trading_tablet.png
       </Tab>
-      <Tab title="qs-inventory">
-        Open your <code>qs-inventory/html/images</code> folder and add the image.<br/>
-        Then add the item to your <code>shared/items.lua</code>:
-        ```lua
-          ['revo_trading_tablet'] = {
-            name = 'revo_trading_tablet',
-            label = 'Trading Tablet',
-            weight = 500,
-            type = 'item',
-            image = 'REVO_TRADING_TABLET.png',
-            unique = false,
-            useable = true,
-            shouldClose = true,
-            combinable = nil,
-            description = 'Access trading panel.'
-          }
-        ```
-        <Tip>
-          Place <code>REVO_TRADING_TABLET.png</code> in <code>qs-inventory/html/images</code>.
-        </Tip>
-      </Tab>
+      
       <Tab title="qb-inventory">
-        Open your <code>qb-inventory/html/images</code> folder and add the image.<br/>
-        Then add the item to your <code>shared/items.lua</code>:
+        Open your `qb-core/shared/items.lua` file and add the following items:
+        
         ```lua
-          ['revo_trading_tablet'] = {
-            name = 'revo_trading_tablet',
-            label = 'Trading Tablet',
-            weight = 500,
-            type = 'item',
-            image = 'REVO_TRADING_TABLET.png',
-            unique = false,
-            useable = true,
-            shouldClose = true,
-            combinable = nil,
-            description = 'Access trading panel.'
-          }
+        ['revo_trading_tablet'] = {
+          name = 'revo_trading_tablet',
+          label = 'Trading Tablet',
+          weight = 500,
+          type = 'item',
+          image = 'revo_trading_tablet.png',
+          unique = false,
+          useable = true,
+          shouldClose = true,
+          description = 'Access trading panel.'
+        }
         ```
-        <Tip>
-          Place <code>REVO_TRADING_TABLET.png</code> in <code>qb-inventory/html/images</code>.
-        </Tip>
+        
+        Add images (from `items-images` folder of `revo_stocktrading`) to: `qb-inventory/html/images/`
+        - revo_trading_tablet.png
+      </Tab>
+      
+      <Tab title="qs-inventory">
+        For ESX servers: Add the following items to `qs-inventory/shared/items.lua`
+        
+        For QBCore servers: Add the same items to `qb-core/shared/items.lua`
+        
+        ```lua
+        ['revo_trading_tablet'] = {
+          name = 'revo_trading_tablet',
+          label = 'Trading Tablet',
+          weight = 500,
+          type = 'item',
+          image = 'revo_trading_tablet.png',
+          unique = false,
+          useable = true,
+          shouldClose = true,
+          description = 'Access trading panel.'
+        }
+        ```
+        
+        Add images (from `items-images` folder of `revo_stocktrading`) to: `qs-inventory/html/images/`
+        - revo_trading_tablet.png
       </Tab>
     </Tabs>
   </Step>
