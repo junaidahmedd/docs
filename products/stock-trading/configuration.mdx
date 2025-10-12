@@ -29,14 +29,39 @@ Config.LiquidationMarginLevel = 50 -- percent (liquidate at 50% margin level)
 
 ## Charting Library
 
-Choose your charting library:
+Revo Stock Trading uses **lightweight charts** as the primary charting library, which provides fast performance and essential trading features. For advanced charting capabilities, Highcharts integration is also supported.
 
+### Default Configuration (Lightweight Charts)
 ```lua
-Config.ChartLibrary = "lightweight" -- "highcharts" or "lightweight"
-Config.HighChartsBaseURL = "" -- URL to Highcharts library if using "highcharts"
+Config.ChartLibrary = "lightweight" -- Default: fast and lightweight
+Config.HighChartsBaseURL = "" -- Leave empty for lightweight charts
 ```
 
-For Highcharts, see [official documentation](https://docs.revoscripts.com/revo-trade/charting-library).
+### Highcharts Integration (Advanced Features)
+
+For advanced charting features like candlestick charts, technical indicators, and detailed market analysis, you can integrate Highcharts:
+
+```lua
+Config.ChartLibrary = "highcharts" -- Enable Highcharts
+Config.HighChartsBaseURL = "https://cdn.highcharts.com" -- Your Highcharts CDN URL
+```
+
+<Warning>
+  **Important:** Highcharts is **not included** with Revo Stock Trading. We do not bundle licensed libraries in our scripts to avoid legal complications.
+  
+  Highcharts requires a commercial license for commercial use. Before using Highcharts:
+  
+  1. **Check your usage:** Determine if your FiveM server qualifies as commercial use
+  2. **Get proper license:** Visit [Highcharts Licensing](https://shop.highsoft.com/) to purchase appropriate license
+  3. **Use licensed CDN:** Use your licensed Highcharts CDN URL (without any path after `/`)
+  4. **Compliance:** Ensure compliance with Highcharts terms of service
+  
+  **We recommend:** Start with lightweight charts and upgrade to Highcharts only if you have proper licensing.
+</Warning>
+
+<Note>
+  The lightweight chart library provides excellent performance and covers most trading needs without licensing requirements.
+</Note>
 
 ## Permissions
 
