@@ -8,75 +8,30 @@ description: "Install Revo Backup and set it up on your FiveM server."
 </Info>
 
 <Steps>
-  <Step title="Download the Script">
-    1. Visit the <a href="https://keymaster.fivem.net/" target="_blank">Cfx.re Keymaster</a>.<br/>
-    2. Log in using the <b>account that made the purchase</b>.<br/>
-    3. Go to the <b>Granted Assets</b> tab.<br/>
-    4. Find Revo Backup and click <b>Download</b>.
+  <Step title="Download Revo Backup">
+    Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo Backup**. Save the script to your computer.
   </Step>
   
-  <Step title="Extract the Script">
-    - Extract the downloaded <code>.zip</code> file.<br/>
-    - Inside the extracted folder, you'll find a folder like <code>revo_backup</code>.
-    <Warning>
-      <b>Do not rename</b> the script folder (e.g., <code>revo_backup</code>) — this will break escrow validation.
-    </Warning>
+  <Step title="Add to Resources">
+    Place the downloaded `revo_backup` folder inside your server's `resources` directory.
   </Step>
   
-  <Step title="Move Script to Server Resources">
-    Move the script folder into your server's <code>resources</code> directory.
+  <Step title="Configure server.cfg">
+    Add the following line to your `server.cfg` to ensure Revo Backup starts with your server:
     ```bash
-      /resources/[revo]/revo_backup
+      ensure revo_backup
     ```
-    <Tip>
-      You may organize Revo scripts under a <code>[revo]</code> folder.
-    </Tip>
   </Step>
   
-  <Step title="Install Dependencies">
-    Make sure you have oxmysql installed and configured:
+  <Step title="Start the Resource">
+    Restart your server or run these commands in the server console:
     ```bash
-      ensure oxmysql
+      refresh
+      ensure revo_backup
     ```
-    <Note>
-      oxmysql must be started <b>before</b> Revo Backup in your server.cfg.
-    </Note>
-  </Step>
-  
-  <Step title="Restart Your Server">
-    Restart your server to load the script.
-    <Note>
-      Full server restart is required to ensure proper initialization.
-    </Note>
   </Step>
 </Steps>
 
-## Verification
-
-After installation, you can verify the script is working by:
-
-1. **Check Console:** Look for "Revo Backup loaded successfully" message
-2. **Test Commands:** Try `/backup` or press `F6` to open the UI
-3. **Check Permissions:** Ensure you have admin permissions to access backup features
-
-## Troubleshooting
-
-<AccordionGroup>
-  <Accordion title="Script Not Loading">
-    - Verify oxmysql is installed and running
-    - Check that Revo Backup is added to server.cfg
-    - Ensure proper startup order (oxmysql before revo_backup)
-  </Accordion>
-  
-  <Accordion title="Database Connection Issues">
-    - Verify your MySQL connection string in server.cfg
-    - Check database credentials and permissions
-    - Ensure the database server is accessible
-  </Accordion>
-  
-  <Accordion title="Permission Errors">
-    - Verify your admin groups in the config file
-    - Check that your player has the required permissions
-    - Restart the script after permission changes
-  </Accordion>
-</AccordionGroup>
+<Tip>
+  Revo Backup works out of the box with automatic backups enabled. You can customize backup settings, schedules, and permissions in the `config.lua` file.
+</Tip>
