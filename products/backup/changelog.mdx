@@ -3,36 +3,16 @@ title: "Changelog"
 description: "Version history and updates for Revo Backup."
 ---
 
-<Info>
-  This changelog tracks all updates, bug fixes, and new features for Revo Backup.
-</Info>
+<Update label="October 2025" description="v1.1">
+  - Fixed admin permission issue on QBCore
+  - General improvements
+</Update>
 
-## Version 1.0.0
+<Update label="January 2024" description="v1.0.0">
+  Initial release of Revo Backup.
 
-**Release Date:** January 2024
-
-### 🎉 Initial Release
-
-**New Features:**
-- Automatic database backups with customizable time and interval
-- Manual backup creation via UI
-- Automatic cleanup system with configurable retention periods
-- Maximum backup limit to prevent storage overflow
-- Clean and intuitive user interface
-- Label management for backup organization
-- Server-side txAdmin commands for backup management
-- SQL file storage for easy restoration
-- One-click restore compatibility with phpMyAdmin
-- Multi-framework support (ESX, QBCore, vRP, Custom)
-- Comprehensive permission system
-- Fallback database configuration options
-
-**Commands:**
-- `/backup` - Open backup management UI (client-side)
-- `makebackup "[label]"` - Create manual backup (server-side/txAdmin only)
-- `deletebackup [id]` - Delete specific backup (server-side/txAdmin only)
-- `F6` - Quick access to backup interface (client-side)
-
-<Note>
-  This is the initial release of Revo Backup. Future updates will be documented here as they become available.
-</Note>
+  - Automatic database backups with customizable schedules
+  - Manual backup creation via UI and txAdmin
+  - Automatic cleanup with retention and max backup limits
+  - Backups stored as .sql files for easy phpMyAdmin restore
+</Update>
