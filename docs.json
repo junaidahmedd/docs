@@ -38,14 +38,14 @@
             ]
           },
           {
-            "group": "Auto FiveM Backups",
+            "group": "FiveM Database Backups",
             "pages": [
               "products/backup/overview",
               "products/backup/dependencies",
               "products/backup/installation",
               "products/backup/configuration",
-              "products/backup/usage",
               "products/backup/updates",
+              "products/backup/usage",
               "products/backup/changelog"
             ]
           },
