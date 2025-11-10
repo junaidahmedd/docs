@@ -45,6 +45,7 @@
               "products/backup/installation",
               "products/backup/configuration",
               "products/backup/usage",
+              "products/backup/updates",
               "products/backup/changelog"
             ]
           },
