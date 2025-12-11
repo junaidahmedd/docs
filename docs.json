@@ -34,6 +34,7 @@
               "products/stock-trading/dependencies",
               "products/stock-trading/installation",
               "products/stock-trading/configuration",
+              "products/stock-trading/updates",
               "products/stock-trading/changelog"
             ]
           },
