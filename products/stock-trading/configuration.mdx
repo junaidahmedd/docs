@@ -7,6 +7,14 @@ description: 'Customize how Revo Stock Trading behaves for your server and playe
   Configuration is done in the <code>config.lua</code> file located in the <code>revo_stocktrading</code> directory.
 </Info>
 
+## Debug Mode
+
+Enable debug prints in console for troubleshooting:
+
+```lua
+Config.DebugMode = false -- Set to true to enable debug prints in console
+```
+
 ## UI Opening Methods
 
 Enable opening the trading UI via command or inventory item:
@@ -19,59 +27,56 @@ Config.UseItem = true -- Allow opening UI with item
 Config.ItemName = 'revo_trading_tablet' -- Item name for opening UI (if UseItem is true)
 ```
 
-## Liquidation & Risk Control
+## Risk Acknowledgement Popup
 
-Set the margin level at which all open trades are liquidated:
+Shows a one-time risk warning popup that users must acknowledge before trading:
 
 ```lua
-Config.LiquidationMarginLevel = 50 -- percent (liquidate at 50% margin level)
+Config.RiskAcknowledgementPopup = true -- Set to false to disable the risk popup
+```
+
+## Liquidation & Risk Control
+
+Set the margin level at which all open trades are liquidated. If margin level (equity / usedMargin * 100) falls to or below this percent, all open trades are liquidated:
+
+```lua
+-- Liquidation / Risk Control
+-- If margin level (equity / usedMargin * 100) falls to or below this percent, all open trades are liquidated
+Config.LiquidationMarginLevel = 50 -- percent (e.g., 50 means liquidate at 50% margin level)
 ```
 
 ## Charting Library
 
-Revo Stock Trading uses **lightweight charts** as the primary charting library, which provides fast performance and essential trading features. For advanced charting capabilities, Highcharts integration is also supported.
-
-### Default Configuration (Lightweight Charts)
-```lua
-Config.ChartLibrary = "lightweight" -- Default: fast and lightweight
-Config.HighChartsBaseURL = "" -- Leave empty for lightweight charts
-```
-
-### Highcharts Integration (Advanced Features)
-
-For advanced charting features like candlestick charts, technical indicators, and detailed market analysis, you can integrate Highcharts:
+Choose between Lightweight Charts or Highcharts. For Lightweight Charts, no license is required as it is open-source. For Highcharts, you need to get their license according to your situation and provide the URL to the Highcharts lib.
 
 ```lua
-Config.ChartLibrary = "highcharts" -- Enable Highcharts
-Config.HighChartsBaseURL = "https://cdn.highcharts.com" -- Your Highcharts CDN URL
+-- Choose between Lightweight Charts or Highcharts
+-- For Lightweight Charts, no license is required as it is open-source
+-- For Highcharts, you need to get their license according to your situation and provide the URL to the Highcharts lib
+Config.ChartLibrary = "lightweight" -- "highcharts" or "lightweight"
+-- If using Highcharts, provide the URL to the Highcharts lib (example: https://code.highcharts.com)
+Config.HighChartsBaseURL = ""
 ```
 
 <Warning>
-  **Important:** Highcharts is **not included** with Revo Stock Trading. We do not bundle licensed libraries in our scripts to avoid legal complications.
+  **Important:** We do NOT include or redistribute Highcharts. If you wish to use it, please obtain your own license from [Highcharts Shop](https://shop.highcharts.com).
   
-  Highcharts requires a commercial license for commercial use. Before using Highcharts:
-  
-  1. **Check your usage:** Determine if your FiveM server qualifies as commercial use
-  2. **Get proper license:** Visit [Highcharts Licensing](https://shop.highsoft.com/) to purchase appropriate license
-  3. **Use licensed CDN:** Use your licensed Highcharts CDN URL (without any path after `/`)
-  4. **Compliance:** Ensure compliance with Highcharts terms of service
-  
-  **We recommend:** Start with lightweight charts and upgrade to Highcharts only if you have proper licensing.
+  By default, Revo Stock Trading uses Lightweight Charts (MIT Licensed), which requires no additional setup.
 </Warning>
-
-<Note>
-  The lightweight chart library provides excellent performance and covers most trading needs without licensing requirements.
-</Note>
 
 ## Permissions
 
-Set which groups/roles can access the Stock Management UI:
+Set which groups/roles can access the Stock Management UI (Add, Edit and Delete Stocks). For ESX, group must match (e.g. 'admin', 'superadmin'). For QBCore, role must match (e.g. 'admin', 'god'):
 
 ```lua
+-- Permissions
+-- Who can access the Stock Management UI (Add, Edit and Delete Stocks)
+-- For ESX, group must match (e.g. 'admin', 'superadmin')
+-- For QBCore, role must match (e.g. 'admin', 'god')
 Config.AllowedGroups = {
-    admin = true,
-    superadmin = true,
-    god = true
+    'admin',
+    'superadmin',
+    'god'
 }
 ```
 
@@ -80,7 +85,8 @@ Config.AllowedGroups = {
 Choose where notifications appear on the screen:
 
 ```lua
-Config.NotificationPosition = 'top-center'
+-- Available positions: 'top-left', 'top-right', 'top-center', 'bottom-left', 'bottom-right', 'bottom-center', center-left, center-right, center-center
+Config.NotificationPosition = 'top-center' -- Default notification position
 ```
 
 Available positions:  
@@ -88,9 +94,11 @@ Available positions:
 
 ## Fixed Leverages
 
-Set leverage values for different asset types:
+Set leverage values for different asset types. These values are used to determine the leverage for different stock types. More realistic leverage values that balance risk and opportunity:
 
 ```lua
+-- These values are used to determine the leverage for different stock types
+-- More realistic leverage values that balance risk and opportunity
 Config.FixedLeverages = {
     stock = 10,
     crypto = 25,
@@ -101,9 +109,11 @@ Config.FixedLeverages = {
 
 ## Contract Sizes
 
-Set contract sizes for different asset types:
+Set contract sizes for different asset types. These values are used to determine the contract size for different stock types. More realistic contract sizes that require appropriate capital:
 
 ```lua
+-- These values are used to determine the contract size for different stock types
+-- More realistic contract sizes that require appropriate capital
 Config.ContractSizes = {
     forex = 100000,
     stock = 100,
@@ -117,23 +127,88 @@ Config.ContractSizes = {
 Set minimum deposit and withdrawal amounts:
 
 ```lua
-Config.MinimumDeposit = 500
-Config.MinimumWithdraw = 20
+Config.MinimumDeposit = 500 -- Minimum deposit amount
+Config.MinimumWithdraw = 20 -- Minimum withdraw amount
+```
+
+## Economy Protection - Earning Limits System
+
+These settings help protect your server's economy from exploitation.
+
+### Daily Profit Cap
+
+Maximum profit a player can earn per day from trading:
+
+```lua
+Config.DailyProfitCap = {
+    enabled = true,
+    limit = 20000,  -- $20,000 max profit per day (set to 0 or false to disable)
+    resetHour = 0   -- Hour of day to reset (0 = midnight server time, 12 = noon, etc.)
+}
+```
+
+### Daily Withdrawal Limit
+
+Maximum amount a player can withdraw from trading account to bank per day:
+
+```lua
+Config.DailyWithdrawalLimit = {
+    enabled = true,
+    limit = 100000,  -- $100,000 max withdrawal per day
+    resetHour = 0    -- Hour of day to reset (0 = midnight server time)
+}
+```
+
+### Loss Attack System
+
+Automatically moves prices against profitable positions to protect your economy. When players are winning too much, the market will push back:
+
+```lua
+-- Loss Attack System
+-- Automatically moves prices against profitable positions to protect your economy
+-- When players are winning too much, the market will push back
+Config.LossAttack = {
+    enabled = true,              -- Enable/disable the system
+    strength = "medium",         -- "low", "medium", "high", or "aggressive"
+}
+```
+
+### Progressive Tax System
+
+Tax profits progressively - higher earnings = higher tax rate. Tax is applied when closing profitable trades:
+
+```lua
+-- Progressive Tax System
+-- Tax profits progressively - higher earnings = higher tax rate
+-- Tax is applied when closing profitable trades
+Config.ProgressiveTax = {
+    enabled = true,
+    -- Tax brackets: profits within each range are taxed at that rate
+    -- Example: $15,000 profit = ($10,000 * 5%) + ($5,000 * 10%) = $500 + $500 = $1,000 tax
+    brackets = {
+        { threshold = 10000,      rate = 0.05 },  -- 5% on profits from $0 to $10,000
+        { threshold = 25000,      rate = 0.10 },  -- 10% on profits from $10,001 to $25,000
+        { threshold = 50000,      rate = 0.15 },  -- 15% on profits from $25,001 to $50,000
+        { threshold = 100000,     rate = 0.25 },  -- 25% on profits from $50,001 to $100,000
+        { threshold = math.huge,  rate = 0.35 },  -- 35% on profits above $100,000
+    }
+}
 ```
 
 ## Localization
 
-Set the default language and customize all UI text:
+Set the default language:
 
 ```lua
-Config.DefaultLocale = 'en'
+-- Available languages: 'en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'tr', 'pl', 'zh', ar
+Config.DefaultLocale = 'en' -- Default locale for the script
 ```
 
-Supported languages: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
+Available languages: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'tr'`, `'pl'`, `'zh'`, `'ar'`
 
 Customize all UI text in the <code>Config.Locales</code> table.
 
 <Tip>
-  Adjust leverages, contract sizes, permissions, and localization to fit your server's needs. For Highcharts, make sure to provide a valid library URL if you choose that option.
+  Adjust leverages, contract sizes, permissions, economy protection settings, and localization to fit your server's needs. For Highcharts, make sure to provide a valid library URL if you choose that option.
 </Tip>
 
