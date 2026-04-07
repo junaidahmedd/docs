@@ -4,111 +4,147 @@ description: 'Available exports for integrating Revo ID Card with other resource
 ---
 
 <Warning>
-  All exports are **server-side only** and cannot be called from client-side scripts
+  All exports are **server-side only** and cannot be called from client-side scripts.
 </Warning>
 
-## Available Exports
-
-### CreateRealID
-Creates a real ID card for the specified player.
+## Export List
 
 ```lua
-exports['revo_idcard']:CreateRealID(playerSource)
+exports['revo_idcard']:CreateCard(source, cardType, deductMoney)
+exports['revo_idcard']:CreateRealID(source, cardType, deductMoney)
+exports['revo_idcard']:CreateDriverLicense(source, deductMoney)
+exports['revo_idcard']:CreateWeaponLicense(source, deductMoney)
+exports['revo_idcard']:GetPurchasableCards()
+```
+
+## CreateCard
+
+Generic export for any card key inside `Config.Cards`.
+
+```lua
+exports['revo_idcard']:CreateCard(source, 'id_card')
+exports['revo_idcard']:CreateCard(source, 'bike_license')
+exports['revo_idcard']:CreateCard(source, 'hunting_license', false)
 ```
 
 **Parameters:**
-- `playerSource` (number): The player's server ID
+- `source` (number): Player server ID
+- `cardType` (string): Card key from `Config.Cards`
+- `deductMoney` (boolean, optional): Defaults to `true`
 
----
+**Behavior:**
+- Returns `true` if the request was accepted
+- Returns `false` if the card key is invalid or disabled
+- `true` charges the player normally
+- `false` issues the card without charging
 
-### CreateDriverLicense
-Creates a driver license for the specified player.
+## CreateRealID
+
+Backward-compatible wrapper for real ID creation. It still supports passing a specific card type.
 
 ```lua
-exports['revo_idcard']:CreateDriverLicense(playerSource)
+exports['revo_idcard']:CreateRealID(source)
+exports['revo_idcard']:CreateRealID(source, 'id_card')
+exports['revo_idcard']:CreateRealID(source, 'bike_license', false)
 ```
 
 **Parameters:**
-- `playerSource` (number): The player's server ID
+- `source` (number): Player server ID
+- `cardType` (string, optional): Defaults to `'id_card'`
+- `deductMoney` (boolean, optional): Defaults to `true`
 
----
+## CreateDriverLicense
 
-### CreateWeaponLicense
-Creates a weapon license for the specified player.
+Legacy wrapper for `driver_license`.
 
 ```lua
-exports['revo_idcard']:CreateWeaponLicense(playerSource)
+exports['revo_idcard']:CreateDriverLicense(source)
+exports['revo_idcard']:CreateDriverLicense(source, false)
 ```
 
 **Parameters:**
-- `playerSource` (number): The player's server ID
+- `source` (number): Player server ID
+- `deductMoney` (boolean, optional): Defaults to `true`
 
-## Integration Example
+**Note:**
+- If `driver_license` is disabled in config, this export returns `false`
 
-### Admin Command Example
-Here's a complete example of an admin command that gives a driver license to a player:
+## CreateWeaponLicense
+
+Legacy wrapper for `firearm_license`.
 
 ```lua
--- Command to give driver license to a player
-RegisterCommand('givelicense', function(source, args, rawCommand)
-    local playerId = tonumber(args[1])
-    
-    if not playerId or playerId <= 0 then
-        print("^1[DEBUG] Invalid player ID: " .. tostring(playerId) .. "^0")
-        TriggerClientEvent('chat:addMessage', source, {
-            color = {255, 0, 0},
-            multiline = true,
-            args = {"System", "Usage: /givelicense [player_id]"}
-        })
-        return
-    end
-    
-    local playerName = GetPlayerName(playerId)    
-    if not playerName then
-        print("^1[DEBUG] Player not found for ID: " .. playerId .. "^0")
-        TriggerClientEvent('chat:addMessage', source, {
-            color = {255, 0, 0},
-            multiline = true,
-            args = {"System", "Player not found!"}
-        })
-        return
-    end
-
-    -- Create driver license using the export
-    exports['revo_idcard']:CreateDriverLicense(playerId)
-    
-    TriggerClientEvent('chat:addMessage', source, {
-        color = {0, 255, 0},
-        multiline = true,
-        args = {"System", "Driver License given to " .. playerName}
-    })
-    
-end, false)
+exports['revo_idcard']:CreateWeaponLicense(source)
+exports['revo_idcard']:CreateWeaponLicense(source, false)
 ```
 
-This example shows:
-- Proper argument validation
-- Debug logging for troubleshooting
-- Error handling for invalid inputs
-- Using the export to create the license
-- Feedback to admin and target player (from ID Card script)
+**Parameters:**
+- `source` (number): Player server ID
+- `deductMoney` (boolean, optional): Defaults to `true`
+
+## GetPurchasableCards
+
+Returns the currently enabled and purchasable cards from config.
+
+```lua
+local cards = exports['revo_idcard']:GetPurchasableCards()
+
+for i = 1, #cards do
+    print(cards[i].type, cards[i].name, cards[i].design, cards[i].cost)
+end
+```
+
+**Returned fields per card:**
+- `type`
+- `name`
+- `design`
+- `cost`
+
+## Example Usage
+
+Charge player normally:
+
+```lua
+exports['revo_idcard']:CreateCard(source, 'id_card')
+```
+
+Issue a custom card without charging:
+
+```lua
+exports['revo_idcard']:CreateCard(source, 'bike_license', false)
+```
+
+Issue default ID without charging:
+
+```lua
+exports['revo_idcard']:CreateRealID(source, 'id_card', false)
+```
+
+Get menu-eligible cards:
+
+```lua
+local cards = exports['revo_idcard']:GetPurchasableCards()
+```
 
 ## How Exports Work
 
-The exports trigger a client-side event that initiates the mugshot capture and ID card creation process. The system works asynchronously through a client-server communication flow.
+These exports trigger mugshot capture first, then create the card through the normal script flow.
 
-**Complete flow when you call an export:**
-1. **Export called** → Triggers `revo_idcard:requestMugshotAndCreateID` client event
-2. **Client-side** → Handles mugshot capture and sends data back via `revo_idcard:receiveMugshotAndCreateID`
-3. **Server-side** → Receives mugshot data and triggers `revo_idcard:issueRealID` event
-4. **Final creation** → `issueRealID` handles player data fetching and actual item creation
+**Complete flow when you call a creation export:**
+1. **Export called** -> Triggers `revo_idcard:requestMugshotAndCreateID` client event
+2. **Client-side** -> Handles mugshot capture and sends data back via `revo_idcard:receiveMugshotAndCreateID`
+3. **Server-side** -> Receives mugshot data and triggers `revo_idcard:issueRealID` event
+4. **Final creation** -> `issueRealID` handles player data fetching and actual item creation
 
 <Note>
-  The exports are fire-and-forget - they start the process but don't provide immediate feedback. Success/failure is handled through the internal event system.
+  Creation exports are fire-and-forget. They start the process immediately, while success or failure is handled through the script's normal internal flow.
 </Note>
 
-## Notes
-- The player must have sufficient inventory space for the card to be created
-- Cards are created with default settings as configured in the main config file
-- Money deduction during export-driven creation can be made optional and still defaults to enabled
-- These exports work with all supported inventory systems (ox_inventory, qb-inventory, qs-inventory, qs-advancedinventory)
+## Important Notes
+
+- `cardType` must exist in `Config.Cards`
+- Disabled cards return `false` and will not be issued
+- Custom cards also need matching inventory item definitions
+- The player must have enough inventory space for the card to be created
+- Money deduction is optional and defaults to enabled
+- These exports work with all supported inventory systems: `ox_inventory`, `qb-inventory`, `qs-inventory`, and `qs-advancedinventory`
