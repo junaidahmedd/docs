@@ -7,6 +7,109 @@ description: 'Customize how Revo ID Card behaves for your server and players.'
   Configuration is done in the <code>config.lua</code> file located in the <code>revo_idcard</code> directory.
 </Info>
 
+## Full Config Example
+
+Use this as the current reference configuration:
+
+```lua
+Config = {}
+
+Config.Theme = 'dark' -- Theme for menus, options: 'light', 'dark'
+-- Available positions: 'top-left', 'top-right', 'top-center', 'bottom-left', 'bottom-right', 'bottom-center', center-left, center-right, center-center
+Config.NotificationPosition = 'top-center' -- Default notification position
+
+Config.UseFakeID = true -- Enable/Disable Fake ID feature
+Config.Real_ID_NPC_Model = 'a_m_m_business_01' -- NPC Model for Real ID creation
+Config.Real_ID_NPC_Locations = {
+    {x = 435.098907, y = -974.769226, z = 30.712036, heading = 96.377945},
+    {x = 214.298904, y = -947.367004, z = 30.678345, heading = 229.606293}
+}
+Config.Fake_ID_NPC_Model = 'g_m_y_ballaorig_01' -- NPC Model for Fake ID creation
+Config.Fake_ID_NPC_Locations = {
+    {x = 117.969231, y = -1951.582397, z = 20.737061, heading = 53.858269},
+    {x = 155.024185, y = -1311.956055, z = 29.195557, heading = 48.188972}
+}
+
+Config.ShowRealIDMapIcon = true -- Show Real ID NPC on map
+Config.RealIDMapIcon = {
+    sprite = 480, -- Blip sprite for Real ID NPC
+    scale = 0.9, -- Blip scale
+    color = 2, -- Blip color
+    name = 'ID Card' -- Blip name
+}
+
+Config.ShowFakeIDMapIcon = true -- Show Fake ID NPC on map
+Config.FakeIDMapIcon = {
+    sprite = 480, -- Blip sprite for Fake ID NPC
+    scale = 0.9, -- Blip scale
+    color = 1, -- Blip color
+    name = 'Fake ID Dealer' -- Blip name
+}
+
+Config.EnableCardCosts = true -- Enable/Disable ID creation costs
+Config.ShowIssueAndExpireDate = true -- Show issue and expiration date on ID
+Config.ExpireDuration = 30 -- Expiration duration in days
+Config.CardDisplayDuration = 4500 -- Card display duration in milliseconds
+Config.ValidationCommand = 'idcheck' -- Police validation command
+Config.ValidationCommandDistance = 3.0 -- Range for card validation command
+Config.ValidationAllowedJobs = {
+    police = true
+}
+
+-- Cooldown to prevent spam (in seconds)
+Config.FakeIDCreationCooldown = 60 -- 1 minute
+
+Config.StateNameOnCard = 'Los Santos' -- State name on ID card
+Config.DefaultNationality = 'United States' -- Default Nationality
+Config.IDCardViewDistance = 5.0 -- Distance to show ID card
+
+Config.IDCardColors = {
+    police = '#004dbb',
+    ambulance = '#d32f2f',
+    mechanic = '#ec9914',
+    government = '#6a1b9a',
+    taxi = '#f0c400',
+    cardealer = '#0A3D62',
+    unemployed = '#000000',
+    default = '#000000'
+}
+
+-- Card types and their properties
+-- design1 = default ID card layout
+-- design2 = driver license layout
+-- design3 = weapon license layout
+Config.Cards = {
+    ['id_card'] = {
+       name = 'Identification Card',
+       prop = 'prop_franklin_dl',
+       design = 'design1',
+       cost = 20,
+       fakeCost = 100,
+       enabled = true,
+       purchasable = true
+    },
+    ['driver_license'] = {
+       name = 'Driver License',
+       prop = 'prop_franklin_dl',
+       design = 'design2',
+       cost = 50,
+       enabled = true,
+       purchasable = true
+    },
+    ['firearm_license'] = {
+        name = 'Firearm License',
+        prop = 'prop_franklin_dl',
+        design = 'design3',
+        cost = 100,
+        enabled = true,
+        purchasable = true
+    },
+}
+
+-- Available languages: 'en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'pl', 'tr', 'zh', 'ar'
+Config.DefaultLocale = 'en' -- Default language
+```
+
 ## Theme
 
 Set the menu theme:
@@ -41,13 +144,14 @@ Set NPC models and locations for real and fake ID creation:
 ```lua
 Config.Real_ID_NPC_Model = 'a_m_m_business_01'
 Config.Real_ID_NPC_Locations = {
-    {x = 435.10, y = -974.77, z = 30.71, heading = 96.38},
-    {x = 214.30, y = -947.37, z = 30.68, heading = 229.61}
+    {x = 435.098907, y = -974.769226, z = 30.712036, heading = 96.377945},
+    {x = 214.298904, y = -947.367004, z = 30.678345, heading = 229.606293}
 }
+
 Config.Fake_ID_NPC_Model = 'g_m_y_ballaorig_01'
 Config.Fake_ID_NPC_Locations = {
-    {x = 117.97, y = -1951.58, z = 20.74, heading = 53.86},
-    {x = 155.02, y = -1311.96, z = 29.20, heading = 48.19}
+    {x = 117.969231, y = -1951.582397, z = 20.737061, heading = 53.858269},
+    {x = 155.024185, y = -1311.956055, z = 29.195557, heading = 48.188972}
 }
 ```
 
@@ -75,25 +179,27 @@ Config.FakeIDMapIcon = {
 
 ## Card Costs
 
-Enable or disable costs for creating IDs and set prices:
+Enable or disable card creation costs:
 
 ```lua
 Config.EnableCardCosts = true
-Config.CardCosts = {
-    id_card = 20,
-    fake_id_card = 100,
-    driver_license = 50,
-    firearm_license = 100
-}
 ```
 
-## Issue & Expiry Dates
+Each card's price is configured inside `Config.Cards` using `cost`, and fake ID pricing uses `fakeCost` where supported.
 
-Show issue and expiration dates on cards and set duration (in days):
+## Card Display & Validation
+
+Control how cards are shown and how officers validate them:
 
 ```lua
 Config.ShowIssueAndExpireDate = true
 Config.ExpireDuration = 30
+Config.CardDisplayDuration = 4500
+Config.ValidationCommand = 'idcheck'
+Config.ValidationCommandDistance = 3.0
+Config.ValidationAllowedJobs = {
+    police = true
+}
 ```
 
 ## Cooldown
@@ -138,30 +244,49 @@ Config.IDCardColors = {
 }
 ```
 
-## License Types
+## Card Types
 
-Configure license types and their properties:
+Configure each card type and its properties:
 
 ```lua
-Config.Licenses = {
+Config.Cards = {
     ['id_card'] = {
        name = 'Identification Card',
-       prop = 'prop_franklin_dl'
+       prop = 'prop_franklin_dl',
+       design = 'design1',
+       cost = 20,
+       fakeCost = 100,
+       enabled = true,
+       purchasable = true
     },
     ['driver_license'] = {
        name = 'Driver License',
        prop = 'prop_franklin_dl',
+       design = 'design2',
+       cost = 50,
+       enabled = true,
+       purchasable = true
     },
     ['firearm_license'] = {
         name = 'Firearm License',
         prop = 'prop_franklin_dl',
+        design = 'design3',
+        cost = 100,
+        enabled = true,
+        purchasable = true
     },
 }
 ```
 
+Available designs:
+
+- `design1`: Default ID card layout
+- `design2`: Driver license layout
+- `design3`: Weapon license layout
+
 ## Localization
 
-Set the default language and customize text:
+Set the default language:
 
 ```lua
 Config.DefaultLocale = 'en'
@@ -169,8 +294,6 @@ Config.DefaultLocale = 'en'
 
 Supported languages: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'pl'`, `'tr'`, `'zh'`, `'ar'`
 
-You can customize all UI text in the `Config.Locales` table.
-
 <Tip>
-  All features are fully configurable. Adjust NPCs, card visuals, costs, and localization to fit your server's needs.
+  All features are fully configurable. Adjust NPCs, card visuals, validation rules, costs, and localization to fit your server's needs.
 </Tip>

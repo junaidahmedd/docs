@@ -3,6 +3,18 @@ title: 'Installation'
 description: 'Install Revo ID Card and set it up on your FiveM server.'
 ---
 
+<Warning>
+  If you are updating to v1.2 from an older version, you must update your inventory item image names to prevent missing-image issues and inventory errors.
+
+  `id_card` -> `revo_design_1.png`  
+  `driver_license` -> `revo_design_2.png`  
+  `firearm_license` -> `revo_design_3.png`
+</Warning>
+
+<Info>
+  After updating the image names in your inventory items file, place the new images from the `items-images` folder into your inventory image folder.
+</Info>
+
 <Steps>
   <Step title="Download Revo ID Card">
     Visit the <a href="https://keymaster.fivem.net/" target="_blank">FiveM Keymaster</a> and download the latest version of **Revo ID Card**. Save the script to your computer.
@@ -35,7 +47,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           close = true,
           description = "Your personal identification card.",
           client = {
-            image = 'revo_id_card.png',
+            image = 'revo_design_1.png',
           }
         },
         ['driver_license'] = {
@@ -45,7 +57,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           close = true,
           description = "Your driver's license.",
           client = {
-            image = 'revo_driver_license.png',
+            image = 'revo_design_2.png',
           }
         },
         ['firearm_license'] = {
@@ -55,19 +67,19 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           close = true,
           description = "Your weapon's license.",
           client = {
-            image = 'revo_weapon_license.png',
+            image = 'revo_design_3.png',
           }
         },
         ```
         
         Add images (from `items-images` folder of `revo_idcard`) to: `ox_inventory/web/images/`
-        - revo_id_card.png
-        - revo_driver_license.png
-        - revo_weapon_license.png
+        - revo_design_1.png
+        - revo_design_2.png
+        - revo_design_3.png
       </Tab>
       
       <Tab title="qb-inventory">
-        Open your `qb-core/shared/items.lua` file and add the following items:
+        Open your `qb-core/shared/items.lua` file and add the following items. If your server uses a custom QB/Quasar item file, update that file instead:
         
         ```lua
         ['id_card'] = {
@@ -75,7 +87,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           label = 'ID Card',
           weight = 1,
           type = 'item',
-          image = 'revo_id_card.png',
+          image = 'revo_design_1.png',
           unique = true,
           useable = true,
           shouldClose = true,
@@ -86,7 +98,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           label = 'Driver License',
           weight = 1,
           type = 'item',
-          image = 'revo_driver_license.png',
+          image = 'revo_design_2.png',
           unique = true,
           useable = true,
           shouldClose = true,
@@ -97,7 +109,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           label = 'Firearm License',
           weight = 1,
           type = 'item',
-          image = 'revo_weapon_license.png',
+          image = 'revo_design_3.png',
           unique = true,
           useable = true,
           shouldClose = true,
@@ -106,15 +118,15 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
         ```
         
         Add images (from `items-images` folder of `revo_idcard`) to: `qb-inventory/html/images/`
-        - revo_id_card.png
-        - revo_driver_license.png
-        - revo_weapon_license.png
+        - revo_design_1.png
+        - revo_design_2.png
+        - revo_design_3.png
       </Tab>
       
-      <Tab title="qs-inventory">
-        For ESX servers: Add the following items to `qs-inventory/shared/items.lua`
+      <Tab title="qs-inventory / qs-advancedinventory">
+        For ESX servers, add the following items to your Quasar items file such as `qs-inventory/shared/items.lua`.
         
-        For QBCore servers: Add the same items to `qb-core/shared/items.lua`
+        For QBCore servers, add the same items to `qb-core/shared/items.lua` or the relevant items file used by your Quasar setup.
         
         ```lua
         ['id_card'] = {
@@ -122,7 +134,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           label = 'ID Card',
           weight = 1,
           type = 'item',
-          image = 'revo_id_card.png',
+          image = 'revo_design_1.png',
           unique = true,
           useable = true,
           shouldClose = true,
@@ -133,7 +145,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           label = 'Driver License',
           weight = 1,
           type = 'item',
-          image = 'revo_driver_license.png',
+          image = 'revo_design_2.png',
           unique = true,
           useable = true,
           shouldClose = true,
@@ -144,7 +156,7 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
           label = 'Firearm License',
           weight = 1,
           type = 'item',
-          image = 'revo_weapon_license.png',
+          image = 'revo_design_3.png',
           unique = true,
           useable = true,
           shouldClose = true,
@@ -152,16 +164,16 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
         },
         ```
         
-        Add images (from `items-images` folder of `revo_idcard`) to: `qs-inventory/html/images/`
-        - revo_id_card.png
-        - revo_driver_license.png
-        - revo_weapon_license.png
+        Place the new images from the `items-images` folder of `revo_idcard` into the image folder used by your Quasar inventory build.
+        - revo_design_1.png
+        - revo_design_2.png
+        - revo_design_3.png
       </Tab>
     </Tabs>
   </Step>
   
   <Step title="Start the Resource">
-    After adding the items and images, restart your inventory resource (ox_inventory, qb-inventory, or qs-inventory) to load the new items.
+    After adding or updating the items and images, restart your inventory resource (ox_inventory, qb-inventory, qs-inventory, or qs-advancedinventory) to load the new items.
     
     Then restart your server or run these commands in the server console:
     
@@ -173,5 +185,5 @@ description: 'Install Revo ID Card and set it up on your FiveM server.'
 </Steps>
 
 <Tip>
-  Revo ID Card is fully configurable and optimized for performance. You can customize NPCs, card visuals, and prices in the `config.lua` file.
+  Revo ID Card is fully configurable and optimized for performance. You can customize NPCs, card visuals, card designs, validation behavior, and prices in the `config.lua` file.
 </Tip>
