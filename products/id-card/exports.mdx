@@ -11,9 +11,6 @@ description: 'Available exports for integrating Revo ID Card with other resource
 
 ```lua
 exports['revo_idcard']:CreateCard(source, cardType, deductMoney)
-exports['revo_idcard']:CreateRealID(source, cardType, deductMoney)
-exports['revo_idcard']:CreateDriverLicense(source, deductMoney)
-exports['revo_idcard']:CreateWeaponLicense(source, deductMoney)
 exports['revo_idcard']:GetPurchasableCards()
 ```
 
@@ -37,50 +34,6 @@ exports['revo_idcard']:CreateCard(source, 'hunting_license', false)
 - Returns `false` if the card key is invalid or disabled
 - `true` charges the player normally
 - `false` issues the card without charging
-
-## CreateRealID
-
-Backward-compatible wrapper for real ID creation. It still supports passing a specific card type.
-
-```lua
-exports['revo_idcard']:CreateRealID(source)
-exports['revo_idcard']:CreateRealID(source, 'id_card')
-exports['revo_idcard']:CreateRealID(source, 'bike_license', false)
-```
-
-**Parameters:**
-- `source` (number): Player server ID
-- `cardType` (string, optional): Defaults to `'id_card'`
-- `deductMoney` (boolean, optional): Defaults to `true`
-
-## CreateDriverLicense
-
-Legacy wrapper for `driver_license`.
-
-```lua
-exports['revo_idcard']:CreateDriverLicense(source)
-exports['revo_idcard']:CreateDriverLicense(source, false)
-```
-
-**Parameters:**
-- `source` (number): Player server ID
-- `deductMoney` (boolean, optional): Defaults to `true`
-
-**Note:**
-- If `driver_license` is disabled in config, this export returns `false`
-
-## CreateWeaponLicense
-
-Legacy wrapper for `firearm_license`.
-
-```lua
-exports['revo_idcard']:CreateWeaponLicense(source)
-exports['revo_idcard']:CreateWeaponLicense(source, false)
-```
-
-**Parameters:**
-- `source` (number): Player server ID
-- `deductMoney` (boolean, optional): Defaults to `true`
 
 ## GetPurchasableCards
 
@@ -117,7 +70,7 @@ exports['revo_idcard']:CreateCard(source, 'bike_license', false)
 Issue default ID without charging:
 
 ```lua
-exports['revo_idcard']:CreateRealID(source, 'id_card', false)
+exports['revo_idcard']:CreateCard(source, 'id_card', false)
 ```
 
 Get menu-eligible cards:
@@ -145,6 +98,7 @@ These exports trigger mugshot capture first, then create the card through the no
 - `cardType` must exist in `Config.Cards`
 - Disabled cards return `false` and will not be issued
 - Custom cards also need matching inventory item definitions
+- `CreateCard` replaces the need to document per-card wrapper exports
 - The player must have enough inventory space for the card to be created
 - Money deduction is optional and defaults to enabled
 - These exports work with all supported inventory systems: `ox_inventory`, `qb-inventory`, `qs-inventory`, and `qs-advancedinventory`
