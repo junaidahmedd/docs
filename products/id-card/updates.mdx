@@ -1,0 +1,233 @@
+---
+title: "How to Update"
+description: "Learn how to update Revo ID Card to the latest version with v1.2 migration steps."
+---
+
+<Warning>
+  **IMPORTANT:** Always back up your current `revo_idcard` folder and any custom inventory item definitions before updating.
+</Warning>
+
+Keeping Revo ID Card up to date ensures access to the latest features, improvements, and fixes. Follow the general update steps below, then apply the v1.2 migration instructions so your inventory images and item definitions stay in sync.
+
+<Steps>
+  <Step title="Visit CFX.re Keymaster">
+    Go to the <a href="https://keymaster.fivem.net/asset-grants" target="_blank">CFX.re Keymaster Granted Assets</a> and log in using the same CFX account used to purchase the script.
+    <Frame>
+      <img src="/images/granted-assets.jpg" alt="Granted Assets Page" style={{ borderRadius: '0.5rem' }} />
+    </Frame>
+  </Step>
+
+  <Step title="Download the Latest Version">
+    Locate Revo ID Card in your granted assets and download the latest available bundle.
+    <Note>
+      The latest version is always available from your asset grant. There is no need to repurchase the script.
+    </Note>
+  </Step>
+
+  <Step title="Backup Your Current Files">
+    Before replacing the old script:
+
+    1. Back up your current `revo_idcard` folder
+    2. Back up your current `config.lua`
+    3. Back up any custom inventory item definitions you added for ID cards
+    4. Back up any custom inventory images if you modified them
+
+    <Tip>
+      Copying the full `revo_idcard` folder to a safe location is the quickest way to create a rollback point.
+    </Tip>
+  </Step>
+
+  <Step title="Replace the Old Script">
+    1. Unzip the newly downloaded bundle
+    2. Open your server `resources` folder
+    3. Delete the old `revo_idcard` folder
+    4. Move the new `revo_idcard` folder into `resources`
+  </Step>
+
+  <Step title="Restore and Review Your Config">
+    Copy your backed-up `config.lua` settings into the new version, then compare them with the new default config.
+
+    <Warning>
+      Revo ID Card v1.2 introduced a config-driven card system. Review the new `Config.Cards`, `Config.CardDisplayDuration`, validation settings, and any new options before going live.
+    </Warning>
+  </Step>
+
+  <Step title="Apply the v1.2 Inventory Migration">
+    Revo ID Card v1.2 changed the default inventory image names. You **must** update your inventory item definitions and replace the images to avoid missing icons or broken item display.
+
+    **Image name changes:**
+
+    - `id_card` -> `revo_design_1.png`
+    - `driver_license` -> `revo_design_2.png`
+    - `firearm_license` -> `revo_design_3.png`
+
+    <Tabs>
+      <Tab title="ox_inventory">
+        Update `ox_inventory/data/items.lua` and replace the old image names with the new ones, or replace the existing card entries with this updated version:
+
+        ```lua
+        ['id_card'] = {
+          label = 'ID Card',
+          weight = 1,
+          stack = false,
+          close = true,
+          description = "Your personal identification card.",
+          client = {
+            image = 'revo_design_1.png',
+          }
+        },
+        ['driver_license'] = {
+          label = 'Driver License',
+          weight = 1,
+          stack = false,
+          close = true,
+          description = "Your driver's license.",
+          client = {
+            image = 'revo_design_2.png',
+          }
+        },
+        ['firearm_license'] = {
+          label = 'Firearm License',
+          weight = 1,
+          stack = false,
+          close = true,
+          description = "Your weapon's license.",
+          client = {
+            image = 'revo_design_3.png',
+          }
+        },
+        ```
+
+        Then copy the new images from the `items-images` folder in `revo_idcard` to `ox_inventory/web/images/`.
+      </Tab>
+
+      <Tab title="qb-inventory">
+        Update `qb-core/shared/items.lua`, or your relevant QB items file, and replace the old image names with the new ones:
+
+        ```lua
+        ['id_card'] = {
+          name = 'id_card',
+          label = 'ID Card',
+          weight = 1,
+          type = 'item',
+          image = 'revo_design_1.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your personal identification card.'
+        },
+        ['driver_license'] = {
+          name = 'driver_license',
+          label = 'Driver License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_design_2.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your driver\'s license.'
+        },
+        ['firearm_license'] = {
+          name = 'firearm_license',
+          label = 'Firearm License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_design_3.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your weapon\'s license.'
+        },
+        ```
+
+        Then copy the new images from `revo_idcard/items-images` to `qb-inventory/html/images/`.
+      </Tab>
+
+      <Tab title="qs-inventory / qs-advancedinventory">
+        Update your Quasar items file, such as `qs-inventory/shared/items.lua`, or the relevant items file used by your setup. Replace the old image names with the new ones:
+
+        ```lua
+        ['id_card'] = {
+          name = 'id_card',
+          label = 'ID Card',
+          weight = 1,
+          type = 'item',
+          image = 'revo_design_1.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your personal identification card.'
+        },
+        ['driver_license'] = {
+          name = 'driver_license',
+          label = 'Driver License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_design_2.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your driver\'s license.'
+        },
+        ['firearm_license'] = {
+          name = 'firearm_license',
+          label = 'Firearm License',
+          weight = 1,
+          type = 'item',
+          image = 'revo_design_3.png',
+          unique = true,
+          useable = true,
+          shouldClose = true,
+          description = 'Your weapon\'s license.'
+        },
+        ```
+
+        Then place the new images from `revo_idcard/items-images` into the image folder used by your Quasar inventory build.
+      </Tab>
+    </Tabs>
+
+    <Info>
+      If you only change the image files but leave the old names inside your items file, the new images will not appear correctly. Both the items file and the image folder must be updated.
+    </Info>
+  </Step>
+
+  <Step title="Restart the Updated Resources">
+    Restart your inventory resource first, then restart Revo ID Card:
+
+    ```bash
+    refresh
+    restart ox_inventory
+    restart revo_idcard
+    ```
+
+    If you use another inventory, restart that resource instead of `ox_inventory`.
+  </Step>
+</Steps>
+
+## Updating to v1.2
+
+If you are upgrading from v1.1 or older to **v1.2**, make sure you complete all of the following:
+
+1. Replace the old `revo_idcard` script files with the new version
+2. Review and merge the new config options, especially `Config.Cards`, `Config.CardDisplayDuration`, and validation settings
+3. Update inventory item image names from the old filenames to the new design-based filenames
+4. Replace the old card entries in your inventory `items.lua` file with the updated code if needed
+5. Copy the new images from `revo_idcard/items-images` into your inventory image folder
+
+<Warning>
+  Do not skip the inventory migration when updating to v1.2. Old image names like `revo_id_card.png`, `revo_driver_license.png`, and `revo_weapon_license.png` are no longer the default names used by the updated docs and setup.
+</Warning>
+
+## Verification
+
+After updating, verify the script works correctly:
+
+1. Check that the inventory icons load for ID cards, driver licenses, and firearm licenses
+2. Create a real ID and confirm the card image and data display correctly
+3. Test fake ID creation if enabled
+4. Run `/idcheck` with a police job to confirm the validation flow works
+5. If you use custom cards in `Config.Cards`, verify you also created matching inventory item definitions
+
+<Tip>
+  If something looks wrong after updating, compare your inventory item definitions and image filenames first. Most v1.2 upgrade issues come from keeping the old image names in the items file.
+</Tip>
