@@ -309,7 +309,7 @@ Each card entry uses a unique key such as `id_card`, `driver_license`, or any cu
 - `prop`: the world prop used when the card is shown
 - `design`: which card layout to use
 - `cost`: normal purchase price
-- `fakeCost`: fake ID price for cards that support fake creation
+- `fakeCost`: fake ID price for card types that support fake issuance
 - `enabled`: whether the card can exist at all
 - `purchasable`: whether the card appears in purchase menus
 
@@ -342,7 +342,6 @@ Config.Cards = {
        prop = 'prop_franklin_dl',
        design = 'design2',
        cost = 75,
-       fakeCost = 250,
        enabled = true,
        purchasable = true
     },
@@ -355,7 +354,6 @@ In this example:
 - `'Hunting License'` is the label players see
 - `design2` reuses the driver-license-style layout
 - `cost = 75` is the legal purchase price
-- `fakeCost = 250` is the fake version price if your server allows it
 
 ### Choosing `enabled` and `purchasable`
 
