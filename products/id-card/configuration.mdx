@@ -7,139 +7,57 @@ description: 'Customize how Revo ID Card behaves for your server and players.'
   Configuration is done in the <code>config.lua</code> file located in the <code>revo_idcard</code> directory.
 </Info>
 
-## Full Config Example
-
-Use this as the current reference configuration:
-
-```lua
-Config = {}
-
-Config.Theme = 'dark' -- Theme for menus, options: 'light', 'dark'
--- Available positions: 'top-left', 'top-right', 'top-center', 'bottom-left', 'bottom-right', 'bottom-center', center-left, center-right, center-center
-Config.NotificationPosition = 'top-center' -- Default notification position
-
-Config.UseFakeID = true -- Enable/Disable Fake ID feature
-Config.Real_ID_NPC_Model = 'a_m_m_business_01' -- NPC Model for Real ID creation
-Config.Real_ID_NPC_Locations = {
-    {x = 435.098907, y = -974.769226, z = 30.712036, heading = 96.377945},
-    {x = 214.298904, y = -947.367004, z = 30.678345, heading = 229.606293}
-}
-Config.Fake_ID_NPC_Model = 'g_m_y_ballaorig_01' -- NPC Model for Fake ID creation
-Config.Fake_ID_NPC_Locations = {
-    {x = 117.969231, y = -1951.582397, z = 20.737061, heading = 53.858269},
-    {x = 155.024185, y = -1311.956055, z = 29.195557, heading = 48.188972}
-}
-
-Config.ShowRealIDMapIcon = true -- Show Real ID NPC on map
-Config.RealIDMapIcon = {
-    sprite = 480, -- Blip sprite for Real ID NPC
-    scale = 0.9, -- Blip scale
-    color = 2, -- Blip color
-    name = 'ID Card' -- Blip name
-}
-
-Config.ShowFakeIDMapIcon = true -- Show Fake ID NPC on map
-Config.FakeIDMapIcon = {
-    sprite = 480, -- Blip sprite for Fake ID NPC
-    scale = 0.9, -- Blip scale
-    color = 1, -- Blip color
-    name = 'Fake ID Dealer' -- Blip name
-}
-
-Config.EnableCardCosts = true -- Enable/Disable ID creation costs
-Config.ShowIssueAndExpireDate = true -- Show issue and expiration date on ID
-Config.ExpireDuration = 30 -- Expiration duration in days
-Config.CardDisplayDuration = 4500 -- Card display duration in milliseconds
-Config.ValidationCommand = 'idcheck' -- Police validation command
-Config.ValidationCommandDistance = 3.0 -- Range for card validation command
-Config.ValidationAllowedJobs = {
-    police = true
-}
-
--- Cooldown to prevent spam (in seconds)
-Config.FakeIDCreationCooldown = 60 -- 1 minute
-
-Config.StateNameOnCard = 'Los Santos' -- State name on ID card
-Config.DefaultNationality = 'United States' -- Default Nationality
-Config.IDCardViewDistance = 5.0 -- Distance to show ID card
-
-Config.IDCardColors = {
-    police = '#004dbb',
-    ambulance = '#d32f2f',
-    mechanic = '#ec9914',
-    government = '#6a1b9a',
-    taxi = '#f0c400',
-    cardealer = '#0A3D62',
-    unemployed = '#000000',
-    default = '#000000'
-}
-
--- Card types and their properties
--- design1 = default ID card layout
--- design2 = driver license layout
--- design3 = weapon license layout
-Config.Cards = {
-    ['id_card'] = {
-       name = 'Identification Card',
-       prop = 'prop_franklin_dl',
-       design = 'design1',
-       cost = 20,
-       fakeCost = 100,
-       enabled = true,
-       purchasable = true
-    },
-    ['driver_license'] = {
-       name = 'Driver License',
-       prop = 'prop_franklin_dl',
-       design = 'design2',
-       cost = 50,
-       enabled = true,
-       purchasable = true
-    },
-    ['firearm_license'] = {
-        name = 'Firearm License',
-        prop = 'prop_franklin_dl',
-        design = 'design3',
-        cost = 100,
-        enabled = true,
-        purchasable = true
-    },
-}
-
--- Available languages: 'en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'pl', 'tr', 'zh', 'ar'
-Config.DefaultLocale = 'en' -- Default language
-```
+This page explains what each config option does and when you would change it.
 
 ## Theme
 
-Set the menu theme:
-
 ```lua
-Config.Theme = 'dark' -- Options: 'light', 'dark'
+Config.Theme = 'dark'
 ```
 
-## Notification Position
+Controls the menu and UI theme used by the script.
 
-Choose where notifications appear on the screen:
+- Use `'dark'` for the default dark interface
+- Use `'light'` if you want a brighter menu style
+
+This only affects the script's interface styling and does not change gameplay behavior.
+
+## Notification Position
 
 ```lua
 Config.NotificationPosition = 'top-center'
 ```
 
-Available positions:  
-`'top-left'`, `'top-right'`, `'top-center'`, `'bottom-left'`, `'bottom-right'`, `'bottom-center'`, `'center-left'`, `'center-right'`, `'center-center'`
+Controls where script notifications appear on the player's screen.
 
-## Fake ID Feature
+Available positions:
 
-Enable or disable the Fake ID system:
+- `'top-left'`
+- `'top-right'`
+- `'top-center'`
+- `'bottom-left'`
+- `'bottom-right'`
+- `'bottom-center'`
+- `'center-left'`
+- `'center-right'`
+- `'center-center'`
+
+Choose a position that does not overlap with your HUD, phone UI, or other notification systems.
+
+## Fake ID System
 
 ```lua
 Config.UseFakeID = true
 ```
 
-## NPC Configuration
+Enables or disables fake ID creation entirely.
 
-Set NPC models and locations for real and fake ID creation:
+- `true`: players can access the fake ID system
+- `false`: fake ID creation is disabled
+
+If you disable this, fake ID NPCs and fake ID purchasing flow should no longer be part of your server's gameplay.
+
+## Real ID NPC Settings
 
 ```lua
 Config.Real_ID_NPC_Model = 'a_m_m_business_01'
@@ -147,7 +65,25 @@ Config.Real_ID_NPC_Locations = {
     {x = 435.098907, y = -974.769226, z = 30.712036, heading = 96.377945},
     {x = 214.298904, y = -947.367004, z = 30.678345, heading = 229.606293}
 }
+```
 
+These settings control where players get legitimate ID cards.
+
+- `Config.Real_ID_NPC_Model`: the ped model used for the real ID NPC
+- `Config.Real_ID_NPC_Locations`: every location where that NPC will spawn
+
+Each location entry needs:
+
+- `x`: X coordinate
+- `y`: Y coordinate
+- `z`: Z coordinate
+- `heading`: direction the NPC faces
+
+Add more entries if you want multiple legal ID offices around the map.
+
+## Fake ID NPC Settings
+
+```lua
 Config.Fake_ID_NPC_Model = 'g_m_y_ballaorig_01'
 Config.Fake_ID_NPC_Locations = {
     {x = 117.969231, y = -1951.582397, z = 20.737061, heading = 53.858269},
@@ -155,9 +91,14 @@ Config.Fake_ID_NPC_Locations = {
 }
 ```
 
-## Map Icons
+These settings control where players can obtain fake IDs.
 
-Show or hide map icons for NPCs:
+- `Config.Fake_ID_NPC_Model`: the ped model used for fake ID creation
+- `Config.Fake_ID_NPC_Locations`: every location where the fake ID NPC will appear
+
+If your server uses hidden or criminal-roleplay flows, you can place these NPCs in more discreet locations.
+
+## Real ID Map Icon
 
 ```lua
 Config.ShowRealIDMapIcon = true
@@ -167,7 +108,21 @@ Config.RealIDMapIcon = {
     color = 2,
     name = 'ID Card'
 }
+```
 
+Controls the map blip for legal ID NPCs.
+
+- `Config.ShowRealIDMapIcon`: shows or hides the blip
+- `sprite`: the blip icon ID
+- `scale`: the size of the blip
+- `color`: the blip color ID
+- `name`: the text shown on the map
+
+Disable this if you want players to find the location through roleplay instead of a map marker.
+
+## Fake ID Map Icon
+
+```lua
 Config.ShowFakeIDMapIcon = true
 Config.FakeIDMapIcon = {
     sprite = 480,
@@ -177,24 +132,58 @@ Config.FakeIDMapIcon = {
 }
 ```
 
-## Card Costs
+Controls the map blip for fake ID NPCs.
 
-Enable or disable card creation costs:
+- `Config.ShowFakeIDMapIcon`: shows or hides the fake ID blip
+- `sprite`: the blip icon ID
+- `scale`: the blip size
+- `color`: the blip color ID
+- `name`: the label shown on the map
+
+Many servers prefer setting this to `false` so fake ID dealers are discovered in character rather than publicly marked.
+
+## Card Costs
 
 ```lua
 Config.EnableCardCosts = true
 ```
 
-Each card's price is configured inside `Config.Cards` using `cost`, and fake ID pricing uses `fakeCost` where supported.
+Enables or disables money checks when cards are issued through the normal purchase flow.
 
-## Card Display & Validation
+- `true`: players pay the configured cost
+- `false`: cards are issued without charging
 
-Control how cards are shown and how officers validate them:
+The actual price for each card is defined inside `Config.Cards`.
+
+## Date Display
 
 ```lua
 Config.ShowIssueAndExpireDate = true
 Config.ExpireDuration = 30
+```
+
+These settings control card date behavior.
+
+- `Config.ShowIssueAndExpireDate`: shows issue and expiration dates on the card
+- `Config.ExpireDuration`: number of days before the card expires
+
+If you want a more permanent document system, you can disable date display or increase the expiration duration.
+
+## Card Display Duration
+
+```lua
 Config.CardDisplayDuration = 4500
+```
+
+Controls how long the card stays visible on screen in milliseconds when shown.
+
+- `4500` means the card stays visible for 4.5 seconds
+
+Increase this if players need more time to read the card. Lower it if you want faster, lighter interactions.
+
+## Validation Settings
+
+```lua
 Config.ValidationCommand = 'idcheck'
 Config.ValidationCommandDistance = 3.0
 Config.ValidationAllowedJobs = {
@@ -202,34 +191,60 @@ Config.ValidationAllowedJobs = {
 }
 ```
 
-## Cooldown
+These settings control the fake ID validation system.
 
-Set cooldown (in seconds) to prevent fake ID spam:
+- `Config.ValidationCommand`: the command players use to validate a card
+- `Config.ValidationCommandDistance`: how close the target must be
+- `Config.ValidationAllowedJobs`: which jobs can use the validation command
+
+Example:
+
+- `police = true` allows police to use `/idcheck`
+- any job not listed or not set to `true` cannot use the command
+
+If your server has sheriff, state police, or government roles, add them here too.
+
+## Fake ID Cooldown
 
 ```lua
-Config.FakeIDCreationCooldown = 60 -- 1 minute
+Config.FakeIDCreationCooldown = 60
 ```
 
-## State & Nationality
+Prevents players from spamming fake ID creation.
 
-Set the state name and default nationality shown on cards:
+- Value is in seconds
+- `60` means one fake ID request per minute
+
+Raise this if fake IDs are meant to be rare. Lower it if your gameplay loop is more casual.
+
+## Card Identity Defaults
 
 ```lua
 Config.StateNameOnCard = 'Los Santos'
 Config.DefaultNationality = 'United States'
 ```
 
-## Card View Distance
+Controls default identity text shown on cards.
 
-Set how far away players can see the ID card:
+- `Config.StateNameOnCard`: the state or region name printed on the card
+- `Config.DefaultNationality`: the default nationality value used by the script
+
+These should match your server's roleplay setting.
+
+## Card View Distance
 
 ```lua
 Config.IDCardViewDistance = 5.0
 ```
 
-## Card Colors
+Controls how close other players must be to see the card when it is shown.
 
-Customize card colors for different job types:
+- Lower values make card sharing feel more private
+- Higher values make it easier for nearby players to read the card
+
+If crowded areas feel noisy, reducing this value can help.
+
+## Card Colors
 
 ```lua
 Config.IDCardColors = {
@@ -244,9 +259,15 @@ Config.IDCardColors = {
 }
 ```
 
-## Card Types
+Defines the color mapping used for different job-based card styles.
 
-Configure each card type and its properties:
+- Each key should match a job name used on your server
+- Each value should be a hex color
+- `default` is used when no specific job color matches
+
+If you add new jobs to your framework, add them here if you want them to have their own visual color on cards.
+
+## Cards
 
 ```lua
 Config.Cards = {
@@ -278,22 +299,150 @@ Config.Cards = {
 }
 ```
 
-Available designs:
+This is the most important section in the config. `Config.Cards` defines which cards exist in the script and how each one behaves.
 
-- `design1`: Default ID card layout
-- `design2`: Driver license layout
-- `design3`: Weapon license layout
+Each card entry uses a unique key such as `id_card`, `driver_license`, or any custom key you create.
+
+### Card Fields
+
+- `name`: display name shown to players
+- `prop`: the world prop used when the card is shown
+- `design`: which card layout to use
+- `cost`: normal purchase price
+- `fakeCost`: fake ID price for cards that support fake creation
+- `enabled`: whether the card can exist at all
+- `purchasable`: whether the card appears in purchase menus
+
+### Card Designs
+
+- `design1`: default ID card layout
+- `design2`: driver license layout
+- `design3`: weapon license layout
+
+### How To Create a New Card
+
+To add a new card, you need more than just a new line in `Config.Cards`. The full setup should look like this:
+
+1. Add a new entry inside `Config.Cards`
+2. Choose the display `name`
+3. Choose a `design` that fits the type of card
+4. Set pricing with `cost` and optional `fakeCost`
+5. Set `enabled = true`
+6. Decide whether it should appear in menus with `purchasable = true` or `false`
+7. Create a matching inventory item with the same item name/key
+8. Add the correct inventory image for that item
+9. Test the card using the purchase menu or export flow
+
+### Example Custom Card
+
+```lua
+Config.Cards = {
+    ['hunting_license'] = {
+       name = 'Hunting License',
+       prop = 'prop_franklin_dl',
+       design = 'design2',
+       cost = 75,
+       fakeCost = 250,
+       enabled = true,
+       purchasable = true
+    },
+}
+```
+
+In this example:
+
+- `hunting_license` is the item key used by the script
+- `'Hunting License'` is the label players see
+- `design2` reuses the driver-license-style layout
+- `cost = 75` is the legal purchase price
+- `fakeCost = 250` is the fake version price if your server allows it
+
+### Choosing `enabled` and `purchasable`
+
+These two options are often confused:
+
+- `enabled = true`, `purchasable = true`
+  The card exists and can be bought through the menu
+- `enabled = true`, `purchasable = false`
+  The card exists but is hidden from menu purchase and can still be created through scripts or exports
+- `enabled = false`
+  The card is disabled entirely and will not be issued
+
+Use `purchasable = false` for admin-only, job-only, or script-issued cards.
+
+### Inventory Setup For New Cards
+
+Every custom card also needs a matching item in your inventory system.
+
+If you add this card in config:
+
+```lua
+['hunting_license'] = {
+   name = 'Hunting License',
+   prop = 'prop_franklin_dl',
+   design = 'design2',
+   cost = 75,
+   enabled = true,
+   purchasable = true
+}
+```
+
+Then your inventory item should use the same key:
+
+```lua
+['hunting_license'] = {
+  label = 'Hunting License',
+  weight = 1,
+  stack = false,
+  close = true,
+  client = {
+    image = 'revo_design_2.png',
+  }
+}
+```
+
+The key name must match. If the config uses `hunting_license` but your inventory item uses a different name, the card will not work correctly.
+
+### Best Practices For Custom Cards
+
+- Reuse `design1`, `design2`, or `design3` based on the closest visual style
+- Keep item keys lowercase and simple
+- Use `purchasable = false` for hidden or restricted cards
+- Add the correct item image before testing
+- If fake IDs are enabled, only use `fakeCost` on cards where fake issuance makes sense for your roleplay
+
+### Common Mistakes
+
+- Adding a card in `Config.Cards` but forgetting the inventory item
+- Using a different inventory item name than the config key
+- Leaving a card `enabled = false` and expecting it to work
+- Forgetting to copy the correct image into the inventory image folder
+- Using a design that does not match the type of document you want players to see
 
 ## Localization
-
-Set the default language:
 
 ```lua
 Config.DefaultLocale = 'en'
 ```
 
-Supported languages: `'en'`, `'es'`, `'fr'`, `'de'`, `'it'`, `'pt'`, `'ru'`, `'pl'`, `'tr'`, `'zh'`, `'ar'`
+Controls the default language used by the script.
+
+Supported languages:
+
+- `'en'`
+- `'es'`
+- `'fr'`
+- `'de'`
+- `'it'`
+- `'pt'`
+- `'ru'`
+- `'pl'`
+- `'tr'`
+- `'zh'`
+- `'ar'`
+
+Choose the locale that best matches your server's player base.
 
 <Tip>
-  All features are fully configurable. Adjust NPCs, card visuals, validation rules, costs, and localization to fit your server's needs.
+  The best way to configure Revo ID Card is to decide your gameplay flow first: who can issue cards, which cards are public or hidden, whether fake IDs are available, and which documents players should be able to buy directly. Then map those decisions into the config values above.
 </Tip>
