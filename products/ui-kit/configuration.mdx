@@ -1,0 +1,418 @@
+---
+title: "Configuration"
+description: "Customize Revo UI Kit for your server."
+---
+
+<Info>
+  Configuration is done in the <code>config.lua</code> file located in the <code>revo_uikit</code> directory.
+</Info>
+
+This page explains every config section in Revo UI Kit and what each option changes.
+
+## Config Structure
+
+```lua
+Config = {}
+
+Config.PrimaryColor = '#11E0EE'
+Config.DebugMode = false
+
+Config.EnabledComponents = {
+    ox_target = true,
+    ox_lib = {
+        notify = true,
+        textUI = true,
+        inputDialog = true,
+        alertDialog = true,
+        progressBar = true,
+        progressCircle = true,
+        skillCheck = true,
+        context = true,
+        menu = true,
+        radial = true,
+    },
+}
+
+Config.Defaults = {
+    notifications = {
+        duration = 3000,
+        position = 'top-center',
+    },
+    progress = {
+        cancelKey = 'X',
+    },
+    textUI = {
+        position = 'left-center',
+    },
+    radial = {
+        mode = 'hold',
+        openKey = 'Z',
+    },
+}
+
+Config.SkillCheckVersion = 'bar'
+Config.DefaultLocale = 'en'
+```
+
+## Primary Color
+
+```lua
+Config.PrimaryColor = '#11E0EE'
+```
+
+This is the main accent color used across the UI kit.
+
+It affects things like:
+
+- borders
+- icons
+- active states
+- highlights
+- glow effects
+- other visual accent elements
+
+The value must be a valid hex color string.
+
+Examples:
+
+- `'#11E0EE'` for the default cyan style
+- `'#F43F5E'` for a neon rose look
+- `'#8B5CF6'` for purple
+- `'#EAB308'` for a golden/yellow look
+- `'#10B981'` for green
+
+Use this option to match the UI kit to your server branding, gang/faction theme, or overall visual style.
+
+## Debug Mode
+
+```lua
+Config.DebugMode = false
+```
+
+Controls client-side debug output for the UI kit.
+
+When enabled, it helps you inspect:
+
+- interception behavior
+- ox_lib / ox_target linking
+- UI kit state
+- integration troubleshooting
+
+Recommended usage:
+
+- set to `true` while testing or integrating the script
+- set to `false` during normal production use
+
+Unless you are actively debugging, leave this disabled to avoid unnecessary console noise.
+
+## Enabled Components
+
+```lua
+Config.EnabledComponents = {
+    ox_target = true,
+    ox_lib = {
+        notify = true,
+        textUI = true,
+        inputDialog = true,
+        alertDialog = true,
+        progressBar = true,
+        progressCircle = true,
+        skillCheck = true,
+        context = true,
+        menu = true,
+        radial = true,
+    },
+}
+```
+
+This section controls which parts of Revo UI Kit should intercept and replace the default `ox_lib` and `ox_target` UI.
+
+If a value is set to `false`, that component will keep the original stock behavior instead of using the Revo UI Kit redesign.
+
+### ox_target
+
+```lua
+ox_target = true
+```
+
+Controls whether Revo UI Kit replaces the default `ox_target` visuals.
+
+- `true`: use the Revo UI Kit redesign for ox_target
+- `false`: keep normal ox_target behavior
+
+Set this to `false` if you only want the ox_lib redesign and do not want to change your target system visuals.
+
+### ox_lib Components
+
+Each entry inside `Config.EnabledComponents.ox_lib` controls one ox_lib UI feature.
+
+#### Notifications
+
+```lua
+notify = true
+```
+
+Controls whether Revo UI Kit replaces `ox_lib` notifications.
+
+#### Text UI
+
+```lua
+textUI = true
+```
+
+Controls whether Revo UI Kit replaces `ox_lib` text UI prompts.
+
+#### Input Dialog
+
+```lua
+inputDialog = true
+```
+
+Controls whether Revo UI Kit replaces `ox_lib` input dialogs.
+
+#### Alert Dialog
+
+```lua
+alertDialog = true
+```
+
+Controls whether Revo UI Kit replaces `ox_lib` alert/confirmation dialogs.
+
+#### Progress Bar
+
+```lua
+progressBar = true
+```
+
+Controls whether Revo UI Kit replaces the default progress bar style.
+
+#### Progress Circle
+
+```lua
+progressCircle = true
+```
+
+Controls whether Revo UI Kit replaces the default circular progress UI.
+
+#### Skill Check
+
+```lua
+skillCheck = true
+```
+
+Controls whether Revo UI Kit replaces the default skill check UI.
+
+#### Context
+
+```lua
+context = true
+```
+
+Controls whether Revo UI Kit replaces ox_lib context menus.
+
+#### Menu
+
+```lua
+menu = true
+```
+
+Controls whether Revo UI Kit replaces standard ox_lib menus.
+
+#### Radial
+
+```lua
+radial = true
+```
+
+Controls whether Revo UI Kit replaces the ox_lib radial menu visuals and behavior layer.
+
+### Why This Section Matters
+
+This config is useful if you only want part of the redesign.
+
+Examples:
+
+- keep `ox_target = false` if you only want the ox_lib redesign
+- keep `menu = false` if you prefer the default ox_lib menu but want the rest of Revo UI Kit
+- disable individual parts during testing if you want to isolate an issue
+
+## Default Fallback Settings
+
+```lua
+Config.Defaults = {
+    notifications = {
+        duration = 3000,
+        position = 'top-center',
+    },
+    progress = {
+        cancelKey = 'X',
+    },
+    textUI = {
+        position = 'left-center',
+    },
+    radial = {
+        mode = 'hold',
+        openKey = 'Z',
+    },
+}
+```
+
+This section defines shared fallback behavior.
+
+These values are used when an individual ox_lib call does not provide its own value.
+
+In other words:
+
+- if a script already passes a custom value, that custom value is used
+- if a script omits a value, Revo UI Kit falls back to this config section
+
+## Notification Defaults
+
+```lua
+notifications = {
+    duration = 3000,
+    position = 'top-center',
+}
+```
+
+Controls fallback notification behavior.
+
+### duration
+
+```lua
+duration = 3000
+```
+
+Default notification duration in milliseconds.
+
+- `3000` means the notification stays visible for 3 seconds
+
+Increase this if your notifications contain more text or if you want players to have more time to read them.
+
+### position
+
+```lua
+position = 'top-center'
+```
+
+Default notification position when a script does not define one.
+
+Use a position that does not conflict with your HUD, minimap, or other overlays.
+
+## Progress Defaults
+
+```lua
+progress = {
+    cancelKey = 'X',
+}
+```
+
+Controls shared fallback behavior for progress-based UI.
+
+### cancelKey
+
+```lua
+cancelKey = 'X'
+```
+
+Defines which key is shown and used as the default cancel key for progress interactions when one is not explicitly provided.
+
+Change this if your server already uses `X` heavily for another system or if you want a more convenient cancel key.
+
+## Text UI Defaults
+
+```lua
+textUI = {
+    position = 'left-center',
+}
+```
+
+Controls fallback settings for text UI prompts.
+
+### position
+
+```lua
+position = 'left-center'
+```
+
+Sets the default on-screen location for text UI when a custom position is not provided.
+
+This is useful for keeping a consistent layout across all prompts on your server.
+
+## Radial Defaults
+
+```lua
+radial = {
+    mode = 'hold',
+    openKey = 'Z',
+}
+```
+
+Controls the default radial menu interaction style.
+
+### mode
+
+```lua
+mode = 'hold'
+```
+
+Defines how the radial menu opens and behaves by default.
+
+For example:
+
+- `'hold'`: players hold the key to use the radial menu
+
+If future modes are added, this setting will determine the default radial interaction style used by the UI kit.
+
+### openKey
+
+```lua
+openKey = 'Z'
+```
+
+Sets the default key used to open the radial menu.
+
+Change this if `Z` conflicts with another important control on your server.
+
+## Skill Check Version
+
+```lua
+Config.SkillCheckVersion = 'bar'
+```
+
+Controls which skill check style Revo UI Kit uses.
+
+Available options:
+
+- `'circle'`: rotating arc indicator
+- `'bar'`: vertical progress bar with a sweeping indicator
+
+Use `'circle'` if you want something closer to a classic timing-based circular challenge.
+
+Use `'bar'` if you prefer a cleaner, more direct visual style.
+
+## Default Locale
+
+```lua
+Config.DefaultLocale = 'en'
+```
+
+Sets the default locale key used from `Config.Locales`.
+
+This determines which language pack or text set the UI kit uses by default.
+
+Choose the locale that matches your server's main language.
+
+## Recommended Setup
+
+For most servers, a good starting setup is:
+
+- leave `DebugMode = false`
+- keep all UI replacements enabled
+- choose a `PrimaryColor` that matches your brand
+- keep fallback defaults simple and consistent
+- choose the skill check style that best fits your server's gameplay tone
+
+<Tip>
+  The best way to configure Revo UI Kit is to decide how much of the original ox_lib / ox_target experience you want to keep. If you want a full visual overhaul, leave all components enabled. If you only want selected parts of the redesign, disable the components you want to keep in their stock style.
+</Tip>

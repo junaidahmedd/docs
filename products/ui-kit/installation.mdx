@@ -1,0 +1,224 @@
+---
+title: "Installation"
+description: "Install Revo UI Kit and connect it to ox_lib and ox_target."
+---
+
+<Warning>
+  Revo UI Kit requires a manual integration inside `ox_lib`. Without that step, the UI kit will not load correctly.
+</Warning>
+
+Revo UI Kit installs like a normal FiveM resource, but it also needs a required loader snippet added to `ox_lib`. If you also want the redesign to apply to `ox_target`, you must replace the `ox_target` web `index.html` file as well.
+
+## Basic Installation
+
+<Steps>
+  <Step title="Add Revo UI Kit to Resources">
+    Drag and drop the `revo_uikit` folder into your server's `resources` directory.
+
+    <Tip>
+      It is recommended to keep it inside a grouped folder such as `[revo]` for better organization.
+    </Tip>
+  </Step>
+
+  <Step title="Ensure the Resource">
+    Add Revo UI Kit to your `server.cfg` after `ox_lib`, and after `ox_target` too if you use it:
+
+    ```bash
+    ensure ox_lib
+    ensure ox_target
+    ensure revo_uikit
+    ```
+
+    If you do not use `ox_target`, you only need:
+
+    ```bash
+    ensure ox_lib
+    ensure revo_uikit
+    ```
+  </Step>
+</Steps>
+
+## Required ox_lib Integration
+
+This step is mandatory.
+
+Open `ox_lib/init.lua` and paste the following code at the **end of the file**:
+
+```lua
+local REVO_RESOURCE <const> = 'revo_uikit'
+
+if GetResourceState(REVO_RESOURCE) ~= 'missing' then
+    local success, err = pcall(function()
+        local code = LoadResourceFile(REVO_RESOURCE, 'init.lua')
+        if code then
+            local chunk, loadErr = load(code, ('@@%s/init.lua'):format(REVO_RESOURCE))
+            if not chunk then error(loadErr) end
+            chunk()
+        end
+    end)
+
+    if not success then
+        error(('Failed to load %s. Error: %s'):format(REVO_RESOURCE, err))
+    end
+end
+```
+
+### What This Does
+
+This loader checks whether `revo_uikit` exists and, if it does, loads its `init.lua` through `ox_lib`.
+
+That allows Revo UI Kit to hook into `ox_lib` and replace supported UI parts safely.
+
+If the resource is missing, the loader does nothing.
+
+If loading fails, it throws a clear error so you can troubleshoot the integration.
+
+<Warning>
+  Do not place this code in the middle of the file. Paste it at the end of `ox_lib/init.lua`.
+</Warning>
+
+## Optional ox_target Integration
+
+If you also want Revo UI Kit to redesign `ox_target`, replace the contents of:
+
+`ox_target/web/index.html`
+
+with this:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ox_target</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+
+    <style>
+      html, body, #root, #default-root {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      #default-root[hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <div id="default-root" hidden>
+      <div id="eye">
+        <svg
+          id="eyeSvg"
+          xmlns="http://www.w3.org/2000/svg"
+          height="36px"
+          viewBox="0 0 24 24"
+          width="36px"
+          fill="#000000"
+        >
+          <path d="M0 0h24v24H0V0z" fill="none"></path>
+          <path
+            d="M12 4C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 12.5c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+          ></path>
+        </svg>
+      </div>
+
+      <div id="options-wrapper"></div>
+    </div>
+
+    <script>
+      const REVO_BASE = 'https://cfx-nui-revo_uikit/web/dist/assets';
+      const REVO_JS = `${REVO_BASE}/index.js`;
+      const REVO_CSS = `${REVO_BASE}/index.css`;
+
+      function loadDefaultUi() {
+        const defaultRoot = document.getElementById('default-root');
+        defaultRoot.hidden = false;
+
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'style.css';
+        document.head.appendChild(css);
+
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = 'js/main.js';
+        document.body.appendChild(script);
+      }
+
+      async function loadRevoUi() {
+        try {
+          const probe = await fetch(REVO_JS, { method: 'GET' });
+          if (!probe.ok) throw new Error('revo_uikit main bundle not found');
+
+          const css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = REVO_CSS;
+          document.head.appendChild(css);
+
+          await import(REVO_JS);
+        } catch (err) {
+          console.warn('revo_uikit unavailable, falling back to default ox_target UI', err);
+          loadDefaultUi();
+        }
+      }
+
+      loadRevoUi();
+    </script>
+  </body>
+</html>
+```
+
+### What This ox_target File Does
+
+This version of `index.html` checks whether Revo UI Kit's web bundle is available.
+
+Behavior:
+
+- if `revo_uikit` is running, `ox_target` loads the Revo UI Kit interface
+- if `revo_uikit` is missing or unavailable, `ox_target` falls back to its normal default UI
+
+This makes the `ox_target` integration safe and prevents it from fully breaking if Revo UI Kit is not active.
+
+## Restart Order
+
+After installation, restart your resources so the integration is applied:
+
+```bash
+refresh
+restart ox_lib
+restart ox_target
+restart revo_uikit
+```
+
+If you do not use `ox_target`, restart only:
+
+```bash
+refresh
+restart ox_lib
+restart revo_uikit
+```
+
+## Verification
+
+After installation, check the following:
+
+1. `ox_lib` starts without loader errors
+2. Revo UI Kit loads with your configured style
+3. `ox_lib` interfaces such as notifications or menus use the new design
+4. If `ox_target` integration is enabled, target UI also uses the Revo UI Kit design
+5. If `revo_uikit` is stopped, the fallback behavior works correctly for `ox_target`
+
+<Tip>
+  If the UI does not appear correctly, check the `ox_lib/init.lua` integration first. That is the required step for the script to hook into the supported UI systems.
+</Tip>

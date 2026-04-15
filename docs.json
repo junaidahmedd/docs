@@ -63,6 +63,16 @@
             ]
           },
           {
+            "group": "UI Kit",
+            "pages": [
+              "products/ui-kit/overview",
+              "products/ui-kit/dependencies",
+              "products/ui-kit/installation",
+              "products/ui-kit/configuration",
+              "products/ui-kit/changelog"
+            ]
+          },
+          {
             "group": "FPS Booster",
             "pages": [
               "products/fps-booster/overview",

@@ -1,0 +1,67 @@
+---
+title: "Dependencies"
+description: "Requirements for using Revo UI Kit in your FiveM server."
+---
+
+<Info>
+  Revo UI Kit requires <b>ox_lib</b> to function. <b>ox_target</b> is optional and only needed if you want the script's ox_target redesign or integration features.
+</Info>
+
+## Required Dependency
+
+### ox_lib
+
+`ox_lib` is required. Revo UI Kit is designed around it and will not work correctly without it.
+
+<Steps>
+  <Step title="Install ox_lib">
+    Download and install `ox_lib` in your server's `resources` folder if it is not already installed.
+  </Step>
+
+  <Step title="Ensure ox_lib Starts First">
+    Add `ox_lib` before Revo UI Kit in your `server.cfg`:
+
+    ```bash
+    ensure ox_lib
+    ensure revo_uikit
+    ```
+  </Step>
+
+  <Step title="Verify ox_lib Is Working">
+    Make sure your server already uses `ox_lib` successfully before starting Revo UI Kit. If `ox_lib` is missing or failing, Revo UI Kit will not load properly.
+  </Step>
+</Steps>
+
+## Optional Dependency
+
+### ox_target
+
+`ox_target` is optional.
+
+Use it only if:
+
+- your server uses `ox_target`
+- you want Revo UI Kit's redesigned ox_target experience
+- you want the UI styling to also apply to target-based interactions
+
+If your server does not use `ox_target`, you can still use Revo UI Kit with `ox_lib` only.
+
+<Steps>
+  <Step title="Install ox_target If Needed">
+    Download and install `ox_target` only if your server uses it.
+  </Step>
+
+  <Step title="Start ox_target Before Revo UI Kit">
+    If you use `ox_target`, make sure it starts before Revo UI Kit:
+
+    ```bash
+    ensure ox_lib
+    ensure ox_target
+    ensure revo_uikit
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+  The safest load order is: <code>ox_lib</code> first, then <code>ox_target</code> if used, and finally <code>revo_uikit</code>.
+</Tip>
