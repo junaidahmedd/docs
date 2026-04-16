@@ -39,6 +39,16 @@
             ]
           },
           {
+            "group": "UI Kit",
+            "pages": [
+              "products/ui-kit/overview",
+              "products/ui-kit/dependencies",
+              "products/ui-kit/installation",
+              "products/ui-kit/configuration",
+              "products/ui-kit/changelog"
+            ]
+          },
+          {
             "group": "FiveM Database Backups",
             "pages": [
               "products/backup/overview",
@@ -60,16 +70,6 @@
               "products/id-card/updates",
               "products/id-card/exports",
               "products/id-card/changelog"
-            ]
-          },
-          {
-            "group": "UI Kit",
-            "pages": [
-              "products/ui-kit/overview",
-              "products/ui-kit/dependencies",
-              "products/ui-kit/installation",
-              "products/ui-kit/configuration",
-              "products/ui-kit/changelog"
             ]
           },
           {
