@@ -51,17 +51,17 @@ If your server does not use `ox_target`, you can still use Revo UI Kit with `ox_
     Download and install `ox_target` only if your server uses it.
   </Step>
 
-  <Step title="Start ox_target Before Revo UI Kit">
-    If you use `ox_target`, make sure it starts before Revo UI Kit:
+  <Step title="Start ox_target After Revo UI Kit">
+    If you use `ox_target`, make sure it starts after Revo UI Kit:
 
     ```bash
     ensure ox_lib
-    ensure ox_target
     ensure revo_uikit
+    ensure ox_target
     ```
   </Step>
 </Steps>
 
 <Tip>
-  The safest load order is: <code>ox_lib</code> first, then <code>ox_target</code> if used, and finally <code>revo_uikit</code>.
+  The safest load order is: <code>ox_lib</code> first, then <code>revo_uikit</code>, and then <code>ox_target</code> if used.
 </Tip>

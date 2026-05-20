@@ -21,12 +21,12 @@ Revo UI Kit installs like a normal FiveM resource, but it also needs a required 
   </Step>
 
   <Step title="Ensure the Resource">
-    Add Revo UI Kit to your `server.cfg` after `ox_lib`, and after `ox_target` too if you use it:
+    Add Revo UI Kit to your `server.cfg` after `ox_lib`. If you use `ox_target`, keep it after Revo UI Kit:
 
     ```bash
     ensure ox_lib
-    ensure ox_target
     ensure revo_uikit
+    ensure ox_target
     ```
 
     If you do not use `ox_target`, you only need:
@@ -178,8 +178,8 @@ After installation, restart your resources so the integration is applied:
 ```bash
 refresh
 restart ox_lib
-restart ox_target
 restart revo_uikit
+restart ox_target
 ```
 
 If you do not use `ox_target`, restart only:
