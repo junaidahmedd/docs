@@ -3,6 +3,25 @@ title: "Changelog"
 description: "Product updates and announcements"
 ---
 
+<Update label="May 2026" description="v1.1">
+  Bug fixes, scaling improvements, and better ox_target integration.
+
+  - Fixed input dialog fields not showing.
+  - Fixed progress bar cancel blocking future item use and shop purchases.
+  - Restored food, drink, and inventory use animations and props during progress bars.
+  - Fixed ox_target primary color not applying with the custom ox_target loader.
+  - Fixed ox_target options showing for the wrong roles or stale admin options on load.
+  - Fixed progress cancel incorrectly counting as completed.
+  - Fixed config and locale not loading when the UI runs inside ox_target's NUI frame.
+  - Added automatic UI scaling based on screen resolution.
+  - Added a global UI scale multiplier in config.
+  - Added per-component scaling for notifications, menus, dialogs, progress, skill check, text UI, ox_target, and more.
+  - Added the recommended ox_target integration loader with message buffering and stock UI fallback.
+  - Added input dialog support for more row formats and field types.
+  - Improved ox_target reticle pulse animation so it only plays while actively targeting.
+  - Reduced the default scale for list and context menus.
+</Update>
+
 <Update label="April 2026" description="v1.0">
   Initial release of Revo UI Kit.
 

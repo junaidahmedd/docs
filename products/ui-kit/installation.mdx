@@ -89,7 +89,10 @@ with this:
     />
 
     <style>
-      html, body, #root, #default-root {
+      html,
+      body,
+      #root,
+      #default-root {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -127,27 +130,78 @@ with this:
     </div>
 
     <script>
-      const REVO_BASE = 'https://cfx-nui-revo_uikit/web/dist/assets';
+      const REVO_RESOURCE = 'revo_uikit';
+      const REVO_BASE = `https://cfx-nui-${REVO_RESOURCE}/web/dist/assets`;
       const REVO_JS = `${REVO_BASE}/index.js`;
       const REVO_CSS = `${REVO_BASE}/index.css`;
 
+      window.__REVO_PENDING_NUI__ = [];
+      window.__REVO_OXTARGET_HANDLING__ = false;
+
+      // Buffer ox_target NUI messages until Revo OxTarget mounts and replays them.
+      window.addEventListener(
+        'message',
+        (event) => {
+          if (window.__REVO_OXTARGET_HANDLING__) return;
+          window.__REVO_PENDING_NUI__.push(event.data);
+          event.stopImmediatePropagation();
+        },
+        true
+      );
+
+      window.addEventListener('revo:ox_target_disabled', () => {
+        loadDefaultUi();
+      });
+
       function loadDefaultUi() {
+        window.__REVO_OXTARGET_HANDLING__ = false;
+        window.__REVO_PENDING_NUI__ = [];
+
+        const revoRoot = document.getElementById('root');
+        if (revoRoot) revoRoot.replaceChildren();
+
         const defaultRoot = document.getElementById('default-root');
         defaultRoot.hidden = false;
 
-        const css = document.createElement('link');
-        css.rel = 'stylesheet';
-        css.href = 'style.css';
-        document.head.appendChild(css);
+        if (!document.querySelector('link[data-revo-default-ui="true"]')) {
+          const css = document.createElement('link');
+          css.rel = 'stylesheet';
+          css.href = 'style.css';
+          css.dataset.revoDefaultUi = 'true';
+          document.head.appendChild(css);
+        }
 
-        const script = document.createElement('script');
-        script.type = 'module';
-        script.src = 'js/main.js';
-        document.body.appendChild(script);
+        if (!document.querySelector('script[data-revo-default-ui="true"]')) {
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = 'js/main.js';
+          script.dataset.revoDefaultUi = 'true';
+          document.body.appendChild(script);
+        }
+      }
+
+      async function isRevoTargetEnabled() {
+        try {
+          const response = await fetch(`https://${REVO_RESOURCE}/getConfig`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+            body: JSON.stringify({}),
+          });
+
+          if (!response.ok) return true;
+
+          const config = await response.json();
+          return config?.enabledComponents?.ox_target !== false;
+        } catch {
+          return true;
+        }
       }
 
       async function loadRevoUi() {
         try {
+          const enabled = await isRevoTargetEnabled();
+          if (!enabled) throw new Error('revo_uikit ox_target integration disabled in config');
+
           const probe = await fetch(REVO_JS, { method: 'GET' });
           if (!probe.ok) throw new Error('revo_uikit main bundle not found');
 
