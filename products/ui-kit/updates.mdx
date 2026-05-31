@@ -1,0 +1,140 @@
+---
+title: "How to Update"
+description: "Upgrade Revo UI Kit to the latest version and apply v1.1 migration steps."
+---
+
+<Warning>
+  **IMPORTANT:** Back up your current `revo_uikit` folder, your `config.lua`, and any manual changes you made inside `ox_lib` or `ox_target` before updating.
+</Warning>
+
+Use this page when updating an existing Revo UI Kit installation to the latest version. The v1.1 update includes important changes for the `ox_target` loader, UI scaling, config loading, and fallback behavior.
+
+<Steps>
+  <Step title="Replace the Script Files">
+    Replace your old `revo_uikit` folder with the latest version from your downloaded package.
+
+    If you keep Revo resources inside a folder such as `[revo]`, place the new `revo_uikit` folder there.
+  </Step>
+
+  <Step title="Keep the ox_lib Loader Integration">
+    Open `ox_lib/init.lua` and make sure the Revo UI Kit loader is still pasted at the **END OF THE FILE**:
+
+    ```lua
+    local REVO_RESOURCE <const> = 'revo_uikit'
+
+    if GetResourceState(REVO_RESOURCE) ~= 'missing' then
+        local success, err = pcall(function()
+            local code = LoadResourceFile(REVO_RESOURCE, 'init.lua')
+            if code then
+                local chunk, loadErr = load(code, ('@@%s/init.lua'):format(REVO_RESOURCE))
+                if not chunk then error(loadErr) end
+                chunk()
+            end
+        end)
+
+        if not success then
+            error(('Failed to load %s. Error: %s'):format(REVO_RESOURCE, err))
+        end
+    end
+    ```
+
+    <Info>
+      This step is still required. Revo UI Kit uses this loader to hook into ox_lib and replace supported UI components.
+    </Info>
+  </Step>
+
+  <Step title="Update the ox_target Loader">
+    If you use `ox_target`, replace your current `ox_target/web/index.html` with the latest version from the [Installation](/products/ui-kit/installation) page.
+
+    The v1.1 loader includes:
+
+    - message buffering for ox_target NUI messages
+    - stock UI fallback if Revo UI Kit is unavailable
+    - config checking for `EnabledComponents.ox_target`
+    - improved handling when ox_target runs inside its own NUI frame
+  </Step>
+
+  <Step title="Review New Config Options">
+    Compare your old `config.lua` with the new default config.
+
+    Pay special attention to:
+
+    - global UI scale multiplier
+    - per-component scale settings
+    - `Config.EnabledComponents.ox_target`
+    - locale settings
+    - any new component-specific defaults
+
+    <Tip>
+      If you want to keep the stock UI for selected components, set those component toggles to `false` in config.
+    </Tip>
+  </Step>
+
+  <Step title="Check server.cfg Order">
+    Make sure your resource order is:
+
+    ```bash
+    ensure ox_lib
+    ensure revo_uikit
+    ensure ox_target
+    ```
+
+    If you do not use `ox_target`, use:
+
+    ```bash
+    ensure ox_lib
+    ensure revo_uikit
+    ```
+  </Step>
+
+  <Step title="Restart Resources">
+    Restart in this order:
+
+    ```bash
+    refresh
+    restart ox_lib
+    restart revo_uikit
+    restart ox_target
+    ```
+
+    If you do not use `ox_target`, restart only:
+
+    ```bash
+    refresh
+    restart ox_lib
+    restart revo_uikit
+    ```
+  </Step>
+</Steps>
+
+## Updating to v1.1
+
+If you are upgrading from v1.0 to **v1.1**, make sure you complete these migration checks:
+
+1. Replace the old `revo_uikit` files with the latest version
+2. Keep the required `ox_lib/init.lua` loader at the end of the file
+3. Replace `ox_target/web/index.html` with the latest recommended loader if you use ox_target
+4. Review the new scale-related config options
+5. Confirm `ox_target` starts after `revo_uikit`
+6. Test input dialogs, progress bars, skill checks, menus, text UI, and ox_target if enabled
+
+<Warning>
+  Do not skip the `ox_target/web/index.html` update if you use ox_target. The v1.1 loader fixes config loading, locale loading, message handling, and fallback behavior inside ox_target's NUI frame.
+</Warning>
+
+## Verification
+
+After updating, verify the following:
+
+1. `ox_lib` starts without loader errors
+2. Revo UI Kit loads with your configured primary color
+3. Input dialogs show all expected fields
+4. Progress bar cancel does not block future item use or shop purchases
+5. Food, drink, and inventory animations still play during progress bars
+6. UI scale looks correct across your common player resolutions
+7. `ox_target` uses the Revo UI only when enabled in config
+8. `ox_target` falls back to stock UI when Revo UI Kit is unavailable or disabled
+
+<Tip>
+  Most v1.1 update issues come from using the old ox_target loader or merging the new config too quickly. Check those two areas first if something looks off.
+</Tip>

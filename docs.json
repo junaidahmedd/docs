@@ -45,6 +45,7 @@
               "products/ui-kit/dependencies",
               "products/ui-kit/installation",
               "products/ui-kit/configuration",
+              "products/ui-kit/updates",
               "products/ui-kit/changelog"
             ]
           },
